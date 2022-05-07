@@ -12,11 +12,16 @@
 	           	</li>		
 	           	<li>
 	               <a th:href="@{/role/roles}">[[#{navbar-roles}]]</a>
-	           	</li>		           
+	           	</li>	
+	           	
+	           	<li class="userLogin">
+		        	<span>[[#{navbar-user}]]: <span sec:authentication="name"></span></span>
+					<span> / [[#{navbar-role}]]: <span sec:authentication="principal.authorities"></span></span>						
+	           </li> 	           
 	           
 				<ol>
            			<form method="POST" th:action="@{/logout}">	
-           				<a href="#" onclick=this.parentNode.submit()>[[#{navbar-logout}]]</a> 
+           				<a href="#logout" onclick=this.parentNode.submit()>[[#{navbar-logout}]]</a> 
            			</form>
         		</ol>
 	    	</ul>	                   

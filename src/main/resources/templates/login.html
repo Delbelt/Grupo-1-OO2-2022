@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html xmlns:th="htpp://www.thymeleaf.org"
+xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security">
+
+	<head th:replace="layout/template :: head(#{login-login})"></head>
+	
+	<body>
+		<h2>[[#{login-login}]]</h2>
+		<form method="POST" th:action="@{/login}">
+			<label for="username">[[#{user-username}]]</label>
+			<br>
+			<input autocomplete="off" type="text" name="username" id="username">
+			<br><br>
+			<div>
+				<label for="password">[[#{user-password}]]</label>
+				<br>
+				<input type="password" name="password" id="password">
+			</div>
+			<h3><input type="submit" th:value="#{login-login}"></h3> <!-- Logea al usuario Spring Segurity -->
+		</form>
+		
+		<footer th:replace="layout/template :: footer"></footer> <!-- PLANTILLA: PIE DE PAGINA -->	
+	</body>
+</html>

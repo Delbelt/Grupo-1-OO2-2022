@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="htpp://www.thymeleaf.org">
+<html xmlns:th="htpp://www.thymeleaf.org"
+xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security">
 
 	<head th:replace="layout/template :: head(#{title-user})"></head>
 	
@@ -15,8 +16,8 @@
 					<th>[[#{user-surname}]]</th>
 					<th>[[#{user-username}]]</th> 
 					<th>[[#{user-email}]]</th>  
-					<th>[[#{action-edit}]]</th>
-					<th>[[#{action-delete}]]</th>					
+					<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-edit}]]</th>
+					<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-delete}]]</th>					
 				</tr>
 							
 				<tr th:each="user : ${listUser}"> <!-- bucle fore que recorre la lista -->							
@@ -25,8 +26,8 @@
 					<td th:text="${user.surname}">Surname</td> <!-- Celda de dato en la tabla -->
 					<td th:text="${user.userName}">Username</td> <!-- Celda de dato en la tabla -->
 					<td th:text="${user.email}">Email</td> <!-- Celda de dato en la tabla -->
-					<td><a th:href="@{edit/} + ${user.idUser}"> [[#{action-edit}]] </a> <!-- TYPE: PATH VARIABLE ${class.idClass}-->	
-					<td><a th:href="@{delete(idUser=${user.idUser})}"> [[#{action-delete}]]</a> <!-- TYPE: QUERY PARAMETERS -->		
+					<td sec:authorize="hasRole ('ROLE_ADMIN')"><a th:href="@{edit/} + ${user.idUser}"> [[#{action-edit}]] </a> <!-- TYPE: PATH VARIABLE ${class.idClass}-->	
+					<td sec:authorize="hasRole ('ROLE_ADMIN')"><a th:href="@{delete(idUser=${user.idUser})}"> [[#{action-delete}]]</a> <!-- TYPE: QUERY PARAMETERS -->		
 				</tr>
 			</table>		
 		</div>
@@ -37,7 +38,7 @@
 		
 		<br> <hr width="50%">
 		
-		<div>
+		<div sec:authorize="hasRole ('ROLE_ADMIN')">
 			<h3><a th:href="@{/user/addUser}" th:text="#{user-add}">ADD</a></h3>
 		</div>
 		

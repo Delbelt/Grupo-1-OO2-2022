@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import app.entities.User;
+import app.segurity.SecurityConfig;
 import app.services.implementation.UserRoleService;
 import app.services.implementation.UserService;
 import lombok.var;
@@ -62,7 +63,9 @@ public class UserController {
 		if(error.hasErrors()) // En caso de un error en las validaciones
 		{
 			return "user/insertOrUpdate"; // Se queda en la pagina y muestra los errores
-		}		
+		}
+		
+		user.setPassword(SecurityConfig.Encrypt(user.getPassword())); // Encrypt the password
 		
 		userService.insertOrUpdate(user); // En caso de que funcione agrega el rol
 		
