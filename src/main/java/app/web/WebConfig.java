@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
@@ -38,5 +39,14 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registro) // Registra el Interceptor
 	{
 		registro.addInterceptor(localeChangeInterceptor()); // Cambia el registro dinamicamente
+	}	
+	
+	@Override
+	public void addViewControllers(ViewControllerRegistry register) // Registra las rutas que no esten pasando por ningun controlador
+	{	
+		register.addViewController("/").setViewName("home"); // Inicio
+		register.addViewController("/login"); //Ruta de login
+		register.addViewController("/logout"); //Ruta de login
+		register.addViewController("/error/403").setViewName("/error/403"); // Ruta de acceso denegado - Roles
 	}
 }
