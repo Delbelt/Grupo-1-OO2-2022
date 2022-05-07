@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org">
+	<body>
+		<nav th:fragment="navBar">	    
+	    	<h6>[[#{name-project}]]</h6>		    
+	    	<ul>
+	        	<li>
+	            	<a th:href="@{/}">[[#{navbar-home}]]</a>
+	           	</li>		
+	           	<li>
+	               	<a th:href="@{/user/users}">[[#{navbar-users}]]</a>
+	           	</li>		
+	           	<li>
+	               <a th:href="@{/role/roles}">[[#{navbar-roles}]]</a>
+	           	</li>		           
+	           
+				<ol>
+           			<form method="POST" th:action="@{/logout}">	
+           				<a href="#" onclick=this.parentNode.submit()>[[#{navbar-logout}]]</a> 
+           			</form>
+        		</ol>
+	    	</ul>	                   
+   		</nav>   
+	</body>
+</html>

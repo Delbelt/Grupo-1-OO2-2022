@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org">
+
+	<head th:fragment="head(title)"> <!-- (title) para pasarle un titulo dependiendo la pagina -->
+		<meta charset="UTF-8">
+		<title th:text="${title}"></title>
+		
+		<!-- STYLES: -->
+		<link href="../../style/index.css" rel="stylesheet"/>
+	</head>
+	
+	<body>		
+		<header th:fragment="header">
+ 			<section th:replace="components/navBar :: navBar"></section> <!-- BARRA DE NAVEGACION -->
+		</header>
+			
+		<footer th:insert="components/footer :: footer"></footer> <!-- PIE DE PAGINA -->
+	</body>
+</html>

@@ -1,0 +1,14 @@
+<html xmlns:th="htpp://www.thymeleaf.org">
+	
+	<head th:replace="layout/template :: head(#{error-500})"></head>
+	
+	<body>
+	
+	<h2>ERROR al intentar acceder al servidor 500</h2>
+	
+	<h3><a th:href="@{/}" th:text="#{go-back}"> GO BACK </a></h3>	
+	
+	<footer th:replace="layout/template :: footer"></footer> <!-- PLANTILLA: PIE DE PAGINA -->
+
+	</body>
+</html>
