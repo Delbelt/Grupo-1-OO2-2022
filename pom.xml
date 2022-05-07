@@ -55,6 +55,14 @@
 			<artifactId>spring-boot-starter-test</artifactId> <!-- TEST -->
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId> <!--SEGURITY -->			
+		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId> <!-- SEGURITY THYMELEAF -->
+		</dependency>
 	</dependencies>
 
 	<build>
