@@ -21,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor // Lombok constructor
 @Inheritance(strategy=InheritanceType.JOINED) // Herencia - con uso de estrategia Joined-subclass
 @Table(name="classroom") // database
-public class Classroom implements Serializable {
+public class Classroom implements Serializable { //Clase Padre
 	
 	private static final long serialVersionUID = 1L;
 	
