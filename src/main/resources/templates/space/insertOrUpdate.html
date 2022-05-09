@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org">
+
+	<head th:replace="layout/template :: head(#{action-save-edit})"></head>
+
+	<body>	
+		<section th:replace="layout/template :: header"></section> <!-- PLANTILLA:  HEADER + NAVBAR-->	
+		
+		<h1 th:text="#{action-save-edit}"></h1>
+		
+		<br>
+		
+		<h3><a th:href="@{/space/spaces}" th:text="#{go-back}"> GO BACK </a></h3>		
+		
+		<form th:action="@{/space/addSpace}" method="post" th:object="${space}">
+		
+			<input type="hidden" name="idSpace" th:field="*{idSpace}"/> <!-- HIDDEN = OCULTO A LA VISTA -->
+			<!-- SE AGREGA ESTE INPUT PARA DECIRLE A SPRING QUE EL OBJETO YA ESTA INSTANCIADO EN CASO DE MODIFICAR -->
+			<!-- PARA QUE NO TE LO VUELVA A AGREGAR, PORQUE SUPONE QUE ES UNO NUEVO, PERO AL TENER ID, LO CONSERVA -->
+						
+			<br><br>
+	
+			<label for="classroom"> [[#{user-document}]] </label>
+			<input type="text" name="classroom" th:field="*{classroom}" autocomplete="off" required/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
+			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
+			<span th:if="${#fields.hasErrors('classroom')}" th:errors="*{classroom}">ERROR classroom</span> <!-- validacion -->
+			
+			<br><br>
+			
+			<label for="date"> [[#{user-email}]] </label>
+			<input type="text" name="date" th:field="*{date}" autocomplete="off" required/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
+			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
+			<span th:if="${#fields.hasErrors('date')}" th:errors="*{date}">ERROR date</span> <!-- validacion -->
+			
+			<br><br>
+			
+			<label for="free"> Free </label>
+			<input type="checkbox" name="free" th:field="*{free}" value="false"/><!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
+
+			<br><br>
+			
+			<label for="shift"> [[#{user-password}]] </label>
+			<input type="text" name="shift" th:field="*{shift}" autocomplete="off" required/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
+			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
+			<span th:if="${#fields.hasErrors('shift')}" th:errors="*{shift}">ERROR turno</span> <!-- validacion -->
+			
+			<br><br>
+
+			<input type="submit" name="save" th:value="#{action-save}"/>			
+			
+		</form>	
+		
+		<footer th:replace="layout/template :: footer"></footer> <!-- PLANTILLA: PIE DE PAGINA -->		
+	</body>
+</html>
