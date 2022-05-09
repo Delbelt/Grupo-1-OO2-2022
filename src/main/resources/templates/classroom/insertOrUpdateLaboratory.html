@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org">
+
+	<head th:replace="layout/template :: head(#{classroom-laboratory-name} + ' ' + #{action-save-edit} )"></head>
+	
+	<body>	
+		<section th:replace="layout/template :: header"></section> <!-- PLANTILLA:  HEADER + NAVBAR-->
+		
+		<h1 th:text="#{classroom-laboratory-name} + ': ' + #{action-save-edit}"></h1>		
+		
+		<br><br>	
+				
+		<h3><a th:href="@{/classroom/classrooms}"> [[#{go-back}]] </a></h3>
+		
+		<br><br>
+		
+		<form th:action="@{/classroom/addLaboratory}" method="post" th:object="${laboratory}">
+		
+			<input type="hidden" name="idClassroom" th:field="*{idClassroom}"/> <!-- HIDDEN = OCULTO A LA VISTA -->
+			<!-- SE AGREGA ESTE INPUT PARA DECIRLE A SPRING QUE EL OBJETO YA ESTA INSTANCIADO EN CASO DE MODIFICAR -->
+			<!-- PARA QUE NO TE LO VUELVA A AGREGAR, PORQUE SUPONE QUE ES UNO NUEVO, PERO AL TENER ID, LO CONSERVA -->
+			
+			<label for="building"> [[#{classroom-building}]] </label>
+			<input type="text" name="edificio" th:field="*{building}" autocomplete="off"/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
+			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
+			<span th:if="${#fields.hasErrors('building')}" th:errors="*{building}">ERROR Edificio</span> <!-- validacion -->
+			
+			<label for="number"> [[#{classroom-number}]] </label>
+			<input type="text" name="number" th:field="*{number}" autocomplete="off"/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
+			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
+			<span th:if="${#fields.hasErrors('number')}" th:errors="*{number}">ERROR Numero</span> <!-- validacion -->
+			
+			<label for="quantityPC"> [[#{classroom-laboratory-qtyPC}]] </label>
+			<input type="text" name="quantityPC" th:field="*{quantityPC}" autocomplete="off"/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
+			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
+			<span th:if="${#fields.hasErrors('quantityPC')}" th:errors="*{quantityPC}">ERROR Cantidad PC</span> <!-- validacion -->
+			
+			<label for="quantityChairs"> [[#{classroom-laboratory-qtyChairs}]] </label>
+			<input type="text" name="qtyChairs" th:field="*{quantityChairs}" autocomplete="off"/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
+			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
+			<span th:if="${#fields.hasErrors('quantityChairs')}" th:errors="*{quantityChairs}">ERROR Cantidad Sillas</span> <!-- validacion -->				
+			
+			<br><br>
+				
+			<input type="submit" name="save" th:value="#{action-save}"/>
+			
+		</form>		
+		
+		<footer th:replace="layout/template :: footer"></footer> <!-- PLANTILLA: PIE DE PAGINA -->
+	</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org">
+
+	<head th:replace="layout/template :: head(#{classroom-laboratory-title})"></head>
+	
+	<body>	
+		<section th:replace="layout/template :: header"></section> <!-- PLANTILLA:  HEADER + NAVBAR-->
+		
+		<div>
+			<h2 th:text="#{classroom-laboratory-name}"></h2>
+			<h3><a th:href="@{/classroom/classrooms}"> [[#{go-back}]] </a></h3>
+			<br>
+			<hr>			
+		</div>
+				
+		<table>
+			<thead>					
+				<tr>
+					<th>[[#{classroom-id}]]</th>
+					<th>[[#{classroom-building}]]</th> 
+					<th>[[#{classroom-number}]]</th>
+					<th>[[#{classroom-laboratory-qtyPC}]]</th>
+					<th>[[#{classroom-laboratory-qtyChairs}]]</th>
+				</tr>
+			</thead>
+			
+			<tbody>																			
+				<tr>
+					<td th:text="${classroom.idClassroom}">Id Aula</td>
+					<td th:text="${classroom.building}">Nombre del edificio</td>
+					<td th:text="${classroom.number}">Numero del aula</td>
+					<td th:text="${classroom.quantityPC}">Cantidad de PCs</td>
+					<td th:text="${classroom.quantityChairs}">Numero de bancas</td>																			
+				</tr>												
+			</tbody>
+		</table>
+			
+		<footer th:replace="layout/template :: footer"></footer> <!-- PLANTILLA: PIE DE PAGINA -->							
+	</body>	
+</html>
