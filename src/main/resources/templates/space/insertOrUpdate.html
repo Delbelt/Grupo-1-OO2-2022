@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="htpp://www.thymeleaf.org">
 
-	<head th:replace="layout/template :: head(#{action-save-edit})"></head>
+	<head th:replace="layout/template :: head(#{space-name} + ' ' + #{action-save-edit} )"></head>
 
 	<body>	
 		<section th:replace="layout/template :: header"></section> <!-- PLANTILLA:  HEADER + NAVBAR-->	
@@ -20,26 +20,26 @@
 						
 			<br><br>
 	
-			<label for="classroom"> [[#{user-document}]] </label>
+			<label for="classroom"> [[#{space-classroom}]] </label>
 			<input type="text" name="classroom" th:field="*{classroom}" autocomplete="off" required/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
 			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
 			<span th:if="${#fields.hasErrors('classroom')}" th:errors="*{classroom}">ERROR classroom</span> <!-- validacion -->
 			
 			<br><br>
 			
-			<label for="date"> [[#{user-email}]] </label>
+			<label for="date"> [[#{space-date}]] </label>
 			<input type="text" name="date" th:field="*{date}" autocomplete="off" required/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
 			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
 			<span th:if="${#fields.hasErrors('date')}" th:errors="*{date}">ERROR date</span> <!-- validacion -->
 			
 			<br><br>
 			
-			<label for="free"> Free </label>
+			<label for="free"> [[#{space-free}]] </label>
 			<input type="checkbox" name="free" th:field="*{free}" value="false"/><!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
 
 			<br><br>
 			
-			<label for="shift"> [[#{user-password}]] </label>
+			<label for="shift"> [[#{space-shift}]] </label>
 			<input type="text" name="shift" th:field="*{shift}" autocomplete="off" required/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
 			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
 			<span th:if="${#fields.hasErrors('shift')}" th:errors="*{shift}">ERROR turno</span> <!-- validacion -->

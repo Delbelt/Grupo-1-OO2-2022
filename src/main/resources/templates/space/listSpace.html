@@ -2,20 +2,20 @@
 <html xmlns:th="htpp://www.thymeleaf.org"
 xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security">
 
-	<head th:replace="layout/template :: head(#{title-user})"></head>
+	<head th:replace="layout/template :: head(#{title-space})"></head>
 	
 	<body>	
 		<section th:replace="layout/template :: header"></section> <!-- PLANTILLA:  HEADER + NAVBAR-->
 		
 		<div th:if="${listSpace != null and ! listSpace.empty}"> <!-- CONDICION IF -->
-			<h2 th:text="#{title-user}">TITLE</h2>
+			<h2 th:text="#{title-space}">TITLE</h2>
 			<table> <!-- TABLA -->		
 				<tr> <!-- Fila de Tabla -->
-					<th>[[#{user-id}]]</th> <!--Celda Encabezado de tabla (negrita) -->
-					<th>[[#{user-name}]]</th> 
-					<th>[[#{user-surname}]]</th>
-					<th>[[#{user-username}]]</th> 
-					<th>[[#{user-email}]]</th>  
+					<th>[[#{space-id}]]</th> <!--Celda Encabezado de tabla (negrita) -->
+					<th>[[#{space-classroom}]]</th> 
+					<th>[[#{space-date}]]</th>
+					<th>[[#{space-free}]]</th> 
+					<th>[[#{space-shift}]]</th>  
 					<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-edit}]]</th>
 					<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-delete}]]</th>					
 				</tr>
@@ -28,19 +28,18 @@ xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security">
 					<td th:text="${space.shift}">Turno</td> <!-- Celda de dato en la tabla -->
 					<td sec:authorize="hasRole ('ROLE_ADMIN')"><a th:href="@{edit/} + ${space.idSpace}"> [[#{action-edit}]] </a> <!-- TYPE: PATH VARIABLE ${class.idClass}-->	
 					<td sec:authorize="hasRole ('ROLE_ADMIN')"><a th:href="@{delete(idSpace=${space.idSpace})}"> [[#{action-delete}]]</a> <!-- TYPE: QUERY PARAMETERS -->		
-					<td sec:authorize="hasRole ('ROLE_ADMIN')"><a th:href="@{delete(idUser=${user.idUser})}"> [[#{action-delete}]]</a>
 				</tr>
 			</table>		
 		</div>
 		
 		<div th:if="${listSpace == null or listSpace.empty}">
-			<h2 th:text="#{list-user-empty}">List Empty</h2>
+			<h2 th:text="#{list-space-empty}">List Empty</h2>
 		</div>
 		
 		<br> <hr width="50%">
 		
 		<div sec:authorize="hasRole ('ROLE_ADMIN')">
-			<h3><a th:href="@{/space/addSpace}" th:text="#{user-add}">ADD</a></h3>
+			<h3><a th:href="@{/space/addSpace}" th:text="#{space-add}">ADD</a></h3>
 		</div>
 		
 		<footer th:replace="layout/template :: footer"></footer> <!-- PLANTILLA: PIE DE PAGINA -->			
