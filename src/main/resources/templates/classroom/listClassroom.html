@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org"
+xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security">
+
+	<head th:replace="layout/template :: head(#{title-classroom})"></head>
+	
+	<body>	
+		<section th:replace="layout/template :: header"></section> <!-- PLANTILLA:  HEADER + NAVBAR-->
+		
+			<div th:if="${listClassroom != null and ! listClassroom.empty}"> <!-- CONDICION IF -->
+				<h2>[[#{title-classroom}]]</h2>
+				<table> <!-- TABLA -->	
+					<thead>	<!-- CABEZA DE LA TABLA -->	
+						<tr> <!-- Fila de Tabla -->					
+							<th>[[#{classroom-id}]]</th> <!--Celda Encabezado de tabla (negrita) -->
+							<th>[[#{classroom-building}]]</th> 
+							<th>[[#{classroom-number}]]</th>
+							<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-bring}]]</th>
+							<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-edit}]]</th>
+						<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-delete}]]</th>
+						</tr>
+					<thead>	
+					
+					<tbody> <!-- CUERPO DE LA TABLA - ELEMENTOS -->												
+						<tr th:each="classroom : ${listClassroom}"> <!-- bucle fore que recorre la lista -->
+							<td th:text="${classroom.idClassroom}">id Aula</td>
+							<td th:text="${classroom.building}">Nombre del edificio</td>
+							<td th:text="${classroom.number}">Numero de aula</td>						
+							<td><a th:href="@{classroom/} + ${classroom.idClassroom}">[[#{action-bring}]]</a></td> <!-- NO AGREGAR AUTH - TODOS PUEDEN VER EL OBJETO -->
+							<td sec:authorize="hasRole ('ROLE_ADMIN')"><a th:href="@{edit/} + ${classroom.idClassroom}"> [[#{action-edit}]] </a> <!-- TYPE: PATH VARIABLE ${class.idClass}-->	
+							<td sec:authorize="hasRole ('ROLE_ADMIN')"><a th:href="@{delete(idClassroom=${classroom.idClassroom})}"> [[#{action-delete}]]</a> <!-- TYPE: QUERY PARAMETERS -->
+						</tr>
+					</tbody>
+				</table>		
+			</div>
+		
+		<div th:if="${listClassroom == null or listClassroom.empty}">
+			<h2 >[[#{list-classroom-empty}]]</h2>
+		</div>
+		
+		<br> <hr>
+		
+		<div sec:authorize="hasRole ('ROLE_ADMIN')">
+			<h3><a th:href="@{/classroom/addLaboratory}" th:text="#{classroom-laboratory-add}">Agregar Laboratorio</a></h3>
+			<br>
+			<h3><a th:href="@{/classroom/addTraditional}" th:text="#{classroom-traditional-add}">Agregar Tradicional</a></h3>
+		</div>
+		
+		<footer th:replace="layout/template :: footer"></footer> <!-- PLANTILLA: PIE DE PAGINA -->			
+	</body>	
+</html>
