@@ -29,12 +29,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception // Configura las auth (Concepto) a partir de los roles
 	{
+
+		String [] resources = new String[]{"/role/addRole/**", "/user/addUser/**", "/classroom/addLaboratory/**", 
+				"/classroom/addTraditional/**", "/role/edit/**", "/user/edit/**", "/classroom/edit/**",  
+				"/role/delete", "/user/delete", "/classroom/delete"};
 		
-		// TODO: add String[] resources = {path, path, path, path} (add in antMatchers)
-		
+		//	http://localhost:8080/space/spaces
+		//	http://localhost:8080/space/edit/1
+		//	http://localhost:8080/space/addSpace
+		//	http://localhost:8080/space/spaces
+
 		http
 		.authorizeHttpRequests()
-		.antMatchers("/role/addRole/**", "/user/addUser/**", "/role/edit/**", "/user/edit/**", "/role/delete", "/user/delete") // /** Es para TODA ruta siguiente a esa
+		.antMatchers(resources) // /** Es para TODA ruta siguiente a esa
 		.hasRole("ADMIN") // ↑↑ Quien puede acceder a estas rutas
 		.antMatchers("/", "/user/users", "/role/roles") // Ingreso al inicio (publico)
 		.hasAnyRole("AUDIT", "ADMIN") // ↑↑ Cualquier Usuario
