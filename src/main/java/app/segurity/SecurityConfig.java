@@ -30,20 +30,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception // Configura las auth (Concepto) a partir de los roles
 	{
 
-		String [] resources = new String[]{"/role/addRole/**", "/user/addUser/**", "/classroom/addLaboratory/**", 
-				"/classroom/addTraditional/**", "/role/edit/**", "/user/edit/**", "/classroom/edit/**",  
-				"/role/delete", "/user/delete", "/classroom/delete"};
+		String [] resourcesAdmin = new String[]{"/role/addRole/**", "/user/addUser/**", "/classroom/addLaboratory/**", 
+				"/classroom/addTraditional/**","/space/addSpace/**" ,"/role/edit/**", "/user/edit/**",
+				"/classroom/edit/**","/space/edit/**", "/role/delete", "/user/delete", "/classroom/delete",
+				"/space/delete"};
 		
-		//	http://localhost:8080/space/spaces
-		//	http://localhost:8080/space/edit/1
-		//	http://localhost:8080/space/addSpace
-		//	http://localhost:8080/space/spaces
+		String [] resourcesAnyRole = new String[] {"/", "/user/users", "/role/roles", "/space/spaces","/classroom/clasrooms"};
 
 		http
 		.authorizeHttpRequests()
-		.antMatchers(resources) // /** Es para TODA ruta siguiente a esa
+		.antMatchers(resourcesAdmin) // /** Es para TODA ruta siguiente a esa
 		.hasRole("ADMIN") // ↑↑ Quien puede acceder a estas rutas
-		.antMatchers("/", "/user/users", "/role/roles") // Ingreso al inicio (publico)
+		.antMatchers(resourcesAnyRole) // Ingreso al inicio (publico)
 		.hasAnyRole("AUDIT", "ADMIN") // ↑↑ Cualquier Usuario
 		.and()
 		.formLogin() // Agrega el formulario de Login
