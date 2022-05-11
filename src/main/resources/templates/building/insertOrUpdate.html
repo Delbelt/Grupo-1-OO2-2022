@@ -25,6 +25,17 @@
 			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
 			<span th:if="${#fields.hasErrors('buildingName')}" th:errors="*{buildingName}">ERROR Nombre</span> <!-- validacion -->
  
+ 
+            <br><br>
+
+			<span>[[#{user-role}]]</span>
+			<select th:field="*{classroom}" name="classroom">	
+				<option th:each="classrom : ${listClassroom}"
+					th:value="${(classrom.idClassroom)}" 
+					th:text="${classrom.number}">
+				</option>
+            </select>
+                
             <br><br>
 
 			<input type="submit" name="save" th:value="#{action-save}"/>			
