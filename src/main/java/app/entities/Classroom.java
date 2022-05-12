@@ -2,6 +2,7 @@ package app.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -28,11 +31,15 @@ public class Classroom implements Serializable { //Clase Padre
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected int idClassroom;	
-	
-	// En el futuro va a ser un objeto de tipo Building
-	@Column(name="building", columnDefinition = "varchar(45)")  // columnDefinition = Define la longitud de las columnas
-	protected String building;
+
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="idBuilding")
+	protected Building building;
 	
 	@Column(name="number")
 	protected int number;	
+	
+	
+	
+	
 }
