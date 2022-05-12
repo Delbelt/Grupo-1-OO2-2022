@@ -20,25 +20,33 @@
 			<!-- SE AGREGA ESTE INPUT PARA DECIRLE A SPRING QUE EL OBJETO YA ESTA INSTANCIADO EN CASO DE MODIFICAR -->
 			<!-- PARA QUE NO TE LO VUELVA A AGREGAR, PORQUE SUPONE QUE ES UNO NUEVO, PERO AL TENER ID, LO CONSERVA -->			
 			
-			<label for="building"> [[#{classroom-building}]] </label>
-			<input type="text" name="edificio" th:field="*{building}" autocomplete="off"/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
-			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
-			<span th:if="${#fields.hasErrors('building')}" th:errors="*{building}">ERROR name</span> <!-- validacion -->
+			<span>[[#{classroom-building}]]</span>
+			<select th:field="*{building}" name="building">	
+				<option th:each="building : ${listBuilding}"
+					th:value="${(building.idBuilding)}" 
+					th:text="${building.buildingName}">
+				</option>
+            </select>
 			
 			<label for="number"> [[#{classroom-number}]] </label>
 			<input type="text" name="number" th:field="*{number}" autocomplete="off"/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
 			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
-			<span th:if="${#fields.hasErrors('number')}" th:errors="*{number}">ERROR name</span> <!-- validacion -->
+			<span th:if="${#fields.hasErrors('number')}" th:errors="*{number}">ERROR numero de aula</span> <!-- validacion -->
 			
-			<label for="chalkboard"> [[#{classroom-traditional-chalkboard}]] </label>
-			<input type="text" name="chalkboard" th:field="*{chalkboard}" autocomplete="off"/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
-			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
-			<span th:if="${#fields.hasErrors('chalkboard')}" th:errors="*{chalkboard}">ERROR name</span> <!-- validacion -->
+			
+			<div class="mb-2">
+				<span>[[#{classroom-traditional-chalkboard}]]</span>
+				<select th:field="*{chalkboard}" name="chalkboard" required>	
+					<option value="Fibron">Fibron</option> 
+				    <option value="Tiza">Tiza</option> 
+				    <option value="Digital">Digital</option> 
+	            </select>		  
+			</div>
 			
 			<label for="quantityBenchs"> [[#{classroom-traditional-qtyBenchs}]] </label>
 			<input type="text" name="quantityBenchs" th:field="*{quantityBenchs}" autocomplete="off"/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
 			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
-			<span th:if="${#fields.hasErrors('quantityBenchs')}" th:errors="*{quantityBenchs}">ERROR name</span> <!-- validacion -->
+			<span th:if="${#fields.hasErrors('quantityBenchs')}" th:errors="*{quantityBenchs}">ERROR cantidad de bancas</span> <!-- validacion -->
 			
 			<br><br>
 			

@@ -19,12 +19,15 @@
 			<input type="hidden" name="idClassroom" th:field="*{idClassroom}"/> <!-- HIDDEN = OCULTO A LA VISTA -->
 			<!-- SE AGREGA ESTE INPUT PARA DECIRLE A SPRING QUE EL OBJETO YA ESTA INSTANCIADO EN CASO DE MODIFICAR -->
 			<!-- PARA QUE NO TE LO VUELVA A AGREGAR, PORQUE SUPONE QUE ES UNO NUEVO, PERO AL TENER ID, LO CONSERVA -->
-			
-			<label for="building"> [[#{classroom-building}]] </label>
-			<input type="text" name="edificio" th:field="*{building}" autocomplete="off"/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
-			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
-			<span th:if="${#fields.hasErrors('building')}" th:errors="*{building}">ERROR Edificio</span> <!-- validacion -->
-			
+				
+			<span>[[#{classroom-building}]]</span>
+			<select th:field="*{building}" name="building">	
+				<option th:each="building : ${listBuilding}"
+					th:value="${(building.idBuilding)}" 
+					th:text="${building.buildingName}">
+				</option>
+            </select>
+            
 			<label for="number"> [[#{classroom-number}]] </label>
 			<input type="text" name="number" th:field="*{number}" autocomplete="off"/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
 			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->

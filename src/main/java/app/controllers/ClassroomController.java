@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import app.entities.Classroom;
 import app.entities.Laboratory;
 import app.entities.Traditional;
+import app.services.implementation.BuildingService;
 import app.services.implementation.ClassroomService;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,9 @@ public class ClassroomController {
 	
 	@Autowired(required=true)
 	private ClassroomService classroomService;
+
+	@Autowired(required=true)
+	private BuildingService buildingService;
 	
 	@GetMapping("/classrooms")
 	public String classrooms(Model model)
@@ -97,6 +101,9 @@ public class ClassroomController {
 		log.info("CONTROLLER [CLASSROOM]"); // info console
 		log.debug("METHOD [addLaboratory]"); // details console
 		
+		var listBuilding = buildingService.getAll();
+		model.addAttribute("listBuilding", listBuilding);
+		
 		return "classroom/insertOrUpdateLaboratory"; // go to: pagina de insertar o modificar (user)
 	}
 	
@@ -123,6 +130,9 @@ public class ClassroomController {
 	{		
 		log.info("CONTROLLER [CLASSROOM]"); // info console
 		log.debug("METHOD [addTradional]"); // details console
+		
+		var listBuilding = buildingService.getAll();
+		model.addAttribute("listBuilding", listBuilding);
 		
 		return "classroom/insertOrUpdateTraditional"; // go to: pagina de insertar o modificar (Laboratory)
 	}
