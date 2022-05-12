@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import app.entities.Building; 
-import app.services.implementation.BuildingService;
-import app.services.implementation.ClassroomService;
+import app.services.implementation.BuildingService; 
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,10 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BuildingController {
 	@Autowired(required=true)
 	private BuildingService buildingService;
-	
-	@Autowired(required=true)
-	private ClassroomService classroomService;
-	
+
 	@GetMapping("/buildings")
 	public String Buildings(Model model)
 	{
@@ -46,9 +42,6 @@ public class BuildingController {
 		log.info("CONTROLLER [Building]"); // info console
 		log.debug("METHOD [addBuilding]"); // details console
  
-		var listClassroom = classroomService.getAll(); 
-		model.addAttribute("listClassroom", listClassroom); 
-		
 		return "building/insertOrUpdate"; // go to: pagina de insertar o modificar (Building)
 	}
 
@@ -76,9 +69,7 @@ public class BuildingController {
 		log.debug("METHOD [editBuilding]");	// details console
 		
 		model.addAttribute("building", buildingService.findById(building.getIdBuilding())); // Necesario "instanciar" el objeto para ser mostrado en Thymeleaf
-		var listClassroom = classroomService.getAll(); 
-		model.addAttribute("listClassroom", listClassroom); 
-		
+
 		return "building/insertOrUpdate"; // go to: pagina de insertar o modificar (role)
 	}
 	
