@@ -20,10 +20,13 @@
 						
 			<br><br>
 	
-			<label for="classroom"> [[#{space-classroom}]] </label>
-			<input type="text" name="classroom" th:field="*{classroom}" autocomplete="off" required/> <!-- th:field ES LA FORMA DE COMUNICARSE CON "th:object" -->
-			<!-- ASTERISCO * SIRVE PARA SELECCIONAR EL ATRIBUTO DE th:object TANTO PARA LEER O MODIFICAR -->
-			<span th:if="${#fields.hasErrors('classroom')}" th:errors="*{classroom}">ERROR classroom</span> <!-- validacion -->
+			<span>[[#{space-classroom}]]</span>
+			<select th:field="*{classroom}" name="classroom">	
+				<option th:each="classroom : ${listClassroom}"
+					th:value="${(classroom.idClassroom)}" 
+					th:text="${classroom.number}">
+				</option>
+            </select>
 			
 			<br><br>
 			

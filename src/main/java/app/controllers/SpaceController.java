@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import app.entities.Space;
+import app.services.implementation.ClassroomService;
 import app.services.implementation.SpaceService;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,9 @@ public class SpaceController {
 	
 	@Autowired(required=true)
 	private SpaceService spaceService;
+	
+	@Autowired(required=true)
+	private ClassroomService classroomService;
 	
 	@GetMapping("/spaces")
 	public String spaces(Model model)
@@ -38,10 +42,13 @@ public class SpaceController {
 	}
 	
 	@GetMapping("/addSpace")
-	public String addSpace(Space space)
+	public String addSpace(Space space, Model model)
 	{
 		log.info("CONTROLLER [SPACE]");	// info console
 		log.debug("METHOD [addSpace]");	// details console
+		
+		var listClassroom = classroomService.getAll();
+		model.addAttribute("listClassroom", listClassroom);
 		
 		return "space/insertOrUpdate"; // go to: pagina de insertar o modificar (space)
 	}

@@ -22,7 +22,7 @@ xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security">
 							
 				<tr th:each="space : ${listSpace}"> <!-- bucle fore que recorre la lista -->							
 					<td th:text="${space.idSpace}">ID espacio</td>
-					<td th:text="${space.classroom}">Nombre del aula</td> <!-- Celda de dato en la tabla -->
+					<td th:text="${space.classroom.number}">Numero de aula</td> <!-- Celda de dato en la tabla -->
 					<td th:text="${space.date}">Fecha</td> <!-- Celda de dato en la tabla -->
 					<td th:text="${space.free}">Libre</td> <!-- Celda de dato en la tabla -->
 					<td th:text="${space.shift}">Turno</td> <!-- Celda de dato en la tabla -->
