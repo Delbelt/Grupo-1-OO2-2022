@@ -63,6 +63,21 @@
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId> <!-- SEGURITY THYMELEAF -->
 		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId> <!-- Bootstrap -->
+			<version>5.1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>font-awesome</artifactId> <!-- Font-awesome Icons, animates, etc -->
+			<version>6.1.0</version>
+		</dependency>		
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>webjars-locator</artifactId> <!-- Para identificar las dependencias webjars -->
+		    <version>0.45</version>
+		</dependency>
 	</dependencies>
 
 	<build>
