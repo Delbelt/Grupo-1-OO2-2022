@@ -1,25 +1,44 @@
 <!DOCTYPE html>
-
-<html xmlns:th="htpp://www.thymeleaf.org"
-xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security">
-
-	<head th:replace="layout/template :: head(#{login-login})"></head>
+<html xmlns:th="htpp://www.thymeleaf.org" xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security"
+th:replace="layout/template :: children(~{::section}, #{navbar-login}, #{login-login})">
+	<section>
+		<div class="container py-2 mt-5 h-100">
+	    <div class="row d-flex justify-content-center align-items-center h-100">
+	      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+	        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+	          <div class="card-body p-5 text-center">
 	
-	<body>
-		<h2>[[#{login-login}]]</h2>
-		<form method="POST" th:action="@{/login}">
-			<label for="username">[[#{user-username}]]</label>
-			<br>
-			<input autocomplete="off" type="text" name="username" id="username">
-			<br><br>
-			<div>
-				<label for="password">[[#{user-password}]]</label>
-				<br>
-				<input type="password" name="password" id="password">
-			</div>
-			<h3><input type="submit" th:value="#{login-login}"></h3> <!-- Logea al usuario Spring Segurity -->
-		</form>
-		
-		<footer th:replace="layout/template :: footer"></footer> <!-- PLANTILLA: PIE DE PAGINA -->	
-	</body>
+	            <div class="mb-md-5 mt-md-4 pb-5">
+	
+	              <h2 class="fw-bold mb-2 text-uppercase">[[#{login-login}]]</h2>
+	              <p class="text-white-50 mb-5">[[#{login-info}]]</p>
+					
+				<form method="POST" th:action="@{/login}">
+					<div class="form-outline form-white mb-4">
+	                <input type="text" name="username" id="username" class="form-control form-control-lg" autocomplete="off"/>
+	                <label class="form-label" for="username">[[#{user-username}]]</label>
+	              </div>
+	
+	              <div class="form-outline form-white mb-4">
+	                <input type="password" name="password" id="password"class="form-control form-control-lg" />
+	                <label class="form-label" for="password">[[#{user-password}]]</label>
+	              </div>	
+	
+	              <button class="btn btn-outline-light btn-lg px-5 mb-0" type="submit">[[#{login-buttom}]]</button>
+				
+				</form>
+					
+	            </div>
+	
+	            <div>
+	              <p class="mb-0 mt-0">[[#{login-unregister}]] <a href="#" class="text-white-50 fw-bold link">[[#{login-register}]]</a>
+	              </p>
+	            </div>
+	
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>>
+	</section>
 </html>

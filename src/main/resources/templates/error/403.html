@@ -1,14 +1,7 @@
-<html xmlns:th="htpp://www.thymeleaf.org">
-
-	<head th:replace="layout/template :: head(#{error-403})"></head>
-	
-	<body>
-	
-	<h2>ACCESO DENEGADO - ROLES - ERROR 403</h2>
-	
-	<h3><a th:href="@{/}" th:text="#{go-back}"> GO BACK </a></h3>	
-	
-	<footer th:replace="layout/template :: footer"></footer> <!-- PLANTILLA: PIE DE PAGINA -->
-
-	</body>
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org" xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security"
+th:replace="layout/template :: children(~{::section}, #{error-403}, #{error-403})">
+	<section class="center">
+		<h2>ACCESO DENEGADO - ROLES - ERROR 403</h2>
+	</section>
 </html>
