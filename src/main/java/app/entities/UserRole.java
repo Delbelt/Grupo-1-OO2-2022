@@ -2,12 +2,14 @@ package app.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import lombok.Data;
 
 @Entity // persistence
@@ -21,6 +23,7 @@ public class UserRole implements Serializable { // Perfiles
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idRole;
 	
-	@NotEmpty
+	@Size(min=2, max=20)
+	@Column(name="name")
 	private String name; // ROLE_ADMIN / ROLE_AUDIT	
 }

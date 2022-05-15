@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org">
+
+	<head th:fragment="head(title)"> <!-- (title) para pasarle un titulo dependiendo la pagina -->
+		<meta charset="UTF-8">
+		<title th:text="${title}"></title>
+		<link rel="icon" href="../../assets/favicon.ico">
+		
+		<!-- STYLES: -->
+		<link href="../../style/index.css" rel="stylesheet"/>
+		<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+		<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+		<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+		<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	</head>
+	
+	<body>
+		<br> <br>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-9">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="text-center">[[#{persona.datos-persona}]]</h4>
+							</div>
+															
+							<table>
+								<thead class="thead-dark">
+								
+									<tr class="text-center">
+											<td> </td>											
+									</tr>
+									
+									<tr class="text-center">
+										<th>[[#{persona.nombre}]]</th>
+										<th>[[#{persona.apellido}]]</th>
+										<th>[[#{persona.dni}]]</th>
+									</tr>
+								</thead>
+								
+								<tbody>
+																								
+									<tr class="text-center">
+										<td th:text="${role.name}">Muestra nombre</td>																		
+									</tr>
+									
+									<tr class="text-center">
+										<td> </td>											
+									</tr>
+																			
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>				
+			<br>					
+			<div class="container">
+				<div class="row">
+					<div class="col-md-9">
+						<div class=card>
+							<div class=card-header>
+								<div class="col-md">
+									<a th:href="@{/}" class="btn btn-light btn-block">
+									<i class="fas fa-arrow-left"></i>  [[#{accion.cancelar}]]
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>							
+				</div>						
+			</div>											
+	</body>
+	
+</html>

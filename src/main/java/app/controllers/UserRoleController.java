@@ -38,12 +38,12 @@ public class UserRoleController {
 	}
 	
 	@GetMapping("/addRole")
-	public String addRole(UserRole role)
+	public String addRole(UserRole role) // th:object userRole aunque el parametro sea role
 	{
 		log.info("CONTROLLER [ROLE]");	// info console
 		log.debug("METHOD [addRole]");	// details console
 		
-		return "userRole/insertOrUpdate"; // go to: pagina de insertar o modificar (role)
+		return "userRole/insert"; // go to: pagina de insertar o modificar (role)
 	}
 	
 	@PostMapping("/addRole")
@@ -54,7 +54,7 @@ public class UserRoleController {
 		
 		if(error.hasErrors()) // En caso de un error en las validaciones
 		{
-			return "userRole/insertOrUpdate"; // Se queda en la pagina y muestra los errores
+			return "userRole/insert"; // Se queda en la pagina y muestra los errores
 		}
 		
 		roleService.insertOrUpdate(role); // En caso de que funcione agrega el rol
@@ -62,16 +62,40 @@ public class UserRoleController {
 		return "redirect:/role/roles"; // go to: home page
 	}
 	
+	@GetMapping("/role/{idRole}") //Path Variable
+	public String findUserRoleById(UserRole role, Model model) // Relaciona el ID del path con el parametro Role
+	{
+		model.addAttribute("role", roleService.findById(role.getIdRole()));
+		
+		return "userRole/role";		
+	}
+	
 	// Type: Path variable
 	@GetMapping("/edit/{idRole}") // Al pasarle el parametro {idRole} lo relaciona con el parametro de Role
-	public String editRole(UserRole role, Model model)
+	public String editRole(UserRole userRole, Model model)
 	{		
 		log.info("CONTROLLER [ROLE]");	// info console
 		log.debug("METHOD [editRole]");	// details console
 		
-		model.addAttribute("role", roleService.findById(role.getIdRole())); // Necesario "instanciar" el objeto para ser mostrado en thymeleaf
+		model.addAttribute("userRole", roleService.findById(userRole.getIdRole())); // Necesario "instanciar" el objeto para ser mostrado en thymeleaf
 		
-		return "userRole/insertOrUpdate"; // go to: pagina de insertar o modificar (role)
+		return "userRole/modify"; // go to: pagina de insertar o modificar (role)
+	}
+	
+	@PostMapping("/editRole")
+	public String editRole(@Valid UserRole role, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addRole}" method="post"	
+	{		
+		log.info("CONTROLLER [ROLE]");	// info console
+		log.debug("METHOD [editRole]");	// details console
+		
+		if(error.hasErrors()) // En caso de un error en las validaciones
+		{
+			return "userRole/modify"; // Se queda en la pagina y muestra los errores
+		}
+		
+		roleService.insertOrUpdate(role); // En caso de que funcione agrega el rol
+		
+		return "redirect:/role/roles"; // go to: home page
 	}
 	
 	// Type: Query Parameter

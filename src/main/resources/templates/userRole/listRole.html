@@ -1,42 +1,45 @@
 <!DOCTYPE html>
-<html xmlns:th="htpp://www.thymeleaf.org"
-xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security">
-
-	<head th:replace="layout/template :: head(#{title-role})"></head>
-	
-	<body>	
-		<section th:replace="layout/template :: header"></section> <!-- PLANTILLA:  HEADER + NAVBAR-->
-		
-			<div th:if="${listRole != null and ! listRole.empty}"> <!-- CONDICION IF -->
-				<h2>[[#{navbar-roles}]]</h2>
-				<table> <!-- TABLA -->		
-					<tr> <!-- Fila de Tabla -->					
-						<th>[[#{role-id}]]</th> <!--Celda Encabezado de tabla (negrita) -->
-						<th>[[#{role-name}]]</th> 
-						<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-edit}]]</th>
-						<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-delete}]]</th>
-					</tr>
-								
-					<tr th:each="role : ${listRole}"> <!-- bucle fore que recorre la lista -->							
-						<td th:text="${role.idRole}">Id role</td>
-						<td th:text="${role.name}">Name</td> <!-- Celda de dato en la tabla -->	
-						<td sec:authorize="hasRole ('ROLE_ADMIN')"><a th:href="@{edit/} + ${role.idRole}"> [[#{action-edit}]] </a> <!-- TYPE: PATH VARIABLE ${class.idClass}-->					
-						<td sec:authorize="hasRole ('ROLE_ADMIN')"><a th:href="@{delete(idRole=${role.idRole})}"> [[#{action-delete}]] </a> <!-- TYPE: QUERY PARAMETERS -->		
-					</td>			
-					</tr>
-				</table>		
+<html xmlns:th="htpp://www.thymeleaf.org" xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security"
+th:replace="layout/template :: children(~{::section}, #{navbar-roles}, #{list-role})">
+	<section>
+		<div class="px-5 py-5 d-flex justify-content-center">		
+			<div class="col-md-6">				
+					<div class="card">
+						<div class="card-header">
+						
+						<h2 class="center"> [[#{navbar-roles}]]
+							<i class="fa-solid fa-chess fa-lg me-2"></i>[[#{total-size}]] [[${listRole.size()}]]
+							<a class="btn btn-primary" th:href="@{/role/addRole}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-plus fa-lg me-1"></i>[[#{role-add}]]</a>
+						</h2>
+						<div class="left px-5 me-0" th:if="${listRole != null and ! listRole.empty}"> <!-- CONDICION: LISTA DIFERENTE DE: NULL Y EMPTY -->						
+							<table class="table table-hover align-middle align-center"> <!-- TABLA -->	
+								<thead class="thead-dark">								
+									<tr> <!-- Fila de Tabla -->
+										<th>#</th> <!--Celda Encabezado de tabla (negrita) -->
+										<th>[[#{role-name}]]</th> 
+										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-edit}]]</th>
+										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-delete}]]</th>
+									</tr>
+								</thead>
+													
+								<tbody>									
+									<tr th:each="role : ${listRole}"> <!-- bucle fore que recorre la lista -->							
+										<td th:text="${role.idRole}">Id role</td>
+										<td th:text="${role.name}">Name</td> <!-- Celda de dato en la tabla -->	
+										<td sec:authorize="hasRole ('ROLE_ADMIN')">
+											<a th:href="@{edit/} + ${role.idRole}" class="btn btn-dark"><i class="fa-solid fa-pen-to-square me-1"></i>[[#{action-edit}]]</a>
+										</td> <!-- TYPE: PATH VARIABLE ${class.idClass}-->	
+										
+										<td sec:authorize="hasRole ('ROLE_ADMIN')">
+											<a th:href="@{delete(idRole=${role.idRole})}" class="btn btn-danger opacity-100"><i class="fa-solid fa-trash-can me-1"></i> [[#{action-delete}]]</a>
+										</td> <!-- TYPE: QUERY PARAMETERS -->			
+									</tr>
+								</tbody>				
+							</table>						
+						</div>
+					</div>				
+				</div>
 			</div>
-		
-		<div th:if="${listRole == null or listRole.empty}">
-			<h2 align="center" th:text="#{list-role-empty}">List Empty</h2>
 		</div>
-		
-		<br> <hr>
-		
-		<div sec:authorize="hasRole ('ROLE_ADMIN')">
-				<h3><a th:href="@{/role/addRole}" th:text="#{role-add}">ADD</a></h3>
-			</div>
-		
-		<footer th:replace="layout/template :: footer"></footer> <!-- PLANTILLA: PIE DE PAGINA -->			
-	</body>	
+	</section>
 </html>
