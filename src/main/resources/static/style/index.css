@@ -1,210 +1,74 @@
 /* GENERAL */
 
-*, *::before, *::after /*GENERAL - TODO*/
+*, *::before, *::after /*GENERAL - PARA TODO*/
 {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    transition: .2 ease all;
+    transition-duration: 0.1s; 
 }
 
-body /*Cuerpo de los HTML*/
-{
-    text-align: center;
-}
-
-
-div /*CONTENEDORES*/
-{
-    place-items: center;
-    align-items: center;  
-}
-
-
-/* LINK */
-
-nav /*BARRA DE NAVEGACION*/
+.left /*A LA IZQUIERDA*/
 {
 	text-align: left;
-    width: 100%;
-    left: 0%;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    background-color:#1C2826;
-    margin-bottom: 20px;    
 }
 
-a:link, a:visited, a:active /*LINK GENERAL*/
+.right /*A LA DERECHA*/
 {
-    text-decoration:none;
-    color: #000000;
+	text-align: right;
 }
 
-h2 > a:link, h2 > a:visited, h2 > a:active, h3 > a:link, h3 > a:visited, h3 > a:active /*LINK DE TITULOS H2-H3*/
+.center /*AL CENTRO*/
 {
-	color: #000000;	
+	text-align: center;	
 }
 
-a:hover
+.form-label
 {
-    text-decoration: underline;
-    text-decoration: none;              
+	border: 0px;
+	border-color: inherit;
+	border: 2px solid transparent;
 }
 
-a:link, a:visited, a:active
+footer /*PIE DE PAGINA*/
 {
-   text-decoration:none;
-   color: #EEECEC;		
+	background-color:#1C2826;
+	opacity: 0.97;
 }
 
-td > a:link, td > a:visited, td > a:active
+.blockquote.text-center
 {
-	color: #000000;	
+	color: #EEECEC;	
 }
 
-ul /*COMPONENTE: TABLE*/
-{
-    list-style: none;
-    padding: 0px;
-    margin: auto; 
-    top: 0%;
-    font-size: 20px;
-}
-
-li, ol /*COMPONENTE: TABLE*/
-{
-    display: inline-block;    
-    padding: 10px;
-    margin: 15px 7px;
-    border: 2px solid;
-    color: #EEECEC;
-    background-color:#7E1111;
-    border: 2px solid transparent;
-    border-radius: 6px;
-}
-
-ol /*COMPONENTE: TABLE*/
-{
-    position: absolute;    
-    right: 0%;
-    margin-right: 10px;
-}
-
-li, ol > a /*COMPONENTE: TABLE*/
-{
-    text-decoration: none;
-    color: #EEECEC; 
-}
-
-.userLogin
-{
-	position: absolute;    
-    right: 0%;
-    margin-right: 200px;
-    background-color:#1C2826;
-}
-
-/* TABLA */
-
-table /*TABLA GENERAL*/
-{
-    text-align: center;
-    table-layout: fixed;
-    width: 100%;
-    font-size: 25px;  
-}
-
-
-/* TITULOS */
-
-h6 /*Gestion de aulas - UNLA*/
+.form-control
 {
 	text-align: center;
+}
+
+/*LINKS (PARA ACCEDER A UNA RUTA)*/
+
+.link
+{
+	text-decoration: none;
+}
+
+.link-white
+{
 	color: #EEECEC;	
-	position: absolute;
-    transform: translate(-50%, -50%);
-    top: 0%;
-    left: 50%;
-    margin-top:40px;
-    font-size: 25px;
 }
 
-h2 /*TITULO H2*/
+.link-white:hover
 {
-	margin-bottom: 45px;
-	font-size: 45px;
+	color: #B2B2B2;	
 }
 
-h3 /*TITULO H3*/
+.link-secondary
 {
-	font-size: 25px;
+	color: #EEECEC;	
 }
 
-/* PIE DE PAGINA */
-
-footer
+.link-secondary:hover
 {
-    position: fixed;
-    padding: 0px;
-    bottom: 0px;
-    margin: 0px;
-    width: 100%;
-    max-width: 100%;
-    text-align=center;
-    background-color:#1C2826;
-}
-
-
-/* OTROS */
-
-hr /*LINEA*/
-{
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-p
-{
-	font-size: 25px;
-	margin-top: 15px;
-	margin-bottom: 10px;
-	color: #EEECEC;
-}
-
-label
-{
-    display: block;
-    font-weight: 1000;
-    min-height: 25px; 
-    font-size: 20px;
-    cursor: pointer;
-}
-
-input[type=text], input[type=password]
-{
-    width: 100%;
-    max-width: 300px;
-    border-radius: 0px;
-    text-align: center;
-    font-size: 15px;
-    height: 30px;
-    background-color:gainsboro;  
-    margin: auto;
-    margin-top: 2px;
-    transition: .3 ease all;
-    border: 2px solid transparent;
-}
-
-input[type=submit]
-{
-	    background: #252525;  
-    align-items: center;           
-    border-radius: 20px;
-    font-size: large;
-    color: #fff;
-    cursor: pointer;
-    font-weight: 800;
-    margin-top: 30px;    
-    width: 270px;
-    box-shadow: 0px 0px 5px #666666; 	
+	color: #B2B2B2;	
 }

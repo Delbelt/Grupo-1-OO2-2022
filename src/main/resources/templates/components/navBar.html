@@ -1,30 +1,64 @@
 <!DOCTYPE html>
-<html xmlns:th="htpp://www.thymeleaf.org">
-	<body>
-		<nav th:fragment="navBar">	    
-	    	<h6>[[#{name-project}]]</h6>		    
-	    	<ul>
-	        	<li>
-	            	<a th:href="@{/}">[[#{navbar-home}]]</a>
-	           	</li>		
-	           	<li>
-	               	<a th:href="@{/user/users}">[[#{navbar-users}]]</a>
-	           	</li>		
-	           	<li>
-	               <a th:href="@{/role/roles}">[[#{navbar-roles}]]</a>
-	           	</li>	
-	           	
-	           	<li class="userLogin">
-		        	<span>[[#{navbar-user}]]: <span sec:authentication="name"></span></span>
-					<span> / [[#{navbar-role}]]: <span sec:authentication="principal.authorities"></span></span>						
-	           </li> 	           
-	           
-				<ol>
-           			<form method="POST" th:action="@{/logout}">	
-           				<a href="#logout" onclick=this.parentNode.submit()>[[#{navbar-logout}]]</a> 
-           			</form>
-        		</ol>
-	    	</ul>	                   
-   		</nav>   
-	</body>
+<html xmlns:th="htpp://www.thymeleaf.org"
+xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security">
+	<body>		
+		<nav th:fragment="navBar" class="navbar navbar-expand-sm navbar-dark bg-dark p-2 fixed-top">			
+			<div class="container-fluid">			
+			    <a class="navbar-brand px-2" th:text="#{name-project}"></a>
+			    
+			    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			    	<span class="navbar-toggler-icon"></span>
+			    </button>
+			    
+			    <div class="collapse navbar-collapse" id="navbarNav">
+			      <ul class="navbar-nav">
+			      
+			      	<!-- NO AUTENTIFICADOS -->
+					<li sec:authorize="!isAuthenticated()" class="nav-item pe-3">
+						<a th:href="@{/login}" class="link link-white"><i class="fa-solid fa-user-check me-1"></i>[[#{navbar-login}]]</a>						
+					</li>					
+					<li sec:authorize="!isAuthenticated()" class="nav-item pe-3">
+						<a th:href="@{/logout}" class="link link-white"><i class="fa-solid fa-book me-1"></i>[[#{navbar-register}]]</a>
+					</li>
+						
+					<!-- AUTENTIFICADOS -->								
+					<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
+						<a th:href="@{/}" class="link link-white opacity-75"><i class="fa-solid fa-house me-1"></i>[[#{navbar-home}]]</a>						
+					</li>				
+					<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
+						<a th:href="@{/user/users}" class="link link-white"><i class="fa-solid fa-user-gear me-1"></i>[[#{navbar-users}]]</a>
+					</li>
+					<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
+						<a th:href="@{/role/roles}" class="link link-white"><i class="fa-solid fa-chess-queen me-1"></i>[[#{navbar-roles}]]</a>
+					</li>
+			      </ul>
+			    </div>
+			</div>
+					
+			<div class="container-fluid">
+	           	<div class="collapse navbar-collapse" id="navbarNav">
+	               	<ul class="navbar-nav ms-auto mb-lg-1">                
+	               		<li sec:authorize="isAuthenticated()" class="nav-item me-3">
+							<a class="link" th:href="@{/user/user/} + ${#authentication.getPrincipal().username}">
+						
+								<i class="fas fa-user me-1"></i>
+								<span>[[#{navbar-welcome}]]</span>
+								<span sec:authentication="name"></span> <!-- PARA BORRAR ROLE_ADMIN Y QUE APAREZCA: ADMIN/AUDIT NADA MAS -->
+								<span
+									th:each="authority : ${#authentication.getAuthorities()}"
+							    	th:if="${authority.getAuthority().startsWith('ROLE_')}" th:text="[ + ${authority.getAuthority().replaceFirst('ROLE_', '')} + ]">
+							    </span>
+							</a>									
+						</li>			
+						 
+	                   	<li sec:authorize="isAuthenticated()" class="nav-item me-0 px-0">
+	                       	<form method="POST" th:action="@{/logout}">
+								<a href="#logout" onclick=this.parentNode.submit() class="link link-danger"><i class="fas fa-user-times me-1"></i>[[#{navbar-logout}]]</a>
+							</form>
+	                   	</li>
+	               	</ul>
+	           	</div>
+	    	</div>	
+		</nav>			
+	</body>	
 </html>
