@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org" th:replace="layout/template :: children(~{::section}, #{user-edit}, #{user-edit})">
+	<section class="card-header mx-5 center border">		
+		<div class="h-100 d-inline-block mt-3">
+			<a th:href="@{/user/users}" class="btn btn-warning"><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>
+		</div>
+							
+		<div class="d-flex px-5 py-1 form-group">		
+			<form class="row g-9 justify-content-center align-items-center" th:action="@{/user/editUser}" method="post" th:object="${user}">
+				<!-- th:field es la forma de comunicarse con: th:object -->
+				<!-- ASTERISCO *{atributoClase} Sirve para seleccionar el atributo de th:object, tanto para leer como para modificar -->	
+						
+				<input type="hidden" name="idUser" th:field="*{idUser}" class="col-md-6 w-50 px-5"/> <!-- hidden = Oculto a la vista -->
+				<!-- Se agrega este input IdClase para comunicar a Spring que el objeto ya esta instanciado en caso de una modificacion -->
+				<!-- Sin esto, supondria que es uno nuevo y volveria a agregarlo a la BD -->
+				
+				<div class="w-50 px-3 py-0">				
+					<label for="name" class="form-label form-control-lg mb-0">[[#{user-name}]]</label>										
+					<input th:field="*{name}" name="name" autocomplete="off" type="text"
+					class="form-control" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''"/>					
+					
+					<div class="invalid-feedback" th:errors="*{name}"></div><span th:if="${!#fields.hasErrors('name')}">&nbsp;</span> 
+				</div>
+
+				<div class="w-50 px-3 py-0">
+					<label for="surname" class="form-label form-control-lg mb-0">[[#{user-surname}]]</label>					
+					<input th:field="*{surname}" name="surname" autocomplete="off" type="text"
+					class="form-control" th:classappend="${#fields.hasErrors('surname')} ? 'is-invalid' : ''"/>
+					
+					<div class="invalid-feedback" th:errors="*{surname}"></div><span th:if="${!#fields.hasErrors('surname')}">&nbsp;</span>
+				</div>
+				
+				<div class="col-md-6 w-50 px-3 mt-0">
+				    <label for="typedocument" class="form-label form-control-lg mb-0"> [[#{user-type}]]</label>
+				    <select class="form-select center" id="typedocument" th:field="*{type}">
+						<option value="L.E / DNI">DNI</option> <!-- DOCUMENTO NACIONAL DE IDENTIDAD -->
+					    <option value="CARNET EXT">LE</option> <!-- LIBRETA ENROLAMIENTO -->
+					    <option value="RUC">LC</option> <!-- LIBRETA CIVICA -->
+					    <option value="PASAPORTE">DE</option> <!--  DOCUMENTO EXTRANJERO -->
+				    </select>
+				    <span th:if="${!#fields.hasErrors('type')}">&nbsp;</span>				    
+				</div>	
+				
+				<div class="col-md-6 w-50 px-3 mt-0">
+					<label for="document" class="form-label form-control-lg mb-0">[[#{user-document}]]</label>					
+					<input th:field="*{document}" name="document" autocomplete="off" type="number"
+					class="form-control" th:classappend="${#fields.hasErrors('document')} ? 'is-invalid' : ''"/>
+					
+					<div class="invalid-feedback" th:errors="*{document}"></div><span th:if="${!#fields.hasErrors('document')}">&nbsp;</span>
+				</div>
+				
+				<div class="col-md-8 px-3 mt-2">
+					<label for="email" class="form-label form-control-lg mb-0">[[#{user-email}]]</label>					
+					<input th:field="*{email}" name="email" autocomplete="off" type="text"
+					class="form-control" th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"/>
+					
+					<div class="invalid-feedback" th:errors="*{email}"></div><span th:if="${!#fields.hasErrors('email')}">&nbsp;</span>
+				</div>
+
+				<!-- NOMBRE DE USUARIO Y ROLES -->
+				
+				<div class="col-md-6 px-3 mt-2">
+					<label for="userName" class="form-label form-control-lg mb-0">[[#{user-username}]]</label>					
+					<input th:field="*{userName}" name="userName" autocomplete="off" type="text"
+					class="form-control" th:classappend="${#fields.hasErrors('userName')} ? 'is-invalid' : ''"/>
+					
+					<div class="invalid-feedback" th:errors="*{userName}"></div><span th:if="${!#fields.hasErrors('userName')}">&nbsp;</span>
+				</div>
+				
+				<div class="col-md-6 px-3 mt-2">
+					<label for="password" class="form-label form-control-lg mb-0">[[#{user-password}]]</label>					
+					<input th:field="*{password}" name="password" autocomplete="off" type="password"
+					class="form-control" th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''"/>
+					
+					<div class="invalid-feedback" th:errors="*{password}"></div><span th:if="${!#fields.hasErrors('password')}">&nbsp;</span>
+				</div>
+												
+				<!-- Recorre la lista de los roles (Implementar en casos similares) -->        	
+				
+				<div class="col-md-12 px-3 mt-3 w-25">
+					<label for="role" class="form-label form-control-lg mb-0">[[#{user-role}]]</label>					
+					<select class="form-select center" id="role" th:field="*{role}" name="role">	
+						<option th:each="role : ${listRole}"
+								th:value="${(role.idRole)}" 
+								th:text="${role.name}">						
+						</option>
+	            	</select>
+				</div>
+				
+				<div class="col-md-12 px-3 mt-3 mb">
+					<label for="enabled" class="form-check-label form-control-lg mb-0 p-0">[[#{user-enabled}]]</label>
+					<input type="checkbox" name="enabled" th:field="*{enabled}" autocomplete="off" th:value="false" class="form-check-input ms-1 m-2 p-2" id="enabled"/> 				
+				</div>
+	            
+	            <div class="col-md-6 w-50 px-3 mb-2">
+					<button type="submit" name="save" class="btn btn-success">
+						<i class="fas fa-check fa-lg me-1"></i>[[#{action-save}]]
+					</button>
+				</div>
+	
+			</form>	
+		</div>	
+	</section>
+</html>

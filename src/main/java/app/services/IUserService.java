@@ -10,6 +10,8 @@ public interface IUserService {
 	
 	public User findById(int idUser); // trae un user por id
 	
+	public User findByUserName(String userName); // Trae a un usuario por su nombre (para traer los datos del perfil)
+	
 	public List<User> getAll(); // trae la lista de todos los usuarios
 	
 	public boolean insertOrUpdate(User user); // agrega o modifica un usuario

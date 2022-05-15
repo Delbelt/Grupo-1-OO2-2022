@@ -21,6 +21,13 @@ public class UserService implements IUserService {
 	public User findById(int idUser) {
 		return repository.findById(idUser).orElse(null);
 	}
+	
+
+	@Override
+	@Transactional(readOnly = true) // no modifica la bd, solamente lectura
+	public User findByUserName(String userName) {
+		return repository.findByUserName(userName);
+	}
 
 	@Override
 	@Transactional(readOnly = true) // no modifica la bd, solamente lectura

@@ -26,7 +26,7 @@ public class UserController {
 	private UserService userService;
 	
 	@Autowired(required=true)
-	private UserRoleService roleService;
+	private UserRoleService roleService; // Necesario para "elegir" los roles
 	
 	@GetMapping("/users")
 	public String users(Model model)
@@ -51,25 +51,35 @@ public class UserController {
 		var listRole = roleService.getAll(); // var = Lombok
 		model.addAttribute("listRole", listRole); // Necesario para poder agregar la relacion al crear un user
 		
-		return "user/insertOrUpdate"; // go to: pagina de insertar o modificar (user)
+		return "user/insert"; // go to: pagina de insertar o modificar (user)
 	}
 
 	@PostMapping("/addUser")
-	public String saveUser(@Valid User user, Errors error) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
+	public String saveUser(@Valid User user, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
 	{		
 		log.info("CONTROLLER [USER]"); 	// info console
 		log.debug("METHOD [saveUser]");	// details console
 		
 		if(error.hasErrors()) // En caso de un error en las validaciones
-		{
-			return "user/insertOrUpdate"; // Se queda en la pagina y muestra los errores
-		}
+		{			
+			var listRole = roleService.getAll(); // var = Lombok
+			model.addAttribute("listRole", listRole); // Necesario para poder agregar la relacion al crear un user
+			return "user/insert"; // Se queda en la pagina y muestra los errores
+		}		
 		
 		user.setPassword(SecurityConfig.Encrypt(user.getPassword())); // Encrypt the password
 		
 		userService.insertOrUpdate(user); // En caso de que funcione agrega el rol
 		
 		return "redirect:/user/users"; // go to: home page
+	}
+	
+	@GetMapping("/user/{userName}") // Path Variable - trae el usuario por el username
+	public String findUserRoleByName(User user, Model model) // Relaciona el username del path con el userName del parametro user
+	{
+		model.addAttribute("user", userService.findByUserName(user.getUserName())); // traigo al usuario
+		
+		return "user/user";		
 	}
 	
 	// Type: Path variable
@@ -83,7 +93,27 @@ public class UserController {
 		var listRole = roleService.getAll(); // var = Lombok
 		model.addAttribute("listRole", listRole); // Necesario para poder agregar la relacion al crear un user
 		
-		return "user/insertOrUpdate"; // go to: pagina de insertar o modificar (role)
+		return "user/modify"; // go to: pagina de insertar o modificar (role)
+	}
+	
+	@PostMapping("/editUser")
+	public String editUser(@Valid User user, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/editUser}" method="post"
+	{		
+		log.info("CONTROLLER [USER]"); 	// info console
+		log.debug("METHOD [editUser]");	// details console
+		
+		if(error.hasErrors()) // En caso de un error en las validaciones
+		{			
+			var listRole = roleService.getAll(); // var = Lombok
+			model.addAttribute("listRole", listRole); // Necesario para poder editar la relacion al crear un user
+			return "user/modify"; // Se queda en la pagina y muestra los errores
+		}		
+		
+		user.setPassword(SecurityConfig.Encrypt(user.getPassword())); // Encrypt the password
+		
+		userService.insertOrUpdate(user); // En caso de que funcione agrega el rol
+		
+		return "redirect:/user/users"; // go to: users
 	}
 	
 	// Type: Query Parameter
@@ -93,7 +123,7 @@ public class UserController {
 		log.info("CONTROLLER [USER]");		// info console
 		log.debug("METHOD [deleteUser]");	// details console
 		
-		userService.remove(user.getIdUser()); // remueve el rol
+		userService.remove(user.getIdUser()); // remueve el user
 		
 		return "redirect:/user/users"; // go to: home page
 	}

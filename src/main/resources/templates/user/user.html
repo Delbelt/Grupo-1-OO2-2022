@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org" xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security"
+th:replace="layout/template :: children(~{::section}, #{user-bring-userRole}, #{user-profile-userRole})">
+	<section>		
+		<div class="container px-5 left mt-3">		
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">	
+						<div class="card-header center py-3">
+							<h4 class="center">[[#{control-panel}]]: 
+								<span th:each="authority : ${#authentication.getAuthorities()}" th:if="${authority.getAuthority().startsWith('ROLE_')}" 
+								th:text="${authority.getAuthority().replaceFirst('ROLE_', '')}"></span> <i class="fa-solid fa-chart-pie fa-lg"></i>
+							</h4>
+						</div>						
+						
+						<table class="table align-middle align-center">
+							<thead>									
+								<tr class="center">
+									<th>[[#{user-name}]]</th>
+									<th>[[#{user-surname}]]</th>
+									<th>[[#{user-document}]]</th>
+									<th>[[#{user-username}]]</th>
+									<th>[[#{user-email}]]</th>
+								</tr>
+							</thead>
+															
+							<tbody>
+								<tr class="center">
+									<td th:text="${user.name}">Muestra nombre</td>
+									<td th:text="${user.surname}">Muestra apellido</td>
+									<td th:text="${user.document}">Muestra documento</td>
+									<td th:text="${user.userName}">Muestra nombre de usuario</td>
+									<td th:text="${user.email}">Muestra email</td>																		
+							</tbody>
+						</table>
+						
+						<div class="card-header center py-3"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div sec:authorize="hasRole ('ROLE_ADMIN')" class="container px-5 pt-4">
+			<div class="row">
+				<div class="col-md-12 center">
+					<div class=card>
+						<div class="card-header py-3 px-5">
+							<h4 class="center">[[#{panel-auth}]]: <span th:each="authority : ${#authentication.getAuthorities()}" 
+								th:if="${authority.getAuthority().startsWith('ROLE_')}" 
+								th:text="${authority.getAuthority().replaceFirst('ROLE_', '')}"></span>
+								<i class="fa-solid fa-screwdriver-wrench fa-lg"></i>
+							</h4> 
+							
+							<ul class="list-group mt-3">
+							  <li class="list-group-item">1</li>
+							  <li class="list-group-item">2</li>
+							  <li class="list-group-item">3</li>
+							  <li class="list-group-item">4</li>
+							  <li class="list-group-item">5</li>
+							</ul>
+												
+						</div>
+					</div>
+				</div>							
+			</div>						
+		</div>
+	
+		<div sec:authorize="hasRole ('ROLE_AUDIT')" class="container px-5 pt-4">
+			<div class="row">
+				<div class="col-md-12 center">
+					<div class=card>
+						<div class="card-header py-3 px-5">
+							<h4 class="center">[[#{panel-auth}]]: <span th:each="authority : ${#authentication.getAuthorities()}" 
+								th:if="${authority.getAuthority().startsWith('ROLE_')}" 
+								th:text="${authority.getAuthority().replaceFirst('ROLE_', '')}"></span>
+								<i class="fa-solid fa-screwdriver-wrench fa-lg"></i>
+							</h4> 
+							
+							<ul class="list-group mt-3">
+							  <li class="list-group-item">1</li>
+							  <li class="list-group-item">2</li>
+							  <li class="list-group-item">3</li>
+							  <li class="list-group-item">4</li>
+							  <li class="list-group-item">5</li>
+							</ul>
+												
+						</div>
+					</div>
+				</div>							
+			</div>						
+		</div>
+		
+	</section>
+</html>

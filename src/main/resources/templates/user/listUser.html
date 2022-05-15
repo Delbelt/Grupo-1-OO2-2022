@@ -1,47 +1,54 @@
 <!DOCTYPE html>
-<html xmlns:th="htpp://www.thymeleaf.org"
-xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="htpp://www.thymeleaf.org" xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security"
+th:replace="layout/template :: children(~{::section}, #{navbar-users}, #{list-user})">
 
-	<head th:replace="layout/template :: head(#{title-user})"></head>
-	
-	<body>	
-		<section th:replace="layout/template :: header"></section> <!-- PLANTILLA:  HEADER + NAVBAR-->
-		
-		<div th:if="${listUser != null and ! listUser.empty}"> <!-- CONDICION IF -->
-			<h2 th:text="#{title-user}">TITLE</h2>
-			<table> <!-- TABLA -->		
-				<tr> <!-- Fila de Tabla -->
-					<th>[[#{user-id}]]</th> <!--Celda Encabezado de tabla (negrita) -->
-					<th>[[#{user-name}]]</th> 
-					<th>[[#{user-surname}]]</th>
-					<th>[[#{user-username}]]</th> 
-					<th>[[#{user-email}]]</th>  
-					<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-edit}]]</th>
-					<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-delete}]]</th>					
-				</tr>
-							
-				<tr th:each="user : ${listUser}"> <!-- bucle fore que recorre la lista -->							
-					<td th:text="${user.idUser}">Id User</td>
-					<td th:text="${user.name}">Name</td> <!-- Celda de dato en la tabla -->
-					<td th:text="${user.surname}">Surname</td> <!-- Celda de dato en la tabla -->
-					<td th:text="${user.userName}">Username</td> <!-- Celda de dato en la tabla -->
-					<td th:text="${user.email}">Email</td> <!-- Celda de dato en la tabla -->
-					<td sec:authorize="hasRole ('ROLE_ADMIN')"><a th:href="@{edit/} + ${user.idUser}"> [[#{action-edit}]] </a> <!-- TYPE: PATH VARIABLE ${class.idClass}-->	
-					<td sec:authorize="hasRole ('ROLE_ADMIN')"><a th:href="@{delete(idUser=${user.idUser})}"> [[#{action-delete}]]</a> <!-- TYPE: QUERY PARAMETERS -->		
-				</tr>
-			</table>		
+	<section>
+		<div class="px-5 py-5">		
+			<div class="col-md-12">				
+					<div class="card">
+						<div class="card-header">
+						
+						<h2 class="center"> [[#{navbar-users}]]
+							<i class="fas fa-users fa-lg me-2"></i>[[#{total-size}]] [[${listUser.size()}]]
+							<a class="btn btn-primary" th:href="@{/user/addUser}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-plus fa-lg me-1"></i>[[#{user-add}]]</a>
+						</h2>
+
+						<div class="left px-5 me-0" th:if="${listUser != null and ! listUser.empty}"> <!-- CONDICION: LISTA DIFERENTE DE: NULL Y EMPTY -->						
+							<table class="table table-hover align-middle align-center"> <!-- TABLA -->	
+								<thead class="thead-dark">								
+									<tr> <!-- Fila de Tabla -->
+										<th>#</th>
+										<th>[[#{user-name}]]</th>
+										<th>[[#{user-surname}]]</th> <!--Celda Encabezado de tabla (negrita) -->
+										<th>[[#{user-username}]]</th>
+										<th>[[#{user-email}]]</th>
+										<th sec:authorize="hasRole ('ROLE_ADMIN')"></th>
+										<th sec:authorize="hasRole ('ROLE_ADMIN')"></th>
+									</tr>
+								</thead>
+													
+								<tbody>									
+									<tr th:each="user : ${listUser}"> <!-- bucle fore que recorre la lista -->	
+										<td th:text="${user.idUser}">Id User</td>
+										<td th:text="${user.name}">Name</td> <!-- Celda de dato en la tabla -->
+										<td th:text="${user.surname}">Surname</td> <!-- Celda de dato en la tabla -->
+										<td th:text="${user.userName}">Username</td> <!-- Celda de dato en la tabla -->
+										<td th:text="${user.email}">Email</td> <!-- Celda de dato en la tabla -->
+										
+										<td sec:authorize="hasRole ('ROLE_ADMIN')">
+											<a th:href="@{edit/} + ${user.idUser}" class="btn btn-dark"><i class="fa-solid fa-pen-to-square me-1"></i>[[#{action-edit}]]</a>
+										</td> <!-- TYPE: PATH VARIABLE ${class.idClass}-->	
+										
+										<td sec:authorize="hasRole ('ROLE_ADMIN')">
+											<a th:href="@{delete(idUser=${user.idUser})}" class="btn btn-danger opacity-100"><i class="fa-solid fa-trash-can me-1"></i> [[#{action-delete}]]</a>
+										</td> <!-- TYPE: QUERY PARAMETERS -->
+									</tr>
+								</tbody>				
+							</table>						
+						</div>
+					</div>				
+				</div>
+			</div>
 		</div>
-		
-		<div th:if="${listUser == null or listUser.empty}">
-			<h2 th:text="#{list-user-empty}">List Empty</h2>
-		</div>
-		
-		<br> <hr width="50%">
-		
-		<div sec:authorize="hasRole ('ROLE_ADMIN')">
-			<h3><a th:href="@{/user/addUser}" th:text="#{user-add}">ADD</a></h3>
-		</div>
-		
-		<footer th:replace="layout/template :: footer"></footer> <!-- PLANTILLA: PIE DE PAGINA -->			
-	</body>	
+	</section>
 </html>
