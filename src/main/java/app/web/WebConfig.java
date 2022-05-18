@@ -20,7 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
 	public LocaleResolver localeResolver() //Crea una instancia de LocaleResolver
 	{
 		SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver(); // Creo la Sesion
-		sessionLocaleResolver.setDefaultLocale(new Locale("en")); // Idioma a trabajar
+		sessionLocaleResolver.setDefaultLocale(new Locale("es")); // Idioma a trabajar
 		return sessionLocaleResolver;
 	} // Se va a asociar con el archivo de propiedades (messages.properties)
 	

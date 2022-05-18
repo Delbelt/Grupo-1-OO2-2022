@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception // Configura las auth (Concepto) a partir de los roles
 	{
 
-		String [] resourcesAdmin = new String[]{"/role/addRole/**", "/user/addUser/**", "/classroom/addLaboratory/**", 
+		String [] resourcesAdmin = new String[] {"/role/addRole/**", "/user/addUser/**", "/classroom/addLaboratory/**", 
 				"/classroom/addTraditional/**","/space/addSpace/**" ,"/role/edit/**", "/user/edit/**",
 				"/classroom/edit/**","/space/edit/**", "/role/delete", "/user/delete", "/classroom/delete",
 				"/space/delete"};
@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.hasAnyRole("AUDIT", "ADMIN") // ↑↑ Cualquier Usuario
 		.and()
 		.formLogin() // Agrega el formulario de Login
-		.loginPage("/login").defaultSuccessUrl("/") // Ruta de Login + a donde va si inicia sesion (home)
+		.loginPage("/login").defaultSuccessUrl("/").failureUrl("/login?error=true") // Ruta de Login + a donde va si inicia sesion (home)
 		.and().logout().logoutUrl("/logout").logoutSuccessUrl("/logout") // Ruta de logout + a donde va cuando deslogea
 		.and().authorizeRequests().antMatchers("/logout").anonymous() // NO queremos que un usuario logeado acceda al logout si esta en sesion
 		.and().authorizeRequests().antMatchers("/login").anonymous() // NO queremos que un usuario logeado acceda al login
