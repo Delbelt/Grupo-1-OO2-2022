@@ -70,7 +70,7 @@
 				
 				<div class="col-md-6 px-3 mt-2">
 					<label for="password" class="form-label form-control-lg mb-0">[[#{user-password}]]</label>					
-					<input th:field="*{password}" name="password" autocomplete="off" type="text"
+					<input th:field="*{password}" name="password" autocomplete="off" type="password"
 					class="form-control" th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''"/>
 					
 					<div class="invalid-feedback" th:errors="*{password}"></div><span th:if="${!#fields.hasErrors('password')}">&nbsp;</span>

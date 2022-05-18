@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import app.entities.User;
 import app.repositories.IUserRepository;
+import app.segurity.SecurityConfig;
 import app.services.IUserService;
 
 @Service // declare the class as service
@@ -38,6 +39,9 @@ public class UserService implements IUserService {
 	@Override
 	@Transactional // modifica la BD: commit / rollback
 	public boolean insertOrUpdate(User user) {
+		
+		user.setPassword(SecurityConfig.Encrypt(user.getPassword())); // Encrypt the password
+		
 		return repository.save(user) != null ? true : false;
 	}
 
