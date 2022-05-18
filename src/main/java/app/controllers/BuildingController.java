@@ -42,7 +42,7 @@ public class BuildingController {
 		log.info("CONTROLLER [Building]"); // info console
 		log.debug("METHOD [addBuilding]"); // details console
  
-		return "building/insertOrUpdate"; // go to: pagina de insertar o modificar (Building)
+		return "building/insert"; // go to: pagina de insertar o modificar (Building)
 	}
 
 	@PostMapping("/addBuilding")
@@ -53,7 +53,7 @@ public class BuildingController {
 		
 		if(error.hasErrors()) // En caso de un error en las validaciones
 		{
-			return "building/insertOrUpdate"; // Se queda en la pagina y muestra los errores
+			return "building/insert"; // Se queda en la pagina y muestra los errores
 		}
 		 
 		buildingService.insertOrUpdate(building); // En caso de que funcione agrega el rol
@@ -70,7 +70,23 @@ public class BuildingController {
 		
 		model.addAttribute("building", buildingService.findById(building.getIdBuilding())); // Necesario "instanciar" el objeto para ser mostrado en Thymeleaf
 
-		return "building/insertOrUpdate"; // go to: pagina de insertar o modificar (role)
+		return "building/modify"; // go to: pagina de insertar o modificar (role)
+	}
+	
+	@PostMapping("/editBuilding")
+	public String editBuilding(@Valid Building building, Errors error) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addBuilding}" method="post"
+	{		
+		log.info("CONTROLLER [Building]"); 	// info console
+		log.debug("METHOD [editBuilding]");	// details console
+		
+		if(error.hasErrors()) // En caso de un error en las validaciones
+		{
+			return "building/modify"; // Se queda en la pagina y muestra los errores
+		}
+		 
+		buildingService.insertOrUpdate(building); // En caso de que funcione agrega el rol
+		
+		return "redirect:/building/buildings"; // go to: home page
 	}
 	
 	// Type: Query Parameter

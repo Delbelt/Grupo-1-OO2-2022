@@ -50,7 +50,7 @@ public class SpaceController {
 		var listClassroom = classroomService.getAll();
 		model.addAttribute("listClassroom", listClassroom);
 		
-		return "space/insertOrUpdate"; // go to: pagina de insertar o modificar (space)
+		return "space/insert"; // go to: pagina de insertar o modificar (space)
 	}
 	
 	@PostMapping("/addSpace")
@@ -61,7 +61,7 @@ public class SpaceController {
 		
 		if(error.hasErrors()) // En caso de un error en las validaciones
 		{
-			return "space/insertOrUpdate"; // Se queda en la pagina y muestra los errores
+			return "space/insert"; // Se queda en la pagina y muestra los errores
 		}
 		
 		spaceService.insertOrUpdate(space); // En caso de que funcione agrega el espacio
@@ -76,9 +76,31 @@ public class SpaceController {
 		log.info("CONTROLLER [SPACE]");	// info console
 		log.debug("METHOD [editSpace]");	// details console
 		
+		var listClassroom = classroomService.getAll();
+		model.addAttribute("listClassroom", listClassroom);
+		
 		model.addAttribute("space", spaceService.findById(space.getIdSpace())); // Necesario "instanciar" el objeto para ser mostrado en thymeleaf
 		
-		return "space/insertOrUpdate"; // go to: pagina de insertar o modificar (space)
+		return "space/modify"; // go to: pagina de insertar o modificar (space)
+	}
+	
+	@PostMapping("/editSpace")
+	public String editSpace(@Valid Space space, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addRole}" method="post"	
+	{		
+		log.info("CONTROLLER [SPACE]");	// info console
+		log.debug("METHOD [editSpace]");	// details console
+		
+		if(error.hasErrors()) // En caso de un error en las validaciones
+		{
+			var listClassroom = classroomService.getAll();
+			model.addAttribute("listClassroom", listClassroom);
+			
+			return "space/modify"; // Se queda en la pagina y muestra los errores
+		}
+		
+		spaceService.insertOrUpdate(space); // En caso de que funcione agrega el espacio
+		
+		return "redirect:/space/spaces"; // go to: home page
 	}
 	
 	// Type: Query Parameter

@@ -1,40 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="htpp://www.thymeleaf.org">
-
-	<head th:replace="layout/template :: head(#{classroom-laboratory-title})"></head>
-	
-	<body>	
-		<section th:replace="layout/template :: header"></section> <!-- PLANTILLA:  HEADER + NAVBAR-->
-		
-		<div>
-			<h2 th:text="#{classroom-laboratory-name}"></h2>
-			<h3><a th:href="@{/classroom/classrooms}"> [[#{go-back}]] </a></h3>
-			<br>
-			<hr>			
+<html xmlns:th="htpp://www.thymeleaf.org" xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security"
+th:replace="layout/template :: children(~{::section}, #{classroom-laboratory-title}, #{classroom-laboratory-title})">
+	<section>
+		<div class="container px-5 mt-3">		
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">	
+						<div class="card-header center py-3">
+							<h4 class="center"><i class="fa-solid fa-desktop fa-lg me-1"></i> [[#{classroom-laboratory-name}]]
+							</h4>
+						</div>		
+						
+						<table class="table align-middle align-center center">
+							<thead>									
+								<tr>
+									<th>[[#{classroom-building}]]</th> 
+									<th>[[#{classroom-number}]]</th>
+									<th>[[#{classroom-laboratory-qtyPC}]]</th>
+									<th>[[#{classroom-laboratory-qtyChairs}]]</th>
+								</tr>
+							</thead>
+															
+							<tbody>
+								<tr>
+									<td th:text="${classroom.building.buildingName}">Nombre del edificio</td>
+									<td th:text="${classroom.number}">Numero del aula</td>
+									<td th:text="${classroom.quantityPC}">Cantidad de PCs</td>
+									<td th:text="${classroom.quantityChairs}">Numero de bancas</td>																			
+								</tr>																	
+							</tbody>
+						</table>
+						
+						<div class="card-header center py-3">
+							<a th:href="@{/classroom/classrooms}" class="btn btn-warning mt-2 w-25"><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>														
+						</div>	
+						
+						
+					</div>
+				</div>
+			</div>
 		</div>
-				
-		<table>
-			<thead>					
-				<tr>
-					<th>[[#{classroom-id}]]</th>
-					<th>[[#{classroom-building}]]</th> 
-					<th>[[#{classroom-number}]]</th>
-					<th>[[#{classroom-laboratory-qtyPC}]]</th>
-					<th>[[#{classroom-laboratory-qtyChairs}]]</th>
-				</tr>
-			</thead>
-			
-			<tbody>																			
-				<tr>
-					<td th:text="${classroom.idClassroom}">Id Aula</td>
-					<td th:text="${classroom.building.buildingName}">Nombre del edificio</td>
-					<td th:text="${classroom.number}">Numero del aula</td>
-					<td th:text="${classroom.quantityPC}">Cantidad de PCs</td>
-					<td th:text="${classroom.quantityChairs}">Numero de bancas</td>																			
-				</tr>												
-			</tbody>
-		</table>
-			
-		<footer th:replace="layout/template :: footer"></footer> <!-- PLANTILLA: PIE DE PAGINA -->							
-	</body>	
+	</section>
 </html>

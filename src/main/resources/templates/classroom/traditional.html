@@ -1,43 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="htpp://www.thymeleaf.org">
-
-	<head th:replace="layout/template :: head(#{classroom-traditional-title})"></head>
-	
-	<body>	
-		<section th:replace="layout/template :: header"></section> <!-- PLANTILLA:  HEADER + NAVBAR-->
-		
-		<div>
-			<h2 th:text="#{classroom-traditional-name}"></h2>
-			<h3><a th:href="@{/classroom/classrooms}"> [[#{go-back}]] </a></h3>
-			<br>
-			<hr>			
-		</div>		
-		
-		<table>
-			<thead>					
-				<tr>
-					<th>[[#{classroom-id}]]</th>
-					<th>[[#{classroom-building}]]</th> 
-					<th>[[#{classroom-number}]]</th>
-					
-					<th>[[#{classroom-traditional-chalkboard}]]</th>
-					<th>[[#{classroom-traditional-qtyBenchs}]]</th>
-					<th>[[#{classroom-traditional-hasProjector}]]</th>
-				</tr>
-			</thead>
-			
-			<tbody>																			
-				<tr>
-					<td th:text="${classroom.idClassroom}">Id Aula</td>
-					<td th:text="${classroom.building.buildingName}">Nombre del edificio</td>
-					<td th:text="${classroom.number}">Numero del aula</td>
-					<td th:text="${classroom.chalkboard}">Tipo de Pizaron</td>
-					<td th:text="${classroom.quantityBenchs}">Cantidad de Bancas</td>
-					<td><input type="checkbox" th:field="${classroom.hasProjector}" disabled ></td>										
-				</tr>												
-			</tbody>
-		</table>
-			
-		<footer th:replace="layout/template :: footer"></footer> <!-- PLANTILLA: PIE DE PAGINA -->							
-	</body>	
+<html xmlns:th="htpp://www.thymeleaf.org" xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security"
+th:replace="layout/template :: children(~{::section}, #{classroom-traditional-title}, #{classroom-traditional-title})">
+	<section>
+		<div class="container px-5 mt-3">		
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">	
+						<div class="card-header center py-3">
+							<h4 class="center"><i class="fa-solid fa-chalkboard-user fa-lg me-1"></i> [[#{classroom-traditional-name}]]</h4>													
+						</div>		
+						
+						<table class="table align-middle align-center center">
+							<thead>									
+								<tr>
+									<th>[[#{classroom-building}]]</th> 
+									<th>[[#{classroom-number}]]</th>									
+									<th>[[#{classroom-traditional-chalkboard}]]</th>
+									<th>[[#{classroom-traditional-qtyBenchs}]]</th>
+									<th>[[#{classroom-traditional-hasProjector}]]</th>
+								</tr>
+							</thead>
+															
+							<tbody>
+								<tr>
+									<td th:text="${classroom.building.buildingName}">Nombre del edificio</td>
+									<td th:text="${classroom.number}">Numero del aula</td>
+									<td th:text="${classroom.chalkboard}">Tipo de Pizaron</td>
+									<td th:text="${classroom.quantityBenchs}">Cantidad de Bancas</td>
+									<td><input type="checkbox" th:field="${classroom.hasProjector}"class="form-check-input ms-1 m-2 p-2" disabled></td>																			
+								</tr>																	
+							</tbody>
+						</table>
+						
+						<div class="card-header center py-3">
+							<a th:href="@{/classroom/classrooms}" class="btn btn-warning mt-2 w-25"><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>														
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </html>

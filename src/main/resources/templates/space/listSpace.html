@@ -1,47 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="htpp://www.thymeleaf.org"
-xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security">
-
-	<head th:replace="layout/template :: head(#{title-space})"></head>
-	
-	<body>	
-		<section th:replace="layout/template :: header"></section> <!-- PLANTILLA:  HEADER + NAVBAR-->
-		
-		<div th:if="${listSpace != null and ! listSpace.empty}"> <!-- CONDICION IF -->
-			<h2 th:text="#{title-space}">TITLE</h2>
-			<table> <!-- TABLA -->		
-				<tr> <!-- Fila de Tabla -->
-					<th>[[#{space-id}]]</th> <!--Celda Encabezado de tabla (negrita) -->
-					<th>[[#{space-classroom}]]</th> 
-					<th>[[#{space-date}]]</th>
-					<th>[[#{space-free}]]</th> 
-					<th>[[#{space-shift}]]</th>  
-					<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-edit}]]</th>
-					<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-delete}]]</th>					
-				</tr>
-							
-				<tr th:each="space : ${listSpace}"> <!-- bucle fore que recorre la lista -->							
-					<td th:text="${space.idSpace}">ID espacio</td>
-					<td th:text="${space.classroom.number}">Numero de aula</td> <!-- Celda de dato en la tabla -->
-					<td th:text="${space.date}">Fecha</td> <!-- Celda de dato en la tabla -->
-					<td th:text="${space.free}">Libre</td> <!-- Celda de dato en la tabla -->
-					<td th:text="${space.shift}">Turno</td> <!-- Celda de dato en la tabla -->
-					<td sec:authorize="hasRole ('ROLE_ADMIN')"><a th:href="@{edit/} + ${space.idSpace}"> [[#{action-edit}]] </a> <!-- TYPE: PATH VARIABLE ${class.idClass}-->	
-					<td sec:authorize="hasRole ('ROLE_ADMIN')"><a th:href="@{delete(idSpace=${space.idSpace})}"> [[#{action-delete}]]</a> <!-- TYPE: QUERY PARAMETERS -->		
-				</tr>
-			</table>		
+<html xmlns:th="htpp://www.thymeleaf.org" xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security"
+th:replace="layout/template :: children(~{::section}, #{title-space}, #{list-space})">
+	<section>
+		<div class="px-5 py-5 d-flex justify-content-center">		
+			<div class="col-md-6">				
+					<div class="card">
+						<div class="card-header">
+						
+						<h2 class="center"> [[#{navbar-space}]]
+							<i class="fa-solid fa-calendar-days fa-lg me-2"></i>[[#{total-size}]] [[${listSpace.size()}]]
+							<a class="btn btn-primary" th:href="@{/space/addSpace}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-plus fa-lg me-1"></i>[[#{space-add}]]</a>
+						</h2>
+						<div class="left px-5 me-0" th:if="${listSpace != null and ! listSpace.empty}"> <!-- CONDICION: LISTA DIFERENTE DE: NULL Y EMPTY -->						
+							<table class="table table-hover align-middle align-center"> <!-- TABLA -->	
+								<thead class="thead-dark center">								
+									<tr> <!-- Fila de Tabla -->					
+										<th>[[#{space-numberClassroom}]]</th> <!--Celda Encabezado de tabla (negrita) -->
+										<th>[[#{space-date}]]</th>
+										<th>[[#{space-free}]]</th> 
+										<th>[[#{space-shift}]]</th>  
+										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-edit}]]</th>
+										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-delete}]]</th>
+									</tr>									
+								</thead>
+								
+								<tbody class="center">
+								
+									<tr th:each="space : ${listSpace}"> <!-- bucle fore que recorre la lista -->							
+										<td th:text="${space.classroom.number}">Numero de aula</td> <!-- Celda de dato en la tabla -->
+										<td th:text="${space.date}">Fecha</td> <!-- Celda de dato en la tabla -->	
+										<td>
+											<input type="checkbox" th:checked="${space.free}" class="form-check-input ms-1 m-2 p-2" disabled>
+										</td>										
+										<td th:text="${space.shift}">Turno</td> <!-- Celda de dato en la tabla -->
+										
+										<td sec:authorize="hasRole ('ROLE_ADMIN')">
+											<a th:href="@{edit/} + ${space.idSpace}" class="btn btn-dark"><i class="fa-solid fa-pen-to-square me-1"></i>[[#{action-edit}]]</a>
+										</td> <!-- TYPE: PATH VARIABLE ${class.idClass}-->	
+										
+										<td sec:authorize="hasRole ('ROLE_ADMIN')">
+											<a th:href="@{delete(idSpace=${space.idSpace})}" class="btn btn-danger opacity-100"><i class="fa-solid fa-trash-can me-1"></i> [[#{action-delete}]]</a>
+										</td> <!-- TYPE: QUERY PARAMETERS -->										
+									</tr>
+								</tbody>	
+							</table>						
+						</div>
+					</div>				
+				</div>
+			</div>
 		</div>
-		
-		<div th:if="${listSpace == null or listSpace.empty}">
-			<h2 th:text="#{list-space-empty}">List Empty</h2>
-		</div>
-		
-		<br> <hr width="50%">
-		
-		<div sec:authorize="hasRole ('ROLE_ADMIN')">
-			<h3><a th:href="@{/space/addSpace}" th:text="#{space-add}">ADD</a></h3>
-		</div>
-		
-		<footer th:replace="layout/template :: footer"></footer> <!-- PLANTILLA: PIE DE PAGINA -->			
-	</body>	
+	</section>
 </html>

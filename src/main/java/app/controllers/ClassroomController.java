@@ -42,8 +42,7 @@ public class ClassroomController {
 		
 		return "classroom/listClassroom";
 	}
-	
-	
+		
 	// Type: Query Parameter
 	@GetMapping("/delete") // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
 	public String deleteClassroom(Classroom classroom)
@@ -66,13 +65,22 @@ public class ClassroomController {
 		var verification = classroomService.findById(classroom.getIdClassroom()); // Para verificar la instancia
 	
 		// Necesario "instanciar" el objeto para ser mostrado en Thymeleaf
-		if(verification instanceof Laboratory) {
+		if(verification instanceof Laboratory)
+		{
 			model.addAttribute("laboratory", (Laboratory) verification);
-			return "classroom/insertOrUpdateLaboratory";
+			
+			var listBuilding = buildingService.getAll(); // Agrego a la vista los edificios
+			model.addAttribute("listBuilding", listBuilding);
+			
+			return "classroom/modifyLaboratory";
 		}
 		
-		model.addAttribute("traditional", (Traditional) verification); 
-		return "classroom/insertOrUpdateTraditional"; 
+		model.addAttribute("traditional", (Traditional) verification);
+		
+		var listBuilding = buildingService.getAll(); // Agrego a la vista los edificios
+		model.addAttribute("listBuilding", listBuilding);
+		
+		return "classroom/modifyTraditional"; 
 	}
 	
 	// Trae a la clase por Id y devuelve dependiendo la instancia que sea
@@ -84,8 +92,9 @@ public class ClassroomController {
 			
 		var verification = classroomService.findById(classroom.getIdClassroom()); // Para verificar la instancia
 		
-		if(verification instanceof Traditional) {
-			model.addAttribute("classroom", (Traditional) verification);
+		if(verification instanceof Traditional)
+		{
+			model.addAttribute("classroom", (Traditional) verification);			
 			return "classroom/traditional";
 		}
 
@@ -104,7 +113,7 @@ public class ClassroomController {
 		var listBuilding = buildingService.getAll();
 		model.addAttribute("listBuilding", listBuilding);
 		
-		return "classroom/insertOrUpdateLaboratory"; // go to: pagina de insertar o modificar (user)
+		return "classroom/insertLaboratory"; // go to: pagina de insertar o modificar (user)
 	}
 	
 	@PostMapping("/addLaboratory")
@@ -115,7 +124,26 @@ public class ClassroomController {
 		
 		if(error.hasErrors()) // En caso de un error en las validaciones
 		{
-			return "classroom/insertOrUpdateLaboratory"; // Se queda en la pagina y muestra los errores
+			return "classroom/insertLaboratory"; // Se queda en la pagina y muestra los errores
+		}
+		
+		classroomService.insertOrUpdate(laboratory); // En caso de que funcione agrega el rol     
+		
+		return "redirect:/classroom/classrooms"; // go to: home page
+	}
+	
+	@PostMapping("/editLaboratory")
+	public String editLaboratory(@Valid Laboratory laboratory, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
+	{		
+		log.info("CONTROLLER [CLASSROOM]"); 	// info console
+		log.debug("METHOD [editLaboratory]");	// details console
+		
+		if(error.hasErrors()) // En caso de un error en las validaciones
+		{
+			var listBuilding = buildingService.getAll(); // Agrego a la vista los edificios
+			model.addAttribute("listBuilding", listBuilding);
+			
+			return "classroom/modifyLaboratory"; // Se queda en la pagina y muestra los errores
 		}
 		
 		classroomService.insertOrUpdate(laboratory); // En caso de que funcione agrega el rol     
@@ -134,7 +162,7 @@ public class ClassroomController {
 		var listBuilding = buildingService.getAll();
 		model.addAttribute("listBuilding", listBuilding);
 		
-		return "classroom/insertOrUpdateTraditional"; // go to: pagina de insertar o modificar (Laboratory)
+		return "classroom/insertTraditional"; // go to: pagina de insertar o modificar (Laboratory)
 	}
 	
 	@PostMapping("/addTraditional")
@@ -145,11 +173,30 @@ public class ClassroomController {
 		
 		if(error.hasErrors()) // En caso de un error en las validaciones
 		{
-			return "classroom/insertOrUpdateTraditional"; // Se queda en la pagina y muestra los errores
+			return "classroom/insertTraditional"; // Se queda en la pagina y muestra los errores
 		}
+		
 		classroomService.insertOrUpdate(traditional); // En caso de que funcione agrega el aula tradicional
 		
 		return "redirect:/classroom/classrooms"; // go to: home page
 	}
 	
+	@PostMapping("/editTraditional")
+	public String editTradional(@Valid Traditional traditional, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
+	{		
+		log.info("CONTROLLER [CLASSROOM]"); 	// info console
+		log.debug("METHOD [editTradional]");	// details console
+		
+		if(error.hasErrors()) // En caso de un error en las validaciones
+		{
+			var listBuilding = buildingService.getAll(); // Agrego a la vista los edificios
+			model.addAttribute("listBuilding", listBuilding);
+			
+			return "classroom/modifyTraditional"; // Se queda en la pagina y muestra los errores
+		}
+		
+		classroomService.insertOrUpdate(traditional); // En caso de que funcione agrega el aula tradicional
+		
+		return "redirect:/classroom/classrooms"; // go to: home page
+	}	
 }
