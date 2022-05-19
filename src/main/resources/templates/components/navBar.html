@@ -40,8 +40,17 @@ xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security">
 					<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
 						<a th:href="@{/space/spaces}" class="link link-white"><i class="fa-regular fa-calendar-check me-1"></i>[[#{navbar-space}]]</a>
 					</li>
+					<li>	
 						<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
 						<a th:href="@{/matter/matters}" class="link link-white"><i class="fa-solid fa-book-open-reader me-1"></i>[[#{navbar-matter}]]</a>
+					</li> 
+					<li>
+						<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
+						<a th:href="@{/career/careers}" class="link link-white"><i class="fa-solid fa-user-graduate me-1"></i>[[#{navbar-career}]]</a>
+					</li>
+					<li>
+						<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
+						<a th:href="@{/department/departments}" class="link link-white"><i class="fa-solid fa-building-un me-1"></i>[[#{navbar-department}]]</a>
 					</li> 
 			      </ul>
 			    </div>

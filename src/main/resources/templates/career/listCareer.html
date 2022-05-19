@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org" xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security"
+th:replace="layout/template :: children(~{::section}, #{navbar-career}, #{list-career})">
+	<section>
+		<div class="px-5 py-5 d-flex justify-content-center">		
+			<div class="col-md-6">				
+					<div class="card">
+						<div class="card-header">
+						<h2 class="center"> [[#{navbar-career}]]
+							<i class="fa-solid fa-graduation-cap fa-lg me-2"></i>[[#{total-size}]] [[${listCareer.size()}]]
+							<a class="btn btn-primary" th:href="@{/career/addCareer}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-plus fa-lg me-1"></i>[[#{career-add}]]</a>
+						</h2>
+						<div class="left px-5 me-0" th:if="${listCareer != null and ! listCareer.empty}"> <!-- CONDICION: LISTA DIFERENTE DE: NULL Y EMPTY -->						
+							<table class="table table-hover align-middle align-center"> <!-- TABLA -->	
+								<thead class="thead-dark">								
+									<tr> <!-- Fila de Tabla -->					
+										<th>[[#{career-careerName}]]</th> <!--Celda Encabezado de tabla (negrita) -->
+										<th>[[#{career-department}]]</th> <!--Celda Encabezado de tabla (negrita) -->
+										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-edit}]]</th>
+										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-delete}]]</th>
+									</tr>
+								</thead>
+								
+								<tbody>								
+									<tr th:each="career : ${listCareer}"> <!-- bucle fore que recorre la lista -->							
+										<td th:text="${career.careerName}">Nombre carrera</td> <!-- Celda de dato en la tabla -->
+										<td th:text="${career.department.departmentName}">Departamento</td>
+										<td sec:authorize="hasRole ('ROLE_ADMIN')">
+											<a th:href="@{edit/} + ${career.idCareer}" class="btn btn-dark"><i class="fa-solid fa-pen-to-square me-1"></i>[[#{action-edit}]]</a>
+										</td> <!-- TYPE: PATH VARIABLE ${class.idClass}-->	
+										
+										<td sec:authorize="hasRole ('ROLE_ADMIN')">
+											<a th:href="@{delete(idCareer=${career.idCareer})}" class="btn btn-danger opacity-100"><i class="fa-solid fa-trash-can me-1"></i> [[#{action-delete}]]</a>
+										</td> <!-- TYPE: QUERY PARAMETERS -->			
+									</tr>
+								</tbody>				
+							</table>						
+						</div>
+					</div>				
+				</div>
+			</div>
+		</div>
+	</section>
+</html>

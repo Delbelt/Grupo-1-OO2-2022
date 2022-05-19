@@ -89,7 +89,7 @@ public class CareerController {
 		log.info("CONTROLLER [CAREER]");	// info console
 		log.debug("METHOD [editCareer]");	// details console
 			
-		var listDepartment = careerService.getAll();
+		var listDepartment = departmentService.getAll();
 		model.addAttribute("listDepartment", listDepartment);
 			
 		model.addAttribute("career", careerService.findById(career.getIdCareer())); // Necesario "instanciar" el objeto para ser mostrado en thymeleaf
@@ -105,7 +105,7 @@ public class CareerController {
 		
 		if(error.hasErrors()) // En caso de un error en las validaciones
 		{
-			var listDepartment = careerService.getAll();
+			var listDepartment = departmentService.getAll();
 			model.addAttribute("listDepartment", listDepartment);
 			
 			return "career/modify"; // Se queda en la pagina y muestra los errores
@@ -115,7 +115,4 @@ public class CareerController {
 		
 		return "redirect:/career/careers"; // go to: home page
 	}
-	
-	
-	
 }
