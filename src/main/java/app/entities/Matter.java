@@ -5,6 +5,9 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -19,8 +22,8 @@ public class Matter implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "idMatter")
-	@NotEmpty()
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idMatter; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
 							// clase
 
@@ -29,13 +32,13 @@ public class Matter implements Serializable {
 	private int codeMatter; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
 							// clase
 
-	@Column(name = "matterName")
+	@Column(name = "matterName", columnDefinition = "varchar(60)")
 	@NotEmpty()
 	private String matterName; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
 								// clase
 
 	@ManyToOne(cascade = CascadeType.PERSIST) // si se borra el edificio se borran las aulas automaticamente.
-	@JoinColumn(name = "idClassroom")
+	@JoinColumn(name = "idCareer")
 	private Career career;
 
 }
