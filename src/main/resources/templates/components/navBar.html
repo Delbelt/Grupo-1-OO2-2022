@@ -40,6 +40,9 @@ xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security">
 					<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
 						<a th:href="@{/space/spaces}" class="link link-white"><i class="fa-regular fa-calendar-check me-1"></i>[[#{navbar-space}]]</a>
 					</li>
+						<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
+						<a th:href="@{/matter/matters}" class="link link-white"><i class="fa-solid fa-book-open-reader me-1"></i>[[#{navbar-matter}]]</a>
+					</li> 
 			      </ul>
 			    </div>
 			</div>

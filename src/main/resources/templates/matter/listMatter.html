@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org" xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security"
+th:replace="layout/template :: children(~{::section}, #{title-matter}, #{list-matter})">
+	<section>
+		<div class="px-5 py-5 d-flex justify-content-center">		
+			<div class="col-md-6">				
+					<div class="card">
+						<div class="card-header">
+						 
+						<h2 class="center"> [[#{navbar-matter}]]
+							<i class="fa-solid fa-book-open fa-lg me-2"></i>[[#{total-size}]] [[${listMatter.size()}]]
+							<a class="btn btn-primary" th:href="@{/matter/addMatter}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-plus fa-lg me-1"></i>[[#{matter-add}]]</a>
+						</h2>
+						<div class="left px-5 me-0" th:if="${listMatter != null and ! listMatter.empty}"> <!-- CONDICION: LISTA DIFERENTE DE: NULL Y EMPTY -->						
+							<table class="table table-hover align-middle align-center"> <!-- TABLA -->	
+								<thead class="thead-dark center">								
+									<tr> <!-- Fila de Tabla -->					
+										<th>[[#{matter-matterName}]]</th> <!--Celda Encabezado de tabla (negrita) -->
+										<th>[[#{matter-codeMatter}]]</th>
+										<th>[[#{matter-careerName}]]</th>  
+										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-edit}]]</th>
+										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-delete}]]</th>
+									</tr>									
+								</thead>
+								
+								<tbody class="center">
+								
+									<tr th:each="matter : ${listMatter}"> <!-- bucle fore que recorre la lista -->							
+										
+										<td th:text="${matter.matterName}">Nombre de Materia</td> <!-- Celda de dato en la tabla -->	
+										 									
+										<td th:text="${matter.codeMatter}">Codigo de Materia</td> <!-- Celda de dato en la tabla -->
+										<td th:text="${matter.carreer.careerName}">Nombre de Carrera</td> <!-- Celda de dato en la tabla -->
+										<td sec:authorize="hasRole ('ROLE_ADMIN')">
+											<a th:href="@{edit/} + ${matter.idMatter}" class="btn btn-dark"><i class="fa-solid fa-pen-to-square me-1"></i>[[#{action-edit}]]</a>
+										</td> <!-- TYPE: PATH VARIABLE ${class.idClass}-->	
+										
+										<td sec:authorize="hasRole ('ROLE_ADMIN')">
+											<a th:href="@{delete(idMatter=${matter.idMatter})}" class="btn btn-danger opacity-100"><i class="fa-solid fa-trash-can me-1"></i> [[#{action-delete}]]</a>
+										</td> <!-- TYPE: QUERY PARAMETERS -->										
+									</tr>
+								</tbody>	
+							</table>						
+						</div>
+					</div>				
+				</div>
+			</div>
+		</div>
+	</section>
+</html>

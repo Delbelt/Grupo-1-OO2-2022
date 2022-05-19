@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org" th:replace="layout/template :: children(~{::section}, #{matter-add}, #{matter-add})">
+	<section class="mx-5 center">
+		<div class="px-5 py-5 d-flex justify-content-center">		
+			<div class="col-md-6">				
+				<div class="card">
+					<div class="card-header border">						
+						<div class=" d-flex justify-content-center px-5 py-1 form-group ">					
+							<form class="row g-6 justify-content-center align-items-center" th:action="@{/matter/addMatter}" method="post" th:object="${matter}">								
+								<div class="col-md-6 w-50 px-3">
+									<a th:href="@{/matter/matters}" class="btn btn-warning mt-2" ><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>
+								</div>
+								
+								<!-- th:field es la forma de comunicarse con: th:object -->
+								<!-- ASTERISCO *{atributoClase} Sirve para seleccionar el atributo de th:object, tanto para leer como para modificar -->
+										
+								<input type="hidden" name="idMatter" th:field="*{idMatter}" class="col-md-6 w-50 px-5"/> <!-- hidden = Oculto a la vista -->
+								<!-- Se agrega este input IdClase para comunicar a Spring que el objeto ya esta instanciado en caso de una modificacion -->
+								<!-- Sin esto, supondria que es uno nuevo y volveria a agregarlo a la BD -->
+								
+								<div class="col-md-8 px-3 mb-4 mt-3">
+									<label for="career" class="form-label form-control-lg mb-0">[[#{matter-careerName}]]</label>					
+									<select class="form-select center" id="career" th:field="*{career}" name="career">	
+										<option th:each="career : ${listCareer}"
+											th:value="${(career.idCareer)}" 
+											th:text="${career.careerName}">
+									</option>
+					            	</select>
+								</div>
+							 
+								<div class="col-md-8 px-3 mb-0">				
+									<label for="matterName" class="form-label form-control-lg mb-0">[[#{matter-matterName}]]</label>										
+									<input th:field="*{matterName}" name="matterName" autocomplete="off" type="text"
+									class="form-control" th:classappend="${#fields.hasErrors('matterName')} ? 'is-invalid' : ''"/>					
+									
+									<div class="invalid-feedback" th:errors="*{matterName}"></div><span th:if="${!#fields.hasErrors('matterName')}">&nbsp;</span> 
+								</div>							
+
+								 <div class="col-md-8 px-3 mb-0">				
+									<label for="codeMatter" class="form-label form-control-lg mb-0">[[#{matter-codeMatter}]]</label>										
+									<input th:field="*{codeMatter}" name="codeMatter" autocomplete="off" type="number"
+									class="form-control" th:classappend="${#fields.hasErrors('codeMatter')} ? 'is-invalid' : ''"/>					
+									
+									<div class="invalid-feedback" th:errors="*{matterName}"></div><span th:if="${!#fields.hasErrors('matterName')}">&nbsp;</span> 
+								</div>	
+
+							 
+					            <div class="col-md-6 w-50 px-3 mb-2 mt-2">
+									<button type="submit" name="save" class="btn btn-success">
+										<i class="fas fa-check fa-lg me-1"></i>[[#{action-save}]]
+									</button>
+								</div>					
+							</form>							
+						</div>
+					</div>				
+				</div>
+			</div>
+		</div>	
+	</section>
+</html>
