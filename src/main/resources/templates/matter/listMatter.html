@@ -30,7 +30,7 @@ th:replace="layout/template :: children(~{::section}, #{title-matter}, #{list-ma
 										<td th:text="${matter.matterName}">Nombre de Materia</td> <!-- Celda de dato en la tabla -->	
 										 									
 										<td th:text="${matter.codeMatter}">Codigo de Materia</td> <!-- Celda de dato en la tabla -->
-										<td th:text="${matter.carreer.careerName}">Nombre de Carrera</td> <!-- Celda de dato en la tabla -->
+										<td th:text="${matter.career.careerName}">Nombre de Carrera</td> <!-- Celda de dato en la tabla -->
 										<td sec:authorize="hasRole ('ROLE_ADMIN')">
 											<a th:href="@{edit/} + ${matter.idMatter}" class="btn btn-dark"><i class="fa-solid fa-pen-to-square me-1"></i>[[#{action-edit}]]</a>
 										</td> <!-- TYPE: PATH VARIABLE ${class.idClass}-->	
