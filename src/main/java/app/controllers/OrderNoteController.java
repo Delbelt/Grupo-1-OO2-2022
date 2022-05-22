@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import app.entities.OrderNote; 
-import app.services.implementation.OrderNoteService; 
+import app.entities.OrderNote;
+import app.services.implementation.ClassroomService;
+import app.services.implementation.MatterService;
+import app.services.implementation.OrderNoteService;
+import app.services.implementation.TeacherService;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,9 +23,20 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/orderNote") // OrderNote route
 @Slf4j
 public class OrderNoteController {
+	
 	@Autowired(required=true)
 	private OrderNoteService orderNoteService;
 
+	@Autowired(required=true)
+	private ClassroomService classroomService;
+
+	@Autowired(required=true)
+	private MatterService matterService;
+
+	@Autowired(required=true)
+	private TeacherService teacherService;
+
+	
 	@GetMapping("/orderNotes")
 	public String OrderNotes(Model model)
 	{
@@ -42,18 +56,36 @@ public class OrderNoteController {
 	{		
 		log.info("CONTROLLER [OrderNote]"); // info console
 		log.debug("METHOD [addOrderNote]"); // details console
- 
+  
+		var listClassroom = classroomService.getAll(); // Agrego a la vista los edificios
+		model.addAttribute("listClassroom", listClassroom);
+		
+		var listMatter = matterService.getAll(); // Agrego a la vista los edificios
+		model.addAttribute("listMatter", listMatter);
+
+		var listTeacher = teacherService.getAll(); // Agrego a la vista los edificios
+		model.addAttribute("listTeacher", listTeacher);
+		 
 		return "orderNote/insert"; // go to: pagina de insertar o modificar (OrderNote)
 	}
 
 	@PostMapping("/addOrderNote")
-	public String saveOrderNote(@Valid OrderNote orderNote, Errors error) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addOrderNote}" method="post"
+	public String saveOrderNote(@Valid OrderNote orderNote, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addOrderNote}" method="post"
 	{		
 		log.info("CONTROLLER [OrderNote]"); 	// info console
 		log.debug("METHOD [saveOrderNote]");	// details console
 		
 		if(error.hasErrors()) // En caso de un error en las validaciones
 		{
+			var listClassroom = classroomService.getAll(); // Agrego a la vista los edificios
+			model.addAttribute("listClassroom", listClassroom);
+			
+			var listMatter = matterService.getAll(); // Agrego a la vista los edificios
+			model.addAttribute("listMatter", listMatter);
+
+			var listTeacher = teacherService.getAll(); // Agrego a la vista los edificios
+			model.addAttribute("listTeacher", listTeacher);
+			
 			return "orderNote/insert"; // Se queda en la pagina y muestra los errores
 		}
 		 
@@ -69,19 +101,37 @@ public class OrderNoteController {
 		log.info("CONTROLLER [OrderNote]");	// info console
 		log.debug("METHOD [editOrderNote]");	// details console
 		
+		var listClassroom = classroomService.getAll(); // Agrego a la vista los edificios
+		model.addAttribute("listClassroom", listClassroom);
+		
+		var listMatter = matterService.getAll(); // Agrego a la vista los edificios
+		model.addAttribute("listMatter", listMatter);
+
+		var listTeacher = teacherService.getAll(); // Agrego a la vista los edificios
+		model.addAttribute("listTeacher", listTeacher);
+		
 		model.addAttribute("orderNote", orderNoteService.findById(orderNote.getIdOrderNote())); // Necesario "instanciar" el objeto para ser mostrado en Thymeleaf
 
 		return "orderNote/modify"; // go to: pagina de insertar o modificar (role)
 	}
 	
 	@PostMapping("/editOrderNote")
-	public String editOrderNote(@Valid OrderNote orderNote, Errors error) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addOrderNote}" method="post"
+	public String editOrderNote(@Valid OrderNote orderNote, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addOrderNote}" method="post"
 	{		
 		log.info("CONTROLLER [OrderNote]"); 	// info console
 		log.debug("METHOD [editOrderNote]");	// details console
 		
 		if(error.hasErrors()) // En caso de un error en las validaciones
 		{
+			var listClassroom = classroomService.getAll(); // Agrego a la vista los edificios
+			model.addAttribute("listClassroom", listClassroom);
+			
+			var listMatter = matterService.getAll(); // Agrego a la vista los edificios
+			model.addAttribute("listMatter", listMatter);
+
+			var listTeacher = teacherService.getAll(); // Agrego a la vista los edificios
+			model.addAttribute("listTeacher", listTeacher);
+			
 			return "orderNote/modify"; // Se queda en la pagina y muestra los errores
 		}
 		 
