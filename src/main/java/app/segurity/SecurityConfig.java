@@ -30,12 +30,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception // Configura las auth (Concepto) a partir de los roles
 	{
 
-		String [] resourcesAdmin = new String[] {"/role/addRole/**", "/user/addUser/**", "/classroom/addLaboratory/**", 
-				"/classroom/addTraditional/**","/space/addSpace/**" ,"/role/edit/**", "/user/edit/**",
-				"/classroom/edit/**","/space/edit/**", "/role/delete", "/user/delete", "/classroom/delete",
-				"/space/delete"};
+		String [] resourcesAdmin = new String[] {
+				"/role/addRole/**", "/role/edit/**", "/role/delete", // Roles
+				"/user/addUser/**", "/user/edit/**", "/user/delete", // Usuarios
+				"/building/addBuilding/**", "/building/edit/**", "/building/delete", // Edificios
+				"/space/addSpace/**", "/space/edit/**", "/space/delete", // Espacios
+				"/classroom/edit/**", "/classroom/delete", // Aulas
+				"/classroom/addLaboratory/**", "/classroom/editLaboratory", // Aula: Laboratorio
+				"/classroom/addTraditional/**", "/classroom/editTraditional", // Aula: Tradicional
+				"/department/addDepartment/**", "/department/edit/**", "/department/delete", // Departamentos
+				"/career/addCareer/**", "/career/edit/**", "/career/delete", // Carreras
+				"/matter/addMatter/**", "/matter/edit/**", "/matter/delete", // Materias
+		};
 		
-		String [] resourcesAnyRole = new String[] {"/", "/user/users", "/role/roles", "/space/spaces","/classroom/clasrooms"};
+		String [] resourcesAnyRole = new String[] {
+				"/",
+				"/role/roles", // Roles
+				"/user/users",  // Usuarios
+				"building/buildings", // Edificios
+				"/space/spaces", // Espacio
+				"/classroom/clasrooms", "classroom/classroom/**", // Aulas
+				"/department/departments", // Departamentos
+				"/career/careers", // Carreras
+				"/matter/matters", // Materias
+		};
 
 		http
 		.authorizeHttpRequests()
@@ -43,13 +61,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.hasRole("ADMIN") // ↑↑ Quien puede acceder a estas rutas
 		.antMatchers(resourcesAnyRole) // Ingreso al inicio (publico)
 		.hasAnyRole("AUDIT", "ADMIN") // ↑↑ Cualquier Usuario
-		.and()
-		.formLogin() // Agrega el formulario de Login
-		.loginPage("/login").defaultSuccessUrl("/").failureUrl("/login?error=true") // Ruta de Login + a donde va si inicia sesion (home)
-		.and().logout().logoutUrl("/logout").logoutSuccessUrl("/logout") // Ruta de logout + a donde va cuando deslogea
-		.and().authorizeRequests().antMatchers("/logout").anonymous() // NO queremos que un usuario logeado acceda al logout si esta en sesion
-		.and().authorizeRequests().antMatchers("/login").anonymous() // NO queremos que un usuario logeado acceda al login
-		.and().exceptionHandling().accessDeniedPage("/error/403"); // Acceso Denegado - Ruta("/")	
+		.and().formLogin() // Agrega el formulario de Login
+		.loginPage("/login").defaultSuccessUrl("/").failureUrl("/login?error=true")  // Ruta de Login y en caso de credenciales invalidas
+		.and().logout().logoutUrl("/logout").logoutSuccessUrl("/logout?logout=true") // Ruta de logout + a donde va cuando deslogea correctamente
+		.deleteCookies("JSESSIONID") // Para borrar la sesion y no quede 'invalida' por defecto (para el tratamiento de expired e invalid correcto)
+		.and().authorizeRequests().antMatchers("/logout").anonymous() // NO queremos que un usuario logeado acceda al Logout si sigue en sesion
+		.and().authorizeRequests().antMatchers("/login").anonymous() // NO queremos que un usuario logeado acceda al Login si sigue en sesion
+		.and().exceptionHandling().accessDeniedPage("/error/403") // Pagina de Acceso Denegado		
+		.and().sessionManagement().invalidSessionUrl("/logout?expired=true") // Cuando pase el tiempo de inactividad
+		.maximumSessions(1).expiredUrl("/logout?maximum=true"); // Solamente puede haber 1 sesion activa por usuario
 	}
 	
 	public static String Encrypt(String password) // Encripta texto
