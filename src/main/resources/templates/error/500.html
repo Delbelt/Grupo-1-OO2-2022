@@ -2,6 +2,22 @@
 <html xmlns:th="htpp://www.thymeleaf.org" xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security"
 th:replace="layout/template :: children(~{::section}, #{error-500}, #{error-500})">
 	<section class="center">
-		<h2>ERROR al intentar acceder al servidor 500</h2>
+		<div class="container px-5 py-5 mt-5">
+			<div class="row">
+				<div class="col-md-12 center mt-5">
+					<div class="card mt-5">
+						<div class="card-header py-5 px-5">
+							<h2 class="fw-bold mb-2 text-uppercase">
+								<i class="fa-solid fa-triangle-exclamation"></i>
+								[[#{error-500}]]<i class="fa-solid fa-triangle-exclamation ms-2">
+								</i>
+							</h2>
+							<hr class="mx-5 my-3">
+							<h3 class="mt-3">[[#{error-500-message}]]</h3>												
+						</div>
+					</div>
+				</div>							
+			</div>						
+		</div>
 	</section>
 </html>
