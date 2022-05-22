@@ -10,54 +10,72 @@ xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security">
 			    	<span class="navbar-toggler-icon"></span>
 			    </button>
 			    
+			    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#session" aria-controls="session" aria-expanded="false" aria-label="Toggle navigation">
+			    	<span class="navbar-toggler-icon"></span>
+				</button>
+			    
 			    <div class="collapse navbar-collapse" id="navbarNav">
-			      <ul class="navbar-nav">
+			      <ul class="navbar-nav navbar-brand">
 			      
 			      	<!-- NO AUTENTIFICADOS -->
 					<li sec:authorize="!isAuthenticated()" class="nav-item pe-3">
 						<a th:href="@{/login}" class="link link-white"><i class="fa-solid fa-user-check me-1"></i>[[#{navbar-login}]]</a>						
 					</li>					
 					<li sec:authorize="!isAuthenticated()" class="nav-item pe-3">
-						<a th:href="@{/logout}" class="link link-white"><i class="fa-solid fa-book me-1"></i>[[#{navbar-register}]]</a>
+						<a th:href="@{/register}" class="link link-white"><i class="fa-solid fa-book me-1"></i>[[#{navbar-register}]]</a>
 					</li>
 						
 					<!-- AUTENTIFICADOS -->								
 					<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
 						<a th:href="@{/}" class="link link-white opacity-75"><i class="fa-solid fa-house me-1"></i>[[#{navbar-home}]]</a>						
-					</li>				
-					<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
-						<a th:href="@{/user/users}" class="link link-white"><i class="fa-solid fa-user-gear me-1"></i>[[#{navbar-users}]]</a>
-					</li>
-					<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
-						<a th:href="@{/role/roles}" class="link link-white"><i class="fa-solid fa-chess-queen me-1"></i>[[#{navbar-roles}]]</a>
-					</li>
-					<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
-						<a th:href="@{/building/buildings}" class="link link-white"><i class="fa-solid fa-school-flag me-1"></i>[[#{navbar-building}]]</a>
-					</li>
-					<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
-						<a th:href="@{/classroom/classrooms}" class="link link-white"><i class="fa-solid fa-chalkboard me-1"></i>[[#{navbar-classroom}]]</a>
-					</li>
-					<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
-						<a th:href="@{/space/spaces}" class="link link-white"><i class="fa-regular fa-calendar-check me-1"></i>[[#{navbar-space}]]</a>
-					</li>
-					<li>	
+					</li>					
+					
+					<li sec:authorize="isAuthenticated()" class="nav-item dropdown pe-3">
+			          <a class="link link-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">[[#{navbar-profile}]]</a>
+			          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
-						<a th:href="@{/matter/matters}" class="link link-white"><i class="fa-solid fa-book-open-reader me-1"></i>[[#{navbar-matter}]]</a>
-					</li> 
-					<li>
+							<a th:href="@{/user/users}" class="dropdown-item"><i class="fa-solid fa-user-gear me-1"></i>[[#{navbar-users}]]</a>
+						</li>
 						<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
-						<a th:href="@{/career/careers}" class="link link-white"><i class="fa-solid fa-user-graduate me-1"></i>[[#{navbar-career}]]</a>
-					</li>
-					<li>
+							<a th:href="@{/role/roles}" class="dropdown-item"><i class="fa-solid fa-chess-queen me-1"></i>[[#{navbar-roles}]]</a>
+						</li>
+			          </ul>
+        			</li>
+					<li sec:authorize="isAuthenticated()" class="nav-item dropdown pe-3">
+			          <a class="link link-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">[[#{navbar-orders}]]</a>
+			          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			            <li sec:authorize="isAuthenticated()" class="nav-item pe-3">
+							<a th:href="@{/space/spaces}" class="dropdown-item"><i class="fa-regular fa-calendar-check me-1"></i>[[#{navbar-space}]]</a>
+						</li>
 						<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
-						<a th:href="@{/department/departments}" class="link link-white"><i class="fa-solid fa-building-un me-1"></i>[[#{navbar-department}]]</a>
-					</li> 
+							<a th:href="@{/classroom/classrooms}" class="dropdown-item"><i class="fa-solid fa-chalkboard me-1"></i>[[#{navbar-classroom}]]</a>
+						</li>
+						<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
+							<a th:href="@{/building/buildings}" class="dropdown-item"><i class="fa-solid fa-school-flag me-1"></i>[[#{navbar-building}]]</a>
+						</li>						
+			          </ul>
+        			</li>
+        			
+        			<li sec:authorize="isAuthenticated()" class="nav-item dropdown pe-3">
+			          <a class="link link-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">[[#{navbar-admin}]]</a>
+			          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			            <li sec:authorize="isAuthenticated()" class="nav-item pe-3">
+							<a th:href="@{/department/departments}" class="dropdown-item"><i class="fa-solid fa-building-un me-1"></i>[[#{navbar-department}]]</a>
+						</li>
+						<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
+							<a th:href="@{/career/careers}" class="dropdown-item"><i class="fa-solid fa-user-graduate me-1"></i>[[#{navbar-career}]]</a>
+						</li>
+						<li sec:authorize="isAuthenticated()" class="nav-item pe-3">
+							<a th:href="@{/matter/matters}" class="dropdown-item"><i class="fa-solid fa-book-open-reader me-1"></i>[[#{navbar-matter}]]</a>
+						</li>	
+			          </ul>
+        			</li>
 			      </ul>
 			    </div>
 			</div>
 					
 			<div class="container-fluid">
-	           	<div class="collapse navbar-collapse" id="navbarNav">
+	           	<div class="collapse navbar-collapse" id="session">
 	               	<ul class="navbar-nav ms-auto mb-lg-1">                
 	               		<li sec:authorize="isAuthenticated()" class="nav-item me-3">
 							<a class="link" th:href="@{/user/user/} + ${#authentication.getPrincipal().username}">

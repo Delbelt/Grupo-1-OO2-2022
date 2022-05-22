@@ -42,6 +42,7 @@ th:replace="layout/template :: children(~{::section}, #{title-matter}, #{list-ma
 								</tbody>	
 							</table>						
 						</div>
+						<div class="text-center p-2 fw-bold mb-2 text-uppercase" th:if="${listMatter == null or listMatter.empty}"><hr><h2>[[#{list-empty}]]</h2></div>
 					</div>				
 				</div>
 			</div>

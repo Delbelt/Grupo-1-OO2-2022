@@ -35,6 +35,7 @@ th:replace="layout/template :: children(~{::section}, #{navbar-building}, #{list
 								</tbody>				
 							</table>						
 						</div>
+						<div class="text-center p-2 fw-bold mb-2 text-uppercase" th:if="${listBuilding == null or listBuilding.empty}"><hr><h2>[[#{list-empty}]]</h2></div>
 					</div>				
 				</div>
 			</div>
