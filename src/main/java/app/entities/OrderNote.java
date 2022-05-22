@@ -18,7 +18,6 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -46,8 +45,8 @@ public class OrderNote implements Serializable {
 	private String codCourse; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name = "date")
-	private LocalDate date;
+	@Column(name = "dateOrderNote")
+	private LocalDate dateOrderNote;
 
 	@ManyToOne(cascade = CascadeType.PERSIST) // Relation with Matter
 	@JoinColumn(name = "idMatter")

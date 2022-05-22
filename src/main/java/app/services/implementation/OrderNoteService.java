@@ -19,7 +19,7 @@ public class OrderNoteService implements IOrderNoteService {
 	@Override
 	@Transactional(readOnly = true) // no modifica la bd, solamente lectura
 	public OrderNote findById(int idOrderNote) {
-		return repository.findById(idOrderNote).orElse(null);
+		return repository.findById(idOrderNote);
 	}
 
 	@Override
