@@ -32,10 +32,8 @@ th:replace="layout/template :: children(~{::section}, #{classroom-laboratory-tit
 						</table>
 						
 						<div class="card-header center py-3">
-							<a th:href="@{/classroom/classrooms}" class="btn btn-warning mt-2 w-25"><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>														
-						</div>	
-						
-						
+							<a th:href="@{/building/building/} + ${classroom.building.idBuilding}" class="btn btn-warning mt-2 w-25"><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>														
+						</div>						
 					</div>
 				</div>
 			</div>

@@ -5,8 +5,7 @@ th:replace="layout/template :: children(~{::section}, #{navbar-building}, #{list
 		<div class="px-5 py-5 d-flex justify-content-center">		
 			<div class="col-md-6">				
 					<div class="card">
-						<div class="card-header">
-						
+						<div class="card-header">						
 						<h2 class="center"> [[#{navbar-building}]]
 							<i class="fa-solid fa-building fa-lg me-2"></i>[[#{total-size}]] [[${listBuilding.size()}]]
 							<a class="btn btn-primary" th:href="@{/building/addBuilding}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-plus fa-lg me-1"></i>[[#{building-add}]]</a>
@@ -16,6 +15,8 @@ th:replace="layout/template :: children(~{::section}, #{navbar-building}, #{list
 								<thead class="thead-dark">								
 									<tr> <!-- Fila de Tabla -->					
 										<th>[[#{building-name}]]</th> <!--Celda Encabezado de tabla (negrita) -->
+										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{building-classroom}]]</th>
+										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{building-add-space}]]</th>
 										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-edit}]]</th>
 										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-delete}]]</th>
 									</tr>
@@ -24,6 +25,12 @@ th:replace="layout/template :: children(~{::section}, #{navbar-building}, #{list
 								<tbody>								
 									<tr th:each="building : ${listBuilding}"> <!-- bucle fore que recorre la lista -->							
 										<td th:text="${building.buildingName}">Nombre del edificio</td> <!-- Celda de dato en la tabla -->
+										<td>			
+											<a th:href="@{building/} + ${building.idBuilding}" class="btn btn-info"><i class="fa-solid fa-magnifying-glass-plus me-1"></i>[[#{building-classroom-view}]]</a>
+										</td> <!-- NO AGREGA AUTORIZACION - TODOS PUEDEN VER EL OBJETO -->
+										<td>
+											<a th:href="@{/space/addSpace/} + ${building.buildingName} + '-' + ${building.idBuilding}" class="btn btn-info"><i class="fa-solid fa-magnifying-glass-plus me-1"></i>[[#{space-add}]]</a>
+										</td> <!-- NO AGREGA AUTORIZACION - TODOS PUEDEN VER EL OBJETO -->	
 										<td sec:authorize="hasRole ('ROLE_ADMIN')">
 											<a th:href="@{edit/} + ${building.idBuilding}" class="btn btn-dark"><i class="fa-solid fa-pen-to-square me-1"></i>[[#{action-edit}]]</a>
 										</td> <!-- TYPE: PATH VARIABLE ${class.idClass}-->	

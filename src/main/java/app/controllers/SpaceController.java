@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import app.entities.Building;
 import app.entities.Space;
 import app.services.implementation.ClassroomService;
 import app.services.implementation.SpaceService;
@@ -41,26 +42,26 @@ public class SpaceController {
 		return "space/listSpace";
 	}
 	
-	@GetMapping("/addSpace")
-	public String addSpace(Space space, Model model)
+	@GetMapping("/addSpace/{buildingName}-{idBuilding}")
+	public String addSpace(Space space, Model model, Building building)
 	{
 		log.info("CONTROLLER [SPACE]");	// info console
 		log.debug("METHOD [addSpace]");	// details console
 		
-		var listClassroom = classroomService.getAll();
-		model.addAttribute("listClassroom", listClassroom);
+		model.addAttribute("listClassroom", classroomService.findByBuilding_idBuilding(building.getIdBuilding()));
 		
 		return "space/insert"; // go to: pagina de insertar o modificar (space)
 	}
 	
-	@PostMapping("/addSpace")
-	public String saveSpace(@Valid Space space, Errors error) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addRole}" method="post"	
+	@PostMapping("/addSpace/{buildingName}-{idBuilding}")
+	public String saveSpace(@Valid Space space, Errors error, Model model, Building building) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addRole}" method="post"	
 	{		
 		log.info("CONTROLLER [SPACE]");	// info console
 		log.debug("METHOD [saveSpace]");	// details console
 		
 		if(error.hasErrors()) // En caso de un error en las validaciones
 		{
+			model.addAttribute("listClassroom", classroomService.findByBuilding_idBuilding(building.getIdBuilding()));
 			return "space/insert"; // Se queda en la pagina y muestra los errores
 		}
 		

@@ -28,11 +28,10 @@ public class Building implements Serializable {
 	private String buildingName; // no ingresar nombres en los atributos que sean iguales al nombre de la misma clase
 
 	@OneToMany(cascade=CascadeType.ALL)  // si se borra el edificio se borran las aulas automaticamente.
-	@JoinColumn(name="idClassroom")
+	@JoinColumn(name="idBuilding") // Importante el Join column sea de la tabla y NO de su relacion
 	private List<Classroom> classrooms ;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idBuilding;
-
 }

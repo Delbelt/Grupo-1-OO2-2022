@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import app.entities.Building; 
-import app.services.implementation.BuildingService; 
+import app.entities.Building;
+import app.services.implementation.BuildingService;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,13 +19,14 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/building") // Building route
 @Slf4j
 public class BuildingController {
+	
 	@Autowired(required=true)
 	private BuildingService buildingService;
 
 	@GetMapping("/buildings")
 	public String Buildings(Model model)
 	{
-		log.info("CONTROLLER [Building]"); 	// info console: Para no perder la pista del controlador (opcional)
+		log.info("CONTROLLER [BUILDING]"); 	// info console: Para no perder la pista del controlador (opcional)
 		log.debug("METHOD [Buildings]");	// details console: Para saber que metodo se esta ejecutando (opcional)
 		
 		var listBuilding = buildingService.getAll(); // var = Lombok		
@@ -36,10 +37,22 @@ public class BuildingController {
 		return "building/listBuilding";
 	}
 	
+	// Trae a la clase y sus aulas
+	@GetMapping("/building/{idBuilding}")
+	public String bringBuilding(Building building, Model model) { // Relaciona el Id con el parametro
+		
+		log.info("CONTROLLER [BUILDING]");		// info console
+		log.debug("METHOD [bringBuilding]");	// details console
+				
+		model.addAttribute("building", buildingService.findByIdAndClassrooms(building.getIdBuilding()));
+		
+		return "building/building";
+	}
+	
 	@GetMapping("/addBuilding")
 	public String addBuilding(Building building, Model model)
 	{		
-		log.info("CONTROLLER [Building]"); // info console
+		log.info("CONTROLLER [BUILDING]"); // info console
 		log.debug("METHOD [addBuilding]"); // details console
  
 		return "building/insert"; // go to: pagina de insertar o modificar (Building)

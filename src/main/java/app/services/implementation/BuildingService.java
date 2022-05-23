@@ -27,6 +27,13 @@ public class BuildingService  implements IBuildingService {
 	public List<Building> getAll() {
 		return repository.findAll();
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Building findByIdAndClassrooms(int idBuilding) {
+		
+		return repository.findByIdAndClassrooms(idBuilding);
+	}
 
 	@Override
 	@Transactional // modifica la BD: commit / rollback
@@ -48,5 +55,4 @@ public class BuildingService  implements IBuildingService {
 			return false;
 		}		
 	}
-
 }

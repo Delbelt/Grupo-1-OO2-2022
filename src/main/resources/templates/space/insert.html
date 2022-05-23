@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="htpp://www.thymeleaf.org" th:replace="layout/template :: children(~{::section}, #{space-add}, #{space-add})">
+<html xmlns:th="htpp://www.thymeleaf.org" th:replace="layout/template :: children(~{::section}, #{space-add}, #{space-add} + ': ' +${listClassroom.get(0).building.buildingName})">
 	<section class="mx-5 center">
 		<div class="px-5 py-5 d-flex justify-content-center">		
 			<div class="col-md-6">				
 				<div class="card">
 					<div class="card-header border">						
-						<div class=" d-flex justify-content-center px-5 py-1 form-group ">					
-							<form class="row g-6 justify-content-center align-items-center" th:action="@{/space/addSpace}" method="post" th:object="${space}">								
+						<div class=" d-flex justify-content-center px-5 py-1 form-group ">
+																	
+							<form class="row g-6 justify-content-center align-items-center" th:action="@{/space/addSpace/} + ${listClassroom.get(0).building.buildingName} + '-' + ${listClassroom.get(0).building.idBuilding}" method="post" th:object="${space}">								
 								<div class="col-md-6 w-50 px-3">
-									<a th:href="@{/space/spaces}" class="btn btn-warning mt-2" ><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>
+									<a th:href="@{/building/buildings}" class="btn btn-warning mt-2" ><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>
 								</div>
 								
 								<!-- th:field es la forma de comunicarse con: th:object -->
@@ -17,7 +18,7 @@
 								<input type="hidden" name="idSpace" th:field="*{idSpace}" class="col-md-6 w-50 px-5"/> <!-- hidden = Oculto a la vista -->
 								<!-- Se agrega este input IdClase para comunicar a Spring que el objeto ya esta instanciado en caso de una modificacion -->
 								<!-- Sin esto, supondria que es uno nuevo y volveria a agregarlo a la BD -->
-								
+																
 								<div class="col-md-8 px-3 mb-4 mt-3">
 									<label for="classroom" class="form-label form-control-lg mb-0">[[#{space-numberClassroom}]]</label>					
 									<select class="form-select center" id="classroom" th:field="*{classroom}" name="classroom">	

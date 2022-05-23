@@ -33,6 +33,4 @@ public class Career implements Serializable {
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="idDepartment")
 	private Department department;
-	
-	// 
 }

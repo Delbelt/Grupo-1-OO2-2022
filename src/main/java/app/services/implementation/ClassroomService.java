@@ -27,6 +27,12 @@ public class ClassroomService implements IClassroomService {
 	@Transactional(readOnly = true) // no modifica la bd, solamente lectura
 	public List<Classroom> getAll() {
 		return repository.findAll();
+	}	
+
+	@Override
+	@Transactional(readOnly = true) // no modifica la bd, solamente lectura
+	public List<Classroom> findByBuilding_idBuilding(int idBuilding) {
+		return repository.findByBuilding_idBuilding(idBuilding);
 	}
 
 	@Override

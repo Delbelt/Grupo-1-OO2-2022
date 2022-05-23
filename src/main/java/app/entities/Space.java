@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
@@ -30,7 +32,8 @@ public class Space implements Serializable {
 	@JoinColumn(name="idClassroom")
 	private Classroom classroom;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")	
 	@Column(name="date")
 	private LocalDate date;
 	

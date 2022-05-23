@@ -13,5 +13,6 @@ public interface IBuildingService {
 	public boolean insertOrUpdate(Building building);
 
 	public boolean remove(int idBuilding);
-
+	
+	public Building findByIdAndClassrooms(int idBuilding); // Trae el edificio y sus aulas
 }
