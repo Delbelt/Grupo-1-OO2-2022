@@ -115,4 +115,5 @@ public class SpaceController {
 		
 		return "redirect:/space/spaces"; // go to: home page
 	}
+	
 }

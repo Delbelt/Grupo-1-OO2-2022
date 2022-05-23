@@ -42,4 +42,16 @@ public class Space implements Serializable {
 	
 	@Column(name="shift")
 	private char shift;
+	
+	public Space() {
+		super();
+	}
+	
+	public Space(LocalDate date, char shift, Classroom classroom, boolean free) {
+		super();
+		this.date = date;
+		this.shift = shift;
+		this.classroom = classroom;
+		this.free = free;
+	}
 }
