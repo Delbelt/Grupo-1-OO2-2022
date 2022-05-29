@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="htpp://www.thymeleaf.org" xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security"
-th:replace="layout/template :: children(~{::section}, #{navbar-classroom}, #{list-classroom})">
+th:replace="layout/template :: children(~{::section}, #{navbar-orderNote}, #{list-orderNote})">
 	<section>
 		<div class="px-5 py-5 d-flex justify-content-center">		
-			<div class="col-md-6">				
+			<div class="col-md-12">				
 					<div class="card">
 						<div class="card-header">
-						<h2 class="center"> [[#{navbar-classroom}]]
-							<i class="fa-brands fa-dropbox fa-lg me-2"></i>[[#{total-size}]] [[${listOrderNote.size()}]]
-							<a class="btn btn-primary" th:href="@{/classroom/addLaboratory}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-plus fa-lg me-1"></i>[[#{classroom-laboratory-add}]]</a>
-							<a class="btn btn-primary" th:href="@{/classroom/addTraditional}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-plus fa-lg me-1"></i>[[#{classroom-traditional-add}]]</a>
+						<h2 class="center"> [[#{navbar-orderNote}]]
+							<i class="fa-solid fa-receipt fa-lg me-2"></i>[[#{total-size}]] [[${listOrderNote.size()}]]
+							<a class="btn btn-primary" th:href="@{/orderNote/addDayOrder}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-plus fa-lg me-1"></i>[[#{orderNote-day-add}]]</a>
+							<a class="btn btn-primary" th:href="@{/orderNote/addQuarterOrder}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-plus fa-lg me-1"></i>[[#{orderNote-quarter-add}]]</a>
 						</h2>
 						<div class="left px-5 me-0" th:if="${listOrderNote != null and ! listOrderNote.empty}"> <!-- CONDICION: LISTA DIFERENTE DE: NULL Y EMPTY -->						
 							<table class="table table-hover align-middle align-center"> <!-- TABLA -->	
 								<thead class="thead-dark">								
 									<tr> <!-- Fila de Tabla -->
-										<th>[[#{classroom-building}]]</th> <!--Celda Encabezado de tabla (negrita) -->
+										<th>[[#{orderNote-classroom}]]</th>
+										<th>[[#{orderNote-date}]]</th>
+										<th>[[#{orderNote-matter}]]</th>
+										<th>[[#{orderNote-teacher}]]</th>
+										<th>[[#{orderNote-cod-course}]]</th>
+										<th>[[#{orderNote-shift}]]</th>
+										<th>[[#{orderNote-quantity-student}]]</th>
 										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-bring}]]</th>
 										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-edit}]]</th>
 										<th sec:authorize="hasRole ('ROLE_ADMIN')">[[#{action-delete}]]</th>
 									</tr>
-								</thead>
-													
+								</thead>		
 								<tbody>									
 									<tr th:each="orderNote : ${listOrderNote}"> <!-- bucle fore que recorre la lista -->
-										<td th:text="${orderNote.idOrderNote}">Nombre del edificio</td>
-										
+										<td th:text="${orderNote.classroom.number}">Aula de la nota</td>
+										<td th:text="${orderNote.dateOrderNote}">Fecha de pedido</td>
+										<td th:text="${orderNote.matter.matterName}">Materia</td>
+										<td th:text="${orderNote.teacher.surname}">Profesor de la catedra</td>
+										<td th:text="${orderNote.codCourse}">Codigo del curso</td>
+										<td th:text="${orderNote.shift}">Turno</td>
+										<td th:text="${orderNote.quantityStudent}">Cantidad de estudiantes</td>
 										<td>			
 											<a th:href="@{orderNote/} + ${orderNote.idOrderNote}" class="btn btn-info"><i class="fa-solid fa-magnifying-glass-plus me-1"></i>[[#{action-bring}]]</a>
 										</td> <!-- NO AGREGA AUTORIZACION - TODOS PUEDEN VER EL OBJETO -->										

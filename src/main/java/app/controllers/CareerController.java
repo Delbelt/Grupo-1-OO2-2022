@@ -82,7 +82,6 @@ public class CareerController {
 		return "redirect:/career/careers"; // go to: home page
 	}	
 	
-
 	// Type: Path variable
 	@GetMapping("/edit/{idCareer}") // Al pasarle el parametro {idSpace} lo relaciona con el parametro de Space
 	public String editCareer(Career career, Model model) {		

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org" th:replace="layout/template :: children(~{::section}, #{orderNote-day-edit}, #{orderNote-day-edit})">
+	<section class="mx-5 center">
+		<div class="px-5 py-5 d-flex justify-content-center">		
+			<div class="col-md-6">				
+				<div class="card">
+					<div class="card-header border">
+						<div class=" d-flex justify-content-center px-5 py-1 form-group ">					
+							<form class="row g-6 justify-content-center align-items-center" th:action="@{/orderNote/editDayOrder}" method="post" th:object="${dayOrder}">								
+								<div class="col-md-6 w-50 px-3">
+									<a th:href="@{/orderNote/orderNotes}" class="btn btn-warning mt-2"><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>
+								</div>
+								
+								<!-- th:field es la forma de comunicarse con: th:object -->
+								<!-- ASTERISCO *{atributoClase} Sirve para seleccionar el atributo de th:object, tanto para leer como para modificar -->
+										
+								<input type="hidden" name="idOrderNote" th:field="*{idOrderNote}" class="col-md-6 w-50 px-5"/> <!-- hidden = Oculto a la vista -->
+								<!-- Se agrega este input IdClase para comunicar a Spring que el objeto ya esta instanciado en caso de una modificacion -->
+								<!-- Sin esto, supondria que es uno nuevo y volveria a agregarlo a la BD -->
+																		
+								<div class="col-md-8 px-3 mb-3 mt-0">
+									<label for="classroom" class="form-label form-control-lg mb-0">[[#{orderNote-classroom}]]</label>					
+									<select class="form-select center" id="classroom" th:field="*{classroom}" name="classroom">	
+										<option th:each="classroom : ${listClassroom}"
+											th:value="${(classroom.idClassroom)}" 
+											th:text="${classroom.number}">
+									</option>
+					            	</select>
+								</div>
+								
+								<div class="col-md-8 px-3 mb-3 mt-0">
+									<label for="matter" class="form-label form-control-lg mb-0">[[#{orderNote-matter}]]</label>					
+									<select class="form-select center" id="matter" th:field="*{matter}" name="matter">	
+										<option th:each="matter : ${listMatter}"
+											th:value="${(matter.idMatter)}" 
+											th:text="${matter.matterName}">
+									</option>
+					            	</select>
+								</div>
+								
+								<div class="col-md-8 px-3 mb-3 mt-0">
+									<label for="teacher" class="form-label form-control-lg mb-0">[[#{orderNote-teacher}]]</label>					
+									<select class="form-select center" id="teacher" th:field="*{teacher}" name="teacher">	
+										<option th:each="teacher : ${listTeacher}"
+											th:value="${(teacher.idTeacher)}" 
+											th:text="${teacher.surname}">
+									</option>
+					            	</select>
+								</div>
+								
+								<div class="col-md-8 px-3 mb-0">				
+									<label for="dateOrderNote" class="form-label form-control-lg mb-0">[[#{orderNote-date}]]</label>										
+									<input th:field="*{dateOrderNote}" name="dateOrderNote" autocomplete="off" type="date"
+									class="form-control" th:classappend="${#fields.hasErrors('dateOrderNote')} ? 'is-invalid' : ''"/>					
+									
+									<div class="invalid-feedback" th:errors="*{dateOrderNote}"></div><span th:if="${!#fields.hasErrors('dateOrderNote')}">&nbsp;</span> 
+								</div>
+								
+								<div class="col-md-8 px-3 mb-2">				
+									<label for="observation" class="form-label form-control-lg mb-0"> [[#{orderNote-observation}]]</label>										
+									<input th:field="*{observation}" name="observation" autocomplete="off" type="text"
+									class="form-control" th:classappend="${#fields.hasErrors('observation')} ? 'is-invalid' : ''"/>					
+									
+									<div class="invalid-feedback" th:errors="*{observation}"></div><span th:if="${!#fields.hasErrors('observation')}">&nbsp;</span> 
+								</div>								
+
+					            <div class="col-md-8 px-3 mt-3 mb-2">				
+									<label for="quantityStudent" class="form-label form-control-lg mb-0">[[#{orderNote-quantity-student}]]</label>										
+									<input th:field="*{quantityStudent}" name="number" autocomplete="off" type="text"
+									class="form-control" th:classappend="${#fields.hasErrors('quantityStudent')} ? 'is-invalid' : ''"/>					
+									
+									<div class="invalid-feedback" th:errors="*{quantityStudent}"></div><span th:if="${!#fields.hasErrors('quantityStudent')}">&nbsp;</span> 
+								</div>
+								
+								<div class="col-md-8 px-3">
+									<label for="shift" class="form-label form-control-lg mb-0">[[#{orderNote-shift}]]</label>					
+									<select class="form-select center" id="shift" th:field="*{shift}" name="shift">	
+										<option value="M">[[#{space-shift-m}]]</option>
+									    <option value="T">[[#{space-shift-t}]]</option>
+									    <option value="N">[[#{space-shift-n}]]</option>
+					            	</select>
+								</div>
+								
+								 <div class="col-md-8 px-3 mt-3 mb-2">				
+									<label for="codCourse" class="form-label form-control-lg mb-0">[[#{orderNote-cod-course}]]</label>										
+									<input th:field="*{codCourse}" name="text" autocomplete="off" type="text"
+									class="form-control" th:classappend="${#fields.hasErrors('codCourse')} ? 'is-invalid' : ''"/>					
+									
+									<div class="invalid-feedback" th:errors="*{codCourse}"></div><span th:if="${!#fields.hasErrors('codCourse')}">&nbsp;</span> 
+								</div>
+								
+								<div class="col-md-8 px-3">
+									<label for="type" class="form-label form-control-lg mb-0">[[#{orderNote-day-type}]]</label>					
+									<select class="form-select center" id="type" th:field="*{type}" name="type">	
+										<option th:value="#{[[#{orderNote-day-type-final}]]}">[[#{orderNote-day-type-final}]]</option>
+									    <option th:value="#{orderNote-day-type-partial}">[[#{orderNote-day-type-partial}]]</option>
+									    <option th:value="#{orderNote-day-type-workshop}">[[#{orderNote-day-type-workshop}]]</option>
+									    <option th:value="#{orderNote-day-type-class}">[[#{orderNote-day-type-class}]]</option>
+					            	</select>
+								</div>
+								
+								<div class="col-md-8 px-3 mb-0">				
+									<label for="date" class="form-label form-control-lg mb-0">[[#{orderNote-day-date}]]</label>										
+									<input th:field="*{date}" name="date" autocomplete="off" type="date"
+									class="form-control" th:classappend="${#fields.hasErrors('date')} ? 'is-invalid' : ''"/>					
+									
+									<div class="invalid-feedback" th:errors="*{date}"></div><span th:if="${!#fields.hasErrors('date')}">&nbsp;</span> 
+								</div>
+					            
+					            <div class="col-md-6 w-50 px-3 mb-2 mt-2">
+									<button type="submit" name="save" class="btn btn-success">
+										<i class="fas fa-check fa-lg me-1"></i>[[#{action-save}]]
+									</button>
+								</div>					
+							</form>							
+						</div>
+					</div>				
+				</div>
+			</div>
+		</div>	
+	</section>
+</html>

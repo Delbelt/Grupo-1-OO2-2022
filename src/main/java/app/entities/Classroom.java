@@ -37,9 +37,5 @@ public class Classroom implements Serializable { //Clase Padre
 	protected Building building;
 	
 	@Column(name="number")
-	protected int number;	
-	
-	
-	
-	
+	protected int number;
 }

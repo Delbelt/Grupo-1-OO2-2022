@@ -1,5 +1,6 @@
 package app.controllers;
 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,6 @@ import app.services.implementation.MatterService;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
- 
-
-
 @Controller
 @RequestMapping("/matter") // matter route
 @Slf4j
@@ -29,7 +27,7 @@ public class MatterController {
 	
 	@Autowired(required=true)
 	private CareerService careerService;
-	
+		
 	@GetMapping("/matters")
 	public String matters(Model model)
 	{

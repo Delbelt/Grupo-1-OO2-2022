@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org" xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security"
+th:replace="layout/template :: children(~{::section}, #{orderNote-quarter-title}, #{orderNote-quarter-title})">
+	<section>
+		<div class="container px-5 mt-3">		
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">	
+						<div class="card-header center py-3">
+							<h4 class="center"><i class="fa-solid fa-calendar-days fa-lg me-1"></i> [[#{orderNote-quarter-name}]]
+							</h4>
+						</div>		
+						
+						<table class="table align-middle align-center center">
+							<thead>									
+								<tr>
+									<th>[[#{orderNote-classroom}]]</th>
+									<th>[[#{orderNote-date}]]</th>
+									<th>[[#{orderNote-matter}]]</th>
+									<th>[[#{orderNote-teacher}]]</th>
+									<th>[[#{orderNote-cod-course}]]</th>
+									<th>[[#{orderNote-shift}]]</th>
+									<th>[[#{orderNote-quantity-student}]]</th>
+									<th>[[#{orderNote-observation}]]</th>
+									<th>[[#{orderNote-quarter-completeQuarter}]]</th>
+									<th>[[#{orderNote-quarter-dateFrom}]]</th>
+									<th>[[#{orderNote-quarter-dateTill}]]</th>
+									<th>[[#{orderNote-quarter-pairWeeks}]]</th>
+								</tr>
+							</thead>
+															
+							<tbody>
+								<tr>
+									<td th:text="${quarterOrder.classroom.number}">Aula de la nota</td>
+									<td th:text="${quarterOrder.dateOrderNote}">Fecha de pedido</td>
+									<td th:text="${quarterOrder.matter.matterName}">Materia</td>
+									<td th:text="${quarterOrder.teacher.surname}">Profesor de la catedra</td>
+									<td th:text="${quarterOrder.codCourse}">Codigo del curso</td>
+									<td th:text="${quarterOrder.shift}">Turno</td>
+									<td th:text="${quarterOrder.quantityStudent}">Cantidad de estudiantes</td>
+									<td th:text="${quarterOrder.observation}">Observacion</td>									
+									<td><input type="checkbox" th:field="${quarterOrder.completeQuarter}"class="form-check-input ms-1 m-2 p-2" disabled></td>	
+									<td th:text="${quarterOrder.dateFrom}">Fecha desde</td>
+									<td th:text="${quarterOrder.dateTill}">Fecha Hasta</td>
+									<td><input type="checkbox" th:field="${quarterOrder.pairWeeks}"class="form-check-input ms-1 m-2 p-2" disabled></td>																		
+								</tr>																	
+							</tbody>
+						</table>
+						
+						<div class="card-header center py-3">
+							<a th:href="@{/ordernote/ordernotes}" class="btn btn-warning mt-2 w-25"><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>														
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</html>

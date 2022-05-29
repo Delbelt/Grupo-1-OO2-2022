@@ -1,5 +1,6 @@
 package app.controllers;
 
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -8,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import app.entities.Building;
 import app.entities.Classroom;
 import app.entities.Laboratory;
 import app.entities.Traditional;
@@ -29,6 +32,12 @@ public class ClassroomController {
 
 	@Autowired(required=true)
 	private BuildingService buildingService;
+	
+	@ModelAttribute("listBuilding")
+	public List<Building> getMatter()
+	{		
+		return buildingService.getAll();
+	}
 	
 	@GetMapping("/classrooms")
 	public String classrooms(Model model)
@@ -69,16 +78,10 @@ public class ClassroomController {
 		{
 			model.addAttribute("laboratory", (Laboratory) verification);
 			
-			var listBuilding = buildingService.getAll(); // Agrego a la vista los edificios
-			model.addAttribute("listBuilding", listBuilding);
-			
 			return "classroom/modifyLaboratory";
 		}
 		
 		model.addAttribute("traditional", (Traditional) verification);
-		
-		var listBuilding = buildingService.getAll(); // Agrego a la vista los edificios
-		model.addAttribute("listBuilding", listBuilding);
 		
 		return "classroom/modifyTraditional"; 
 	}
@@ -110,9 +113,6 @@ public class ClassroomController {
 		log.info("CONTROLLER [CLASSROOM]"); // info console
 		log.debug("METHOD [addLaboratory]"); // details console
 		
-		var listBuilding = buildingService.getAll();
-		model.addAttribute("listBuilding", listBuilding);
-		
 		return "classroom/insertLaboratory"; // go to: pagina de insertar o modificar (user)
 	}
 	
@@ -140,9 +140,6 @@ public class ClassroomController {
 		
 		if(error.hasErrors()) // En caso de un error en las validaciones
 		{
-			var listBuilding = buildingService.getAll(); // Agrego a la vista los edificios
-			model.addAttribute("listBuilding", listBuilding);
-			
 			return "classroom/modifyLaboratory"; // Se queda en la pagina y muestra los errores
 		}
 		
@@ -158,9 +155,6 @@ public class ClassroomController {
 	{		
 		log.info("CONTROLLER [CLASSROOM]"); // info console
 		log.debug("METHOD [addTradional]"); // details console
-		
-		var listBuilding = buildingService.getAll();
-		model.addAttribute("listBuilding", listBuilding);
 		
 		return "classroom/insertTraditional"; // go to: pagina de insertar o modificar (Laboratory)
 	}
@@ -189,9 +183,6 @@ public class ClassroomController {
 		
 		if(error.hasErrors()) // En caso de un error en las validaciones
 		{
-			var listBuilding = buildingService.getAll(); // Agrego a la vista los edificios
-			model.addAttribute("listBuilding", listBuilding);
-			
 			return "classroom/modifyTraditional"; // Se queda en la pagina y muestra los errores
 		}
 		

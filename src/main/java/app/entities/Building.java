@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn; 
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -28,8 +28,8 @@ public class Building implements Serializable {
 	private String buildingName; // no ingresar nombres en los atributos que sean iguales al nombre de la misma clase
 
 	@OneToMany(cascade=CascadeType.ALL)  // si se borra el edificio se borran las aulas automaticamente.
-	@JoinColumn(name="idBuilding") // Importante el Join column sea de la tabla y NO de su relacion
-	private List<Classroom> classrooms ;
+	@JoinColumn(name="idBuilding")
+	private List<Classroom> classrooms;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
