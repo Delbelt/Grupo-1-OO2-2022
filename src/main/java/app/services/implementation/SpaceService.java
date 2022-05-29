@@ -84,6 +84,11 @@ public class SpaceService implements ISpaceService {
 	}
 	
 	@Override
+	public void fillQuarterProcedure(int year, int month)   {
+		repository.callFillQuarter(year, month);
+	}
+	
+	@Override
 	public Space find(LocalDate date, char shift, Classroom classroom) {
 		return repository.find(date, shift, classroom);
 	}

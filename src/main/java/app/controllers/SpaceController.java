@@ -38,7 +38,12 @@ public class SpaceController {
 		
 		// inyeccion Thymeleaf
 		model.addAttribute("listSpace", listSpace);
-		
+		try {
+			spaceService.fillQuarterProcedure(2023, 1);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());;
+		}
 		return "space/listSpace";
 	}
 	

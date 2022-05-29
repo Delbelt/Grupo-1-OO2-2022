@@ -21,4 +21,11 @@ public interface ISpaceRepository extends JpaRepository<Space, Integer> {
 	@Query("from Space s inner join fetch s.classroom c where s.date = (:date) and s.shift = (:shift) and "
 			+ "c.idClassroom = :#{#classroom.idClassroom}")
 	public Space find(LocalDate date, char shift, @Param("classroom") Classroom classroom);
+	
+	/*
+	 * Este store procedure carga todos los epsacioes libres para todas las clases por todos los turnos para todos los dias desde el mes pasado como parametro +4 meses 
+	 * */
+	@Query(value = "{call fillQuarter (:year, :month)} ", nativeQuery = true)
+	public void callFillQuarter( @Param("year") int year, @Param("month")int month);
+	
 }
