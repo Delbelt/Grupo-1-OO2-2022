@@ -1,5 +1,6 @@
 package app.services.implementation;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class OrderNoteService implements IOrderNoteService {
 	@Override
 	@Transactional // modifica la BD: commit / rollback
 	public boolean insertOrUpdate(OrderNote orderNote) {
+		
+		orderNote.setDateOrderNote(LocalDate.now());
+		
 		return repository.save(orderNote) != null ? true : false;
 	}
 

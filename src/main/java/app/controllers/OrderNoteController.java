@@ -87,12 +87,12 @@ public class OrderNoteController {
 				
 		if(verification instanceof Day)
 		{			
-			model.addAttribute("dayOrder", (Day) orderNoteService.findById(orderNote.getIdOrderNote())); // Necesario "instanciar" el objeto para ser mostrado en Thymeleaf
+			model.addAttribute("day", (Day) orderNoteService.findById(orderNote.getIdOrderNote())); // Necesario "instanciar" el objeto para ser mostrado en Thymeleaf
 
 			return "ordernote/modifyDayOrder"; // go to: pagina de insertar o modificar)
 		}
 		
-		model.addAttribute("quarterOrder", (Quarter) orderNoteService.findById(orderNote.getIdOrderNote())); // Necesario "instanciar" el objeto para ser mostrado en Thymeleaf
+		model.addAttribute("quarter", (Quarter) orderNoteService.findById(orderNote.getIdOrderNote())); // Necesario "instanciar" el objeto para ser mostrado en Thymeleaf
 
 		return "ordernote/modifyQuarterOrder"; // go to: pagina de insertar o modificar (role)
 	}
@@ -201,7 +201,7 @@ public class OrderNoteController {
 	@PostMapping("/editQuarterOrder")
 	public String editQuarterOrder(@Valid Quarter quarter, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addOrderNote}" method="post"
 	{		
-		log.info("CONTROLLER [OrderNote]"); 	// info console
+		log.info("CONTROLLER [ORDERNOTE]"); 	// info console
 		log.debug("METHOD [editQuarterOrder]");	// details console
 		
 		if(error.hasErrors()) // En caso de un error en las validaciones

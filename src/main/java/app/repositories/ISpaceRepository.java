@@ -1,6 +1,7 @@
 package app.repositories;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,5 +28,7 @@ public interface ISpaceRepository extends JpaRepository<Space, Integer> {
 	 * */
 	@Query(value = "{call fillQuarter (:year, :month)} ", nativeQuery = true)
 	public void callFillQuarter( @Param("year") int year, @Param("month")int month);
+	
+	public List<Space> findByFree(boolean free);
 	
 }

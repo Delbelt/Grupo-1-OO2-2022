@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import app.entities.Building;
 import app.entities.Space;
@@ -38,14 +39,21 @@ public class SpaceController {
 		
 		// inyeccion Thymeleaf
 		model.addAttribute("listSpace", listSpace);
-		try {
-			spaceService.fillQuarterProcedure(2023, 1);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());;
-		}
+
 		return "space/listSpace";
 	}
+	
+	@GetMapping(value = "spaces/search")
+	public String todosModelosPorMarca(@RequestParam(value = "free", required = true) boolean free, Model model)
+	{		
+		var listSpace = spaceService.findByFree(free); // var = Lombok
+		
+		// inyeccion Thymeleaf
+		model.addAttribute("listSpace", listSpace);
+		
+		return "space/listSpace";
+	}
+
 	
 	@GetMapping("/addSpace/{buildingName}-{idBuilding}")
 	public String addSpace(Space space, Model model, Building building)

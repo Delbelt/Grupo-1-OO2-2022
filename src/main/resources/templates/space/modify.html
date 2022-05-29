@@ -23,7 +23,7 @@
 									<select class="form-select center" id="classroom" th:field="*{classroom}" name="classroom">	
 										<option th:each="classroom : ${listClassroom}"
 											th:value="${(classroom.idClassroom)}" 
-											th:text="${classroom.number}">
+											th:text="${classroom.number} + ' ' + ${classroom.building.buildingName}">
 									</option>
 					            	</select>
 								</div>

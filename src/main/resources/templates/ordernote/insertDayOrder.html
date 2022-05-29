@@ -24,7 +24,7 @@
 									<select class="form-select center" id="classroom" th:field="*{classroom}" name="classroom">	
 										<option th:each="classroom : ${listClassroom}"
 											th:value="${(classroom.idClassroom)}" 
-											th:text="${classroom.number}">
+											th:text="${classroom.number} + ' ' + ${classroom.building.buildingName}">
 									</option>
 					            	</select>
 								</div>
@@ -47,14 +47,6 @@
 											th:text="${teacher.surname}">
 									</option>
 					            	</select>
-								</div>
-								
-								<div class="col-md-8 px-3 mb-0">				
-									<label for="dateOrderNote" class="form-label form-control-lg mb-0">[[#{orderNote-date}]]</label>										
-									<input th:field="*{dateOrderNote}" name="dateOrderNote" autocomplete="off" type="date"
-									class="form-control" th:classappend="${#fields.hasErrors('dateOrderNote')} ? 'is-invalid' : ''"/>					
-									
-									<div class="invalid-feedback" th:errors="*{dateOrderNote}"></div><span th:if="${!#fields.hasErrors('dateOrderNote')}">&nbsp;</span> 
 								</div>
 								
 								<div class="col-md-8 px-3 mb-2">				
@@ -93,7 +85,7 @@
 								<div class="col-md-8 px-3">
 									<label for="type" class="form-label form-control-lg mb-0">[[#{orderNote-day-type}]]</label>					
 									<select class="form-select center" id="type" th:field="*{type}" name="type">	
-										<option th:value="#{[[#{orderNote-day-type-final}]]}">[[#{orderNote-day-type-final}]]</option>
+										<option th:value="#{orderNote-day-type-final}">[[#{orderNote-day-type-final}]]</option>
 									    <option th:value="#{orderNote-day-type-partial}">[[#{orderNote-day-type-partial}]]</option>
 									    <option th:value="#{orderNote-day-type-workshop}">[[#{orderNote-day-type-workshop}]]</option>
 									    <option th:value="#{orderNote-day-type-class}">[[#{orderNote-day-type-class}]]</option>

@@ -23,7 +23,7 @@
 									<select class="form-select center" id="classroom" th:field="*{classroom}" name="classroom">	
 										<option th:each="classroom : ${listClassroom}"
 											th:value="${(classroom.idClassroom)}" 
-											th:text="${classroom.number}">
+											th:text="${classroom.number} + ' ' + ${classroom.building.buildingName}">
 									</option>
 					            	</select>
 								</div>
@@ -48,14 +48,6 @@
 					            	</select>
 								</div>
 								
-								<div class="col-md-8 px-3 mb-0">				
-									<label for="dateOrderNote" class="form-label form-control-lg mb-0">[[#{orderNote-date}]]</label>										
-									<input th:field="*{dateOrderNote}" name="dateOrderNote" autocomplete="off" type="date"
-									class="form-control" th:classappend="${#fields.hasErrors('dateOrderNote')} ? 'is-invalid' : ''"/>					
-									
-									<div class="invalid-feedback" th:errors="*{dateOrderNote}"></div><span th:if="${!#fields.hasErrors('dateOrderNote')}">&nbsp;</span> 
-								</div>
-								
 								<div class="col-md-8 px-3 mb-2">				
 									<label for="observation" class="form-label form-control-lg mb-0"> [[#{orderNote-observation}]]</label>										
 									<input th:field="*{observation}" name="observation" autocomplete="off" type="text"
@@ -64,7 +56,7 @@
 									<div class="invalid-feedback" th:errors="*{observation}"></div><span th:if="${!#fields.hasErrors('observation')}">&nbsp;</span> 
 								</div>								
 
-					            <div class="col-md-8 px-3 mt-3 mb-2">				
+					            <div class="col-md-8 px-3 mb-2">				
 									<label for="quantityStudent" class="form-label form-control-lg mb-0">[[#{orderNote-quantity-student}]]</label>										
 									<input th:field="*{quantityStudent}" name="number" autocomplete="off" type="text"
 									class="form-control" th:classappend="${#fields.hasErrors('quantityStudent')} ? 'is-invalid' : ''"/>					
@@ -94,6 +86,11 @@
 									<input type="checkbox" name="completeQuarter" th:field="*{completeQuarter}" autocomplete="off" th:value="false" class="form-check-input ms-1 m-2 p-2" id="completeQuarter"/> 				
 								</div>
 								
+								<div class="col-md-12 px-3 mt-3 mb-2">
+									<label for="pairWeeks" class="form-check-label form-control-lg mb-0 p-0">[[#{orderNote-quarter-pairWeeks}]]</label>
+									<input type="checkbox" name="pairWeeks" th:field="*{pairWeeks}" autocomplete="off" th:value="false" class="form-check-input ms-1 m-2 p-2" id="pairWeeks"/> 				
+								</div>
+								
 								<div class="col-md-8 px-3 mb-0">				
 									<label for="dateFrom" class="form-label form-control-lg mb-0">[[#{orderNote-quarter-dateFrom}]]</label>										
 									<input th:field="*{dateFrom}" name="dateFrom" autocomplete="off" type="date"
@@ -110,11 +107,6 @@
 									<div class="invalid-feedback" th:errors="*{dateTill}"></div><span th:if="${!#fields.hasErrors('dateTill')}">&nbsp;</span> 
 								</div>
 								
-								<div class="col-md-12 px-3 mt-3 mb-2">
-									<label for="pairWeeks" class="form-check-label form-control-lg mb-0 p-0">[[#{orderNote-quarter-pairWeeks}]]</label>
-									<input type="checkbox" name="pairWeeks" th:field="*{pairWeeks}" autocomplete="off" th:value="false" class="form-check-input ms-1 m-2 p-2" id="pairWeeks"/> 				
-								</div>
-
 					            <div class="col-md-6 w-50 px-3 mb-2 mt-2">
 									<button type="submit" name="save" class="btn btn-success">
 										<i class="fas fa-check fa-lg me-1"></i>[[#{action-save}]]

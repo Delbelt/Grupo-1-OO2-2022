@@ -6,11 +6,13 @@ th:replace="layout/template :: children(~{::section}, #{title-space}, #{list-spa
 			<div class="col-md-6">				
 					<div class="card">
 						<div class="card-header">
-						
 						<h2 class="center"> [[#{navbar-space}]]
 							<i class="fa-solid fa-calendar-days fa-lg me-2"></i>[[#{total-size}]] [[${listSpace.size()}]]
 							<a class="btn btn-primary" th:href="@{/building/buildings}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-plus fa-lg me-1"></i>[[#{space-add}]]</a>
+							<a class="btn btn-warning" th:href="@{/space/spaces/search?free=true}" sec:authorize="isAuthenticated()"><i class="fa-regular fa-circle fa-lg me-1"></i>[[#{space-free-true}]]</a>
+							<a class="btn btn-warning" th:href="@{/space/spaces/search?free=false}" sec:authorize="isAuthenticated()"><i class="fa-solid fa-circle fa-lg me-1"></i>[[#{space-free-false}]]</a>
 						</h2>
+						
 						<div class="left px-5 me-0" th:if="${listSpace != null and ! listSpace.empty}"> <!-- CONDICION: LISTA DIFERENTE DE: NULL Y EMPTY -->						
 							<table class="table table-hover align-middle align-center"> <!-- TABLA -->	
 								<thead class="thead-dark center">								

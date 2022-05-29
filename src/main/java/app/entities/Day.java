@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,8 +25,10 @@ public class Day extends OrderNote {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="date")
+	@NotNull
 	private LocalDate date;
 	
 	@Column(name = "type", columnDefinition = "varchar(30)")
+	@NotEmpty
 	private String type;
 }

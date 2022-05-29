@@ -92,4 +92,9 @@ public class SpaceService implements ISpaceService {
 	public Space find(LocalDate date, char shift, Classroom classroom) {
 		return repository.find(date, shift, classroom);
 	}
+
+	@Override
+	public List<Space> findByFree(boolean free) {
+		return repository.findByFree(free);
+	}
 }

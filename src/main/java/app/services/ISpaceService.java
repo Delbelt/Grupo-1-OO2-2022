@@ -27,4 +27,6 @@ public interface ISpaceService {
 	public void fillQuarterProcedure(int year, int month) throws Exception;
 	
 	public Space find(LocalDate date, char shift, @Param("classroom") Classroom classroom);
+	
+	public List<Space> findByFree(boolean free);
 }

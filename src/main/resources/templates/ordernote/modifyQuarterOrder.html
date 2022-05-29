@@ -6,7 +6,7 @@
 				<div class="card">
 					<div class="card-header border">	
 						<div class=" d-flex justify-content-center px-5 py-1 form-group ">					
-							<form class="row g-6 justify-content-center align-items-center" th:action="@{/orderNote/editQuarterOrder}" method="post" th:object="${quarterOrder}">								
+							<form class="row g-6 justify-content-center align-items-center" th:action="@{/orderNote/editQuarterOrder}" method="post" th:object="${quarter}">								
 								<div class="col-md-6 w-50 px-3">
 									<a th:href="@{/orderNote/orderNotes}" class="btn btn-warning mt-2"><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>
 								</div>
@@ -23,7 +23,7 @@
 									<select class="form-select center" id="classroom" th:field="*{classroom}" name="classroom">	
 										<option th:each="classroom : ${listClassroom}"
 											th:value="${(classroom.idClassroom)}" 
-											th:text="${classroom.number}">
+											th:text="${classroom.number} + ' ' + ${classroom.building.buildingName}">
 									</option>
 					            	</select>
 								</div>
@@ -46,14 +46,6 @@
 											th:text="${teacher.surname}">
 									</option>
 					            	</select>
-								</div>
-								
-								<div class="col-md-8 px-3 mb-0">				
-									<label for="dateOrderNote" class="form-label form-control-lg mb-0">[[#{orderNote-date}]]</label>										
-									<input th:field="*{dateOrderNote}" name="dateOrderNote" autocomplete="off" type="date"
-									class="form-control" th:classappend="${#fields.hasErrors('dateOrderNote')} ? 'is-invalid' : ''"/>					
-									
-									<div class="invalid-feedback" th:errors="*{dateOrderNote}"></div><span th:if="${!#fields.hasErrors('dateOrderNote')}">&nbsp;</span> 
 								</div>
 								
 								<div class="col-md-8 px-3 mb-2">				

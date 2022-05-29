@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,10 +27,12 @@ public class Quarter extends OrderNote { // No va el implements Serializable, ya
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="dateFrom") 
+	@NotNull
 	private LocalDate dateFrom;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="dateTill")
+	@NotNull
 	private LocalDate dateTill; 
 
 	@Column(name="pairWeeks")

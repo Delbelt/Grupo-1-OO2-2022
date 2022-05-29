@@ -34,36 +34,36 @@ public class OrderNote implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idOrderNote;
+	protected int idOrderNote;
 
 	@ManyToOne(cascade = CascadeType.PERSIST) // Relation with Classroom
 	@JoinColumn(name = "idClassroom")
-	private Classroom classroom; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
+	protected Classroom classroom; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
 
 	@Column(name = "codCourse")
 	@NotEmpty()
-	private String codCourse; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
+	protected String codCourse; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "dateOrderNote")
-	private LocalDate dateOrderNote;
+	protected LocalDate dateOrderNote;
 
 	@ManyToOne(cascade = CascadeType.PERSIST) // Relation with Matter
 	@JoinColumn(name = "idMatter")
-	private Matter matter; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
+	protected Matter matter; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
 
 	@Column(name = "observation", columnDefinition = "varchar(255)")
 	@NotEmpty()
-	private String observation; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
+	protected String observation; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
 
 	@Column(name = "quantityStudent")
-	private int quantityStudent;
+	protected int quantityStudent;
 
 	@Column(name = "shift")
-	private char shift;
+	protected char shift;
 
 	@ManyToOne(cascade = CascadeType.PERSIST) // Relation with Teacher
 	@JoinColumn(name = "idTeacher")
-	private Teacher teacher; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
+	protected Teacher teacher; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
 
 }
