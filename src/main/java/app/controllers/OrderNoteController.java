@@ -73,7 +73,7 @@ public class OrderNoteController {
 		// inyeccion Thymeleaf
 		model.addAttribute("listOrderNote", listOrderNote);
 		
-		return "orderNote/listOrderNote";
+		return "ordernote/listOrderNote";
 	}
 	
 	// Type: Path variable
@@ -152,7 +152,7 @@ public class OrderNoteController {
 		 
 		orderNoteService.insertOrUpdate(day); // En caso de que funcione agrega el rol
 		
-		return "redirect:/ordernote/ordernotes"; // go to: home page
+		return "redirect:/orderNote/orderNotes"; // go to: home page
 	}
 	
 	@PostMapping("/editDayOrder")
@@ -168,7 +168,7 @@ public class OrderNoteController {
 		 
 		orderNoteService.insertOrUpdate(day); // En caso de que funcione agrega el rol
 		
-		return "redirect:/ordernote/ordernotes"; // go to: home page
+		return "redirect:/orderNote/orderNotes"; // go to: home page
 	}
 	
 	// DAUGHTER CLASS: QUARTER
@@ -195,7 +195,7 @@ public class OrderNoteController {
 		 
 		orderNoteService.insertOrUpdate(quarter); // En caso de que funcione agrega el rol
 		
-		return "redirect:/ordernote/orderNotes"; // go to: home page
+		return "redirect:/orderNote/orderNotes"; // go to: home page
 	}
 	
 	@PostMapping("/editQuarterOrder")
@@ -211,6 +211,6 @@ public class OrderNoteController {
 		 
 		orderNoteService.insertOrUpdate(quarter); // En caso de que funcione agrega el rol
 		
-		return "redirect:/ordernote/ordernotes"; // go to: home page
+		return "redirect:/orderNote/orderNotes"; // go to: home page
 	}
 }
