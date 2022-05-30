@@ -11,11 +11,6 @@ import app.entities.Classroom;
 import app.entities.Space;
 
 public interface ISpaceRepository extends JpaRepository<Space, Integer> {
-	
-	// public boolean addSpace(LocalDate date, char shift, Classroom classroom, boolean free);
-	
-	// public void addSpaceMonth(int month, int year, char shift, Classroom classroom);
-	
 	// PRESTAR ATENCIÓN AL 'c.idClassroom = :#{#classroom.idClassroom}'. CUANDO EN LOS REPOSITORIOS
 	// QUIERO TRAER UN OBJETO PASANDO COMO ARGUMENTO OTRO OBJETO, DEBO RESPETAR LA SINTAXIS DE LA QUERY
 	// Y COLOCAR EL @Param("objetoArgumento") EN EL MÉTODO
@@ -30,5 +25,4 @@ public interface ISpaceRepository extends JpaRepository<Space, Integer> {
 	public void callFillQuarter( @Param("year") int year, @Param("month")int month);
 	
 	public List<Space> findByFree(boolean free);
-	
 }
