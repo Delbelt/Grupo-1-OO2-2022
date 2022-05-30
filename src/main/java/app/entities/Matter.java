@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -24,21 +25,17 @@ public class Matter implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idMatter; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
-							// clase
-
-	@Column(name = "codeMatter")
-	@NotEmpty()
-	private int codeMatter; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
-							// clase
-
-	@Column(name = "matterName", columnDefinition = "varchar(60)")
-	@NotEmpty()
-	private String matterName; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
-								// clase
-
+	private int idMatter; // no ingresar nombres en los atributos que sean iguales al nombre de la misma clase
+	
 	@ManyToOne(cascade = CascadeType.PERSIST) // si se borra el edificio se borran las aulas automaticamente.
 	@JoinColumn(name = "idCareer")
 	private Career career;
-
+	
+	@Column(name = "codeMatter")
+	@NotNull()
+	private int codeMatter; // no ingresar nombres en los atributos que sean iguales al nombre de la misma clase
+							
+	@Column(name = "matterName", columnDefinition = "varchar(60)")
+	@NotEmpty()
+	private String matterName; // no ingresar nombres en los atributos que sean iguales al nombre de la misma clase
 }

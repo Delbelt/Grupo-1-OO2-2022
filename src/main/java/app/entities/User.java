@@ -68,14 +68,4 @@ public class User implements Serializable {
 	@Size(min=4, max=20)
 	@Column(name="userName")
 	private String userName; // Example: unlaUser
-	
-	/* TODO add validations and exceptions:
-	 * document: length 8
-	 * email: mail format
-	 * name: length between 2 to 25 characters
-	 * password: Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character
-	 * surname: length between 2 to 30 characters
-	 * type: length between 2 to 60 characters
-	 * userName: length between 4 to 20 characters
-	 * */
 }

@@ -15,7 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
@@ -46,6 +48,7 @@ public class OrderNote implements Serializable {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "dateOrderNote")
+	@NotNull()
 	protected LocalDate dateOrderNote;
 
 	@ManyToOne(cascade = CascadeType.PERSIST) // Relation with Matter
@@ -56,6 +59,7 @@ public class OrderNote implements Serializable {
 	@NotEmpty()
 	protected String observation; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
 
+	@Range(min = 1, max = 300)
 	@Column(name = "quantityStudent")
 	protected int quantityStudent;
 
@@ -65,5 +69,4 @@ public class OrderNote implements Serializable {
 	@ManyToOne(cascade = CascadeType.PERSIST) // Relation with Teacher
 	@JoinColumn(name = "idTeacher")
 	protected Teacher teacher; // no ingresar nombres en los atributos que sean iguales al nombre de la misma
-
 }

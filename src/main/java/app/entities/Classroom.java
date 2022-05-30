@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Range;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,5 +39,7 @@ public class Classroom implements Serializable { //Clase Padre
 	protected Building building;
 	
 	@Column(name="number")
+	@Range(min = 1, max = 100)
 	protected int number;
+	
 }
