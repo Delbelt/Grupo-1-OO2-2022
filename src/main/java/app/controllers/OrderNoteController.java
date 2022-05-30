@@ -23,6 +23,7 @@ import app.entities.Teacher;
 import app.services.implementation.ClassroomService;
 import app.services.implementation.MatterService;
 import app.services.implementation.OrderNoteService;
+import app.services.implementation.SpaceService;
 import app.services.implementation.TeacherService;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +44,9 @@ public class OrderNoteController {
 
 	@Autowired(required=true)
 	private TeacherService teacherService;
+	
+	@Autowired(required=true)
+	private SpaceService spaceService;
 	
 	@ModelAttribute("listMatter")
 	public List<Matter> getMatter()
@@ -149,8 +153,15 @@ public class OrderNoteController {
 		{			
 			return "ordernote/insertDayOrder"; // Se queda en la pagina y muestra los errores
 		}
-		 
-		orderNoteService.insertOrUpdate(day); // En caso de que funcione agrega el rol
+		
+		try {
+			spaceService.changeSpace(day.getDate(), day.getShift(), day.getClassroom());
+			orderNoteService.insertOrUpdate(day);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		// orderNoteService.insertOrUpdate(day); // En caso de que funcione agrega el rol
 		
 		return "redirect:/orderNote/orderNotes"; // go to: home page
 	}
@@ -192,7 +203,9 @@ public class OrderNoteController {
 		{
 			return "ordernote/insertQuarterOrder"; // Se queda en la pagina y muestra los errores
 		}
-		 
+		
+		spaceService.changeSpaceQuarter(quarter);
+		
 		orderNoteService.insertOrUpdate(quarter); // En caso de que funcione agrega el rol
 		
 		return "redirect:/orderNote/orderNotes"; // go to: home page
