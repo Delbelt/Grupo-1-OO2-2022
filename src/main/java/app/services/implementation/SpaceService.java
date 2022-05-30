@@ -1,6 +1,7 @@
 package app.services.implementation;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoField;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import app.entities.Classroom;
+import app.entities.Quarter;
 import app.entities.Space;
 import app.repositories.IClassroomRepository;
 import app.repositories.ISpaceRepository;
@@ -96,5 +98,44 @@ public class SpaceService implements ISpaceService {
 	@Override
 	public List<Space> findByFree(boolean free) {
 		return repository.findByFree(free);
+	}
+
+	// Método auxiliar
+	private int numberOfWeek(LocalDate date) {
+		return date.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
+	}
+	
+	@Override
+	public void changeSpace(LocalDate date, char shift, Classroom classroom) throws Exception {
+		Space space = repository.find(date, shift, classroom);
+		if(space == null) {
+			throw new Exception("El espacio no existe");
+		}
+		space.setFree(!space.isFree());
+		this.insertOrUpdate(space);
+	}
+	
+	public void changeSpaceQuarter(Quarter quarter) {
+		LocalDate date = quarter.getDateFrom();
+		while(date.isBefore(quarter.getDateTill().plusDays(1))) {
+			try {
+				if(date.getDayOfWeek().getValue() == quarter.getDayOfWeek()) {
+					if(quarter.getCourseType().equalsIgnoreCase("quarter")) {
+						this.changeSpace(date, quarter.getShift(), quarter.getClassroom());
+					} else {
+						// Si es semana par y el número de semana es par
+						if(quarter.getCourseType().equalsIgnoreCase("pairWeeks") && this.numberOfWeek(date)%2==0) {
+							this.changeSpace(date, quarter.getShift(), quarter.getClassroom());
+						// Si es semana impar y el número de semana es impar
+						} else if(quarter.getCourseType().equalsIgnoreCase("oddWeeks") && this.numberOfWeek(date)%2==1) {
+							this.changeSpace(date, quarter.getShift(), quarter.getClassroom());
+						}
+					}
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			date = date.plusDays(1);
+		}
 	}
 }

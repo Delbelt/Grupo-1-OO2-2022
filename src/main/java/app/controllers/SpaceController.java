@@ -36,7 +36,13 @@ public class SpaceController {
 		log.debug("METHOD [spaces]");	// details console: Para saber que metodo se esta ejecutando (opcional)
 		
 		var listSpace = spaceService.getAll(); // var = Lombok
-		
+		/*
+		try {
+			spaceService.fillQuarter();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		*/
 		// inyeccion Thymeleaf
 		model.addAttribute("listSpace", listSpace);
 

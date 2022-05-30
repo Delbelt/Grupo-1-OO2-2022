@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.repository.query.Param;
 
 import app.entities.Classroom;
+import app.entities.Quarter;
 import app.entities.Space;
 
 public interface ISpaceService {
@@ -29,4 +30,8 @@ public interface ISpaceService {
 	public Space find(LocalDate date, char shift, @Param("classroom") Classroom classroom);
 	
 	public List<Space> findByFree(boolean free);
+	
+	public void changeSpace(LocalDate date, char shift, Classroom classroom) throws Exception;
+
+	public void changeSpaceQuarter(Quarter quarter);
 }
