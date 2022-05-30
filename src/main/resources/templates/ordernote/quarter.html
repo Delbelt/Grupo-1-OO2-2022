@@ -22,10 +22,10 @@ th:replace="layout/template :: children(~{::section}, #{orderNote-quarter-title}
 									<th>[[#{orderNote-shift}]]</th>
 									<th>[[#{orderNote-quantity-student}]]</th>
 									<th>[[#{orderNote-observation}]]</th>
-									<th>[[#{orderNote-quarter-completeQuarter}]]</th>
+									<th>Tipo de cursada</th>
 									<th>[[#{orderNote-quarter-dateFrom}]]</th>
 									<th>[[#{orderNote-quarter-dateTill}]]</th>
-									<th>[[#{orderNote-quarter-pairWeeks}]]</th>
+									<th>Dia de la semana</th>
 								</tr>
 							</thead>
 															
@@ -39,10 +39,10 @@ th:replace="layout/template :: children(~{::section}, #{orderNote-quarter-title}
 									<td th:text="${quarterOrder.shift}">Turno</td>
 									<td th:text="${quarterOrder.quantityStudent}">Cantidad de estudiantes</td>
 									<td th:text="${quarterOrder.observation}">Observacion</td>									
-									<td><input type="checkbox" th:field="${quarterOrder.completeQuarter}"class="form-check-input ms-1 m-2 p-2" disabled></td>	
+									<td th:text="${quarterOrder.courseType}">Tipo de cursada</td>	
 									<td th:text="${quarterOrder.dateFrom}">Fecha desde</td>
 									<td th:text="${quarterOrder.dateTill}">Fecha Hasta</td>
-									<td><input type="checkbox" th:field="${quarterOrder.pairWeeks}"class="form-check-input ms-1 m-2 p-2" disabled></td>																		
+									<td th:text="${quarterOrder.dayOfWeek}">Dia de la semana</td>																		
 								</tr>																	
 							</tbody>
 						</table>

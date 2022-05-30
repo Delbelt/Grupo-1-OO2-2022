@@ -26,7 +26,7 @@ th:replace="layout/template :: children(~{::section}, #{navbar-building}, #{list
 									<tr th:each="building : ${listBuilding}"> <!-- bucle fore que recorre la lista -->							
 										<td th:text="${building.buildingName}">Nombre del edificio</td> <!-- Celda de dato en la tabla -->
 										<td>			
-											<a th:href="@{building/} + ${building.idBuilding}" class="btn btn-info"><i class="fa-solid fa-magnifying-glass-plus me-1"></i>[[#{building-classroom-view}]]</a>
+											<a th:href="@{classrooms/} + ${building.idBuilding}" class="btn btn-info"><i class="fa-solid fa-magnifying-glass-plus me-1"></i>[[#{building-classroom-view}]]</a>
 										</td> <!-- NO AGREGA AUTORIZACION - TODOS PUEDEN VER EL OBJETO -->
 										<td>
 											<a th:href="@{/space/addSpace/} + ${building.buildingName} + '-' + ${building.idBuilding}" class="btn btn-info"><i class="fa-solid fa-magnifying-glass-plus me-1"></i>[[#{space-add}]]</a>

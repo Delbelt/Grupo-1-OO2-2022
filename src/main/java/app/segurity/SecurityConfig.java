@@ -41,6 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				"/department/addDepartment/**", "/department/edit/**", "/department/delete", // Departamentos
 				"/career/addCareer/**", "/career/edit/**", "/career/delete", // Carreras
 				"/matter/addMatter/**", "/matter/edit/**", "/matter/delete", // Materias
+				"/orderNote/edit/**", "/orderNote/delete", // NotaPedido
+				"/orderNote/addQuarterOrder/**", "/orderNote/editQuarterOrder", // NotaPedido: Cuatrimestre
+				"/orderNote/addDayOrder/**", "/orderNote/editDayOrder", // NotaPedido: Por dia
 		};
 		
 		String [] resourcesAnyRole = new String[] {
@@ -53,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				"/department/departments", // Departamentos
 				"/career/careers", // Carreras
 				"/matter/matters", // Materias
+				"/orderNote/orderNotes", "orderNote/orderNote/**", // Nota Pedido
 		};
 
 		http

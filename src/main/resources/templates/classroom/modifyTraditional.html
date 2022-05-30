@@ -6,9 +6,9 @@
 				<div class="card">
 					<div class="card-header border">						
 						<div class=" d-flex justify-content-center px-5 py-1 form-group ">					
-							<form class="row g-6 justify-content-center align-items-center" th:action="@{/classroom/editTraditional}" method="post" th:object="${traditional}">								
+							<form class="row g-6 justify-content-center align-items-center" th:action="@{/classroom/editTraditional/} + *{building.idBuilding}" method="post" th:object="${traditional}">								
 								<div class="col-md-6 w-50 px-3">
-									<a th:href="@{/classroom/classrooms}" class="btn btn-warning mt-2"><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>
+									<a th:href="@{/building/classrooms/} + *{building.idBuilding}" class="btn btn-warning mt-2"><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>
 								</div>
 								
 								<!-- th:field es la forma de comunicarse con: th:object -->
