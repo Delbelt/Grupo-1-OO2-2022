@@ -27,10 +27,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ClassroomController {
 	
-	@Autowired(required=true)
+	@Autowired
 	private ClassroomService classroomService;
 
-	@Autowired(required=true)
+	@Autowired
 	private BuildingService buildingService;
 	
 	@ModelAttribute("listBuilding")
@@ -59,10 +59,13 @@ public class ClassroomController {
 		log.info("CONTROLLER [CLASSROOM]");		// info console
 		log.debug("METHOD [deleteClassroom]");	// details console
 		
-		classroomService.remove(classroom.getIdClassroom()); // remueve el rol
+		// Para redireccionar a la view correspondiente, caso contrario sale como null y no se puede acceder
+		int idBuilding = classroomService.findById(classroom.getIdClassroom()).getBuilding().getIdBuilding();			
 		
-		return "redirect:/classroom/classrooms"; // go to: home page
-	}	
+		classroomService.remove(classroom.getIdClassroom()); // remueve el aula
+		
+		return "redirect:/building/classrooms/" + idBuilding; // go to: home page
+	}
 	
 	// Type: Path variable
 	@GetMapping("/edit/{idClassroom}") // Al pasarle el parametro {idClassroom} lo relaciona con el parametro de classroom
@@ -107,8 +110,8 @@ public class ClassroomController {
 	
 	// DAUGHTER CLASS: Laboratory
 	
-	@GetMapping("/addLaboratory")
-	public String addLaboratory(Laboratory laboratory, Model model)
+	@GetMapping("/addLaboratory/{idBuilding}")
+	public String addLaboratory(Laboratory laboratory, Model model, Building building)
 	{		
 		log.info("CONTROLLER [CLASSROOM]"); // info console
 		log.debug("METHOD [addLaboratory]"); // details console
@@ -116,8 +119,8 @@ public class ClassroomController {
 		return "classroom/insertLaboratory"; // go to: pagina de insertar o modificar (user)
 	}
 	
-	@PostMapping("/addLaboratory")
-	public String saveLaboratory(@Valid Laboratory laboratory, Errors error) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
+	@PostMapping("/addLaboratory/{idBuilding}")
+	public String saveLaboratory(@Valid Laboratory laboratory, Errors error, Building building) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
 	{		
 		log.info("CONTROLLER [CLASSROOM]"); 	// info console
 		log.debug("METHOD [saveLaboratory]");	// details console
@@ -129,11 +132,11 @@ public class ClassroomController {
 		
 		classroomService.insertOrUpdate(laboratory); // En caso de que funcione agrega el rol     
 		
-		return "redirect:/classroom/classrooms"; // go to: home page
+		return "redirect:/building/classrooms/{idBuilding}"; // go to: home page
 	}
 	
-	@PostMapping("/editLaboratory")
-	public String editLaboratory(@Valid Laboratory laboratory, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
+	@PostMapping("/editLaboratory/{idBuilding}")
+	public String editLaboratory(@Valid Laboratory laboratory, Errors error, Model model, Building building) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
 	{		
 		log.info("CONTROLLER [CLASSROOM]"); 	// info console
 		log.debug("METHOD [editLaboratory]");	// details console
@@ -145,13 +148,13 @@ public class ClassroomController {
 		
 		classroomService.insertOrUpdate(laboratory); // En caso de que funcione agrega el rol     
 		
-		return "redirect:/classroom/classrooms"; // go to: home page
+		return "redirect:/building/classrooms/{idBuilding}"; // go to: home page
 	}
 	
 	// DAUGHTER CLASS: Traditional
 	
-	@GetMapping("/addTraditional")
-	public String addTradional(Traditional traditional, Model model)
+	@GetMapping("/addTraditional/{idBuilding}")
+	public String addTradional(Traditional traditional, Model model, Building building)
 	{		
 		log.info("CONTROLLER [CLASSROOM]"); // info console
 		log.debug("METHOD [addTradional]"); // details console
@@ -159,8 +162,8 @@ public class ClassroomController {
 		return "classroom/insertTraditional"; // go to: pagina de insertar o modificar (Laboratory)
 	}
 	
-	@PostMapping("/addTraditional")
-	public String addTradional(@Valid Traditional traditional, Errors error) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
+	@PostMapping("/addTraditional/{idBuilding}")
+	public String addTradional(@Valid Traditional traditional, Errors error, Building building) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
 	{		
 		log.info("CONTROLLER [CLASSROOM]"); 	// info console
 		log.debug("METHOD [addTradional]");	// details console
@@ -175,8 +178,8 @@ public class ClassroomController {
 		return "redirect:/classroom/classrooms"; // go to: home page
 	}
 	
-	@PostMapping("/editTraditional")
-	public String editTradional(@Valid Traditional traditional, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
+	@PostMapping("/editTraditional/{idBuilding}")
+	public String editTradional(@Valid Traditional traditional, Errors error, Model model, Building building) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
 	{		
 		log.info("CONTROLLER [CLASSROOM]"); 	// info console
 		log.debug("METHOD [editTradional]");	// details console
@@ -188,6 +191,6 @@ public class ClassroomController {
 		
 		classroomService.insertOrUpdate(traditional); // En caso de que funcione agrega el aula tradicional
 		
-		return "redirect:/classroom/classrooms"; // go to: home page
+		return "redirect:/building/classrooms/{idBuilding}"; // go to: home page
 	}	
 }

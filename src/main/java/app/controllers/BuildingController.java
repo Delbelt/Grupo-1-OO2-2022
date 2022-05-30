@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BuildingController {
 	
-	@Autowired(required=true)
+	@Autowired
 	private BuildingService buildingService;
 
 	@GetMapping("/buildings")
@@ -38,7 +38,7 @@ public class BuildingController {
 	}
 	
 	// Trae a la clase y sus aulas
-	@GetMapping("/building/{idBuilding}")
+	@GetMapping("/classrooms/{idBuilding}")
 	public String bringBuilding(Building building, Model model) { // Relaciona el Id con el parametro
 		
 		log.info("CONTROLLER [BUILDING]");		// info console

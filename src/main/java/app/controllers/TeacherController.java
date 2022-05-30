@@ -20,7 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/teacher") // Teacher route
 @Slf4j
 public class TeacherController {
-	@Autowired(required=true)
+	
+	@Autowired
 	private TeacherService teacherService;
 
 	@GetMapping("/teachers")

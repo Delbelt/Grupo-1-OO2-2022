@@ -33,19 +33,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OrderNoteController {
 	
-	@Autowired(required=true)
+	@Autowired
 	private OrderNoteService orderNoteService;
 
-	@Autowired(required=true)
+	@Autowired
 	private ClassroomService classroomService;
 
-	@Autowired(required=true)
+	@Autowired
 	private MatterService matterService;
 
-	@Autowired(required=true)
+	@Autowired
 	private TeacherService teacherService;
 	
-	@Autowired(required=true)
+	@Autowired
 	private SpaceService spaceService;
 	
 	@ModelAttribute("listMatter")
@@ -154,14 +154,15 @@ public class OrderNoteController {
 			return "ordernote/insertDayOrder"; // Se queda en la pagina y muestra los errores
 		}
 		
-		try {
+		try
+		{			
+			orderNoteService.insertOrUpdate(day);			
 			spaceService.changeSpace(day.getDate(), day.getShift(), day.getClassroom());
-			orderNoteService.insertOrUpdate(day);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
-		
-		// orderNoteService.insertOrUpdate(day); // En caso de que funcione agrega el rol
+		catch (Exception e)
+		{
+			return "ordernote/insertDayOrder";
+		}				
 		
 		return "redirect:/orderNote/orderNotes"; // go to: home page
 	}

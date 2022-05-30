@@ -22,10 +22,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MatterController {
 	
-	@Autowired(required=true)
+	@Autowired
 	private MatterService matterService;
 	
-	@Autowired(required=true)
+	@Autowired
 	private CareerService careerService;
 		
 	@GetMapping("/matters")

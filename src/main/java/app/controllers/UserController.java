@@ -21,10 +21,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserController {
 	
-	@Autowired(required=true)
+	@Autowired
 	private UserService userService;
 	
-	@Autowired(required=true)
+	@Autowired
 	private UserRoleService roleService; // Necesario para "elegir" los roles
 	
 	@GetMapping("/users")

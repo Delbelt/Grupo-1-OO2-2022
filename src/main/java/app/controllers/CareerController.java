@@ -21,10 +21,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CareerController {
 
-	@Autowired(required=true)
+	@Autowired
 	private CareerService careerService;
 
-	@Autowired(required=true)
+	@Autowired
 	private DepartmentService departmentService;
 	
 	@GetMapping("/careers")
