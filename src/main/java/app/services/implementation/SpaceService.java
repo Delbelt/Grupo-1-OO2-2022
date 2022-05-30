@@ -107,34 +107,52 @@ public class SpaceService implements ISpaceService {
 	
 	@Override
 	public void changeSpace(LocalDate date, char shift, Classroom classroom) throws Exception {
+		
 		Space space = repository.find(date, shift, classroom);
-		if(space == null) {
-			throw new Exception("El espacio no existe");
-		}
+		
+		if(space == null) throw new Exception("El espacio no existe");
+		
 		space.setFree(!space.isFree());
 		this.insertOrUpdate(space);
 	}
 	
-	public void changeSpaceQuarter(Quarter quarter) {
+	public void changeSpaceQuarter(Quarter quarter)
+	{		
 		LocalDate date = quarter.getDateFrom();
-		while(date.isBefore(quarter.getDateTill().plusDays(1))) {
-			try {
-				if(date.getDayOfWeek().getValue() == quarter.getDayOfWeek()) {
-					if(quarter.getCourseType().equalsIgnoreCase("quarter")) {
+		
+		while(date.isBefore(quarter.getDateTill().plusDays(1)))
+		{	
+			try
+			{
+				if(date.getDayOfWeek().getValue() == quarter.getDayOfWeek())
+				{
+					if(quarter.getCourseType().equalsIgnoreCase("quarter"))
+					{
 						this.changeSpace(date, quarter.getShift(), quarter.getClassroom());
-					} else {
+					}
+					
+					else
+					{
 						// Si es semana par y el número de semana es par
-						if(quarter.getCourseType().equalsIgnoreCase("pairWeeks") && this.numberOfWeek(date)%2==0) {
+						if(quarter.getCourseType().equalsIgnoreCase("pairWeeks") && this.numberOfWeek(date)%2==0)
+						{
 							this.changeSpace(date, quarter.getShift(), quarter.getClassroom());
+							
+						}
 						// Si es semana impar y el número de semana es impar
-						} else if(quarter.getCourseType().equalsIgnoreCase("oddWeeks") && this.numberOfWeek(date)%2==1) {
+						else if(quarter.getCourseType().equalsIgnoreCase("oddWeeks") && this.numberOfWeek(date)%2==1)
+						{
 							this.changeSpace(date, quarter.getShift(), quarter.getClassroom());
 						}
 					}
 				}
-			} catch (Exception e) {
+			}
+			
+			catch (Exception e)
+			{
 				System.out.println(e.getMessage());
 			}
+			
 			date = date.plusDays(1);
 		}
 	}
