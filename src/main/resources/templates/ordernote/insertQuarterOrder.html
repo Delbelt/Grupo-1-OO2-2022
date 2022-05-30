@@ -17,6 +17,20 @@
 								<input type="hidden" name="idOrderNote" th:field="*{idOrderNote}" class="col-md-6 w-50 px-5"/> <!-- hidden = Oculto a la vista -->
 								<!-- Se agrega este input IdClase para comunicar a Spring que el objeto ya esta instanciado en caso de una modificacion -->
 								<!-- Sin esto, supondria que es uno nuevo y volveria a agregarlo a la BD -->
+											
+								<div class="col-md-6 w-50 px-3 mt-0">
+								    <label for="dayOfWeek" class="form-label form-control-lg mb-0"> Dia de cursada </label>
+								    <select class="form-select center" id="dayOfWeek" th:field="*{dayOfWeek}">
+										<option value="1">Lunes</option> 
+										<option value="2">Martes</option> 
+										<option value="3">Miercoles</option> 
+										<option value="4">Jueves</option> 
+										<option value="5">Viernes</option> 
+										<option value="6">Sabado</option> 
+										<option value="7">Domingo</option> 
+								    </select>
+								    <span th:if="${!#fields.hasErrors('dayOfWeek')}">&nbsp;</span>				    
+								</div>
 																		
 								<div class="col-md-8 px-3 mb-3 mt-0">
 									<label for="classroom" class="form-label form-control-lg mb-0">[[#{orderNote-classroom}]]</label>					
@@ -81,14 +95,13 @@
 									<div class="invalid-feedback" th:errors="*{codCourse}"></div><span th:if="${!#fields.hasErrors('codCourse')}">&nbsp;</span> 
 								</div>
 								
-								<div class="col-md-12 px-3 mt-3 mb-2">
-									<label for="completeQuarter" class="form-check-label form-control-lg mb-0 p-0">[[#{orderNote-quarter-completeQuarter}]]</label>
-									<input type="checkbox" name="completeQuarter" th:field="*{completeQuarter}" autocomplete="off" th:value="false" class="form-check-input ms-1 m-2 p-2" id="completeQuarter"/> 				
-								</div>
-								
-								<div class="col-md-12 px-3 mt-3 mb-2">
-									<label for="pairWeeks" class="form-check-label form-control-lg mb-0 p-0">[[#{orderNote-quarter-pairWeeks}]]</label>
-									<input type="checkbox" name="pairWeeks" th:field="*{pairWeeks}" autocomplete="off" th:value="false" class="form-check-input ms-1 m-2 p-2" id="pairWeeks"/> 				
+								<div class="col-md-8 px-3">
+									<label for="courseType" class="form-label form-control-lg mb-0">Tipo de curso</label>					
+									<select class="form-select center" id="courseType" th:field="*{courseType}" name="courseType">	
+										<option value="quarter">Complete quarter</option>
+									    <option value="pairWeeks">Pair weeks</option>
+									    <option value="oddWeeks">Odd weeks</option>
+					            	</select>
 								</div>
 								
 								<div class="col-md-8 px-3 mb-0">				

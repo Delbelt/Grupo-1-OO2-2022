@@ -22,9 +22,6 @@ public class Quarter extends OrderNote { // No va el implements Serializable, ya
 
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name="completeQuarter")
-	private boolean completeQuarter;
-	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="dateFrom") 
 	@NotNull
@@ -34,7 +31,12 @@ public class Quarter extends OrderNote { // No va el implements Serializable, ya
 	@Column(name="dateTill")
 	@NotNull
 	private LocalDate dateTill; 
+	
+	@Column(name = "courseType", columnDefinition = "varchar(25)")
+	private String courseType;
+	
+	@Column(name = "dayOfWeek")
+	private int dayOfWeek;
 
-	@Column(name="pairWeeks")
-	private boolean pairWeeks;
+	
 }
