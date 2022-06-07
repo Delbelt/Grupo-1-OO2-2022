@@ -49,7 +49,7 @@
 					            	</select>
 								</div>
 								
-								<div class="col-md-8 px-3 mb-2">				
+								<div class="col-md-8 px-3 mt-0">				
 									<label for="observation" class="form-label form-control-lg mb-0"> [[#{orderNote-observation}]]</label>										
 									<input th:field="*{observation}" name="observation" autocomplete="off" type="text"
 									class="form-control" th:classappend="${#fields.hasErrors('observation')} ? 'is-invalid' : ''"/>					
@@ -57,7 +57,7 @@
 									<div class="invalid-feedback" th:errors="*{observation}"></div><span th:if="${!#fields.hasErrors('observation')}">&nbsp;</span> 
 								</div>								
 
-					            <div class="col-md-8 px-3 mt-3 mb-2">				
+					            <div class="col-md-8 px-3 mt-0">				
 									<label for="quantityStudent" class="form-label form-control-lg mb-0">[[#{orderNote-quantity-student}]]</label>										
 									<input th:field="*{quantityStudent}" name="number" autocomplete="off" type="text"
 									class="form-control" th:classappend="${#fields.hasErrors('quantityStudent')} ? 'is-invalid' : ''"/>					
@@ -65,7 +65,7 @@
 									<div class="invalid-feedback" th:errors="*{quantityStudent}"></div><span th:if="${!#fields.hasErrors('quantityStudent')}">&nbsp;</span> 
 								</div>
 								
-								<div class="col-md-8 px-3">
+								<div class="col-md-8 px-3 mt-0">
 									<label for="shift" class="form-label form-control-lg mb-0">[[#{orderNote-shift}]]</label>					
 									<select class="form-select center" id="shift" th:field="*{shift}" name="shift">	
 										<option value="M">[[#{space-shift-m}]]</option>
@@ -74,7 +74,7 @@
 					            	</select>
 								</div>
 								
-								 <div class="col-md-8 px-3 mt-3 mb-2">				
+								 <div class="col-md-8 px-3 mt-0">				
 									<label for="codCourse" class="form-label form-control-lg mb-0">[[#{orderNote-cod-course}]]</label>										
 									<input th:field="*{codCourse}" name="text" autocomplete="off" type="text"
 									class="form-control" th:classappend="${#fields.hasErrors('codCourse')} ? 'is-invalid' : ''"/>					
@@ -82,7 +82,7 @@
 									<div class="invalid-feedback" th:errors="*{codCourse}"></div><span th:if="${!#fields.hasErrors('codCourse')}">&nbsp;</span> 
 								</div>
 								
-								<div class="col-md-8 px-3">
+								<div class="col-md-8 px-3 mb-2">
 									<label for="type" class="form-label form-control-lg mb-0">[[#{orderNote-day-type}]]</label>					
 									<select class="form-select center" id="type" th:field="*{type}" name="type">	
 										<option th:value="#{orderNote-day-type-final}">[[#{orderNote-day-type-final}]]</option>
@@ -92,15 +92,16 @@
 					            	</select>
 								</div>
 								
-								<div class="col-md-8 px-3 mb-0">				
+								<div class="col-md-8 px-3 mb-3">				
 									<label for="date" class="form-label form-control-lg mb-0">[[#{orderNote-day-date}]]</label>										
 									<input th:field="*{date}" name="date" autocomplete="off" type="date"
 									class="form-control" th:classappend="${#fields.hasErrors('date')} ? 'is-invalid' : ''"/>					
 									
-									<div class="invalid-feedback" th:errors="*{date}"></div><span th:if="${!#fields.hasErrors('date')}">&nbsp;</span> 
+									<div class="invalid-feedback" th:errors="*{date}"></div><span th:if="${!#fields.hasErrors('date')}">&nbsp;</span>
+									<span class='px-3' th:text="${Exception}" th:if="${Exception}">&nbsp;</span> 									
 								</div>
-					            
-					            <div class="col-md-6 w-50 px-3 mb-2 mt-2">
+								
+					            <div class="col-md-6 w-50 px-3 mb-2">
 									<button type="submit" name="save" class="btn btn-success">
 										<i class="fas fa-check fa-lg me-1"></i>[[#{action-save}]]
 									</button>

@@ -11,6 +11,7 @@ th:replace="layout/template :: children(~{::section}, #{navbar-users}, #{list-us
 						<h2 class="center"> [[#{navbar-users}]]
 							<i class="fas fa-users fa-lg me-2"></i>[[#{total-size}]] [[${listUser.size()}]]
 							<a class="btn btn-primary" th:href="@{/user/addUser}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-plus fa-lg me-1"></i>[[#{user-add}]]</a>
+							<a target="_blanck" class="btn btn-primary" th:href="@{/user/users/(format=pdf)}" sec:authorize="hasRole('ROLE_AUDIT')"><i class="fa-regular fa-file-lines fa-lg me-1"></i>[[#{user-pdf}]]</a>
 						</h2>
 
 						<div class="left px-5 me-0" th:if="${listUser != null and ! listUser.empty}"> <!-- CONDICION: LISTA DIFERENTE DE: NULL Y EMPTY -->						

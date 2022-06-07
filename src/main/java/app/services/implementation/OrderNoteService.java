@@ -42,7 +42,8 @@ public class OrderNoteService implements IOrderNoteService {
 	@Transactional // modifica la BD: commit / rollback
 	public boolean remove(int idOrderNote) {
 
-		try {
+		try
+		{
 			repository.deleteById(idOrderNote);
 			return true;
 		}

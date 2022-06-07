@@ -22,9 +22,6 @@ public class Quarter extends OrderNote { // No va el implements Serializable, ya
 
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name = "dayOfWeek")
-	private int dayOfWeek;
-	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="dateFrom") 
 	@NotNull

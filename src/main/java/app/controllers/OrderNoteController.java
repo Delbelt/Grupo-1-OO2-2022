@@ -1,4 +1,3 @@
- 
 package app.controllers;
 
 import java.util.List;
@@ -108,6 +107,34 @@ public class OrderNoteController {
 		log.info("CONTROLLER [OrderNote]");		// info console
 		log.debug("METHOD [deleteOrderNote]");	// details console
 		
+		var verification = orderNoteService.findById(orderNote.getIdOrderNote()); // Para verificar la instancia
+		
+		// Para volver a "liberar" esos espacios
+		if(verification instanceof Day)
+		{			
+			try
+			{
+				spaceService.changeSpace(((Day) verification).getDate(), verification.getShift(), verification.getClassroom(), true);
+			}
+			
+			catch (Exception e)
+			{
+				System.out.println(e.getMessage());
+			}
+		}
+		
+		else if(verification instanceof Quarter)
+		{
+			try
+			{
+				spaceService.changeSpaceQuarter((Quarter) verification, true);
+			}
+			catch (Exception e)
+			{
+				System.out.println(e.getMessage());
+			}
+		}		
+		
 		orderNoteService.remove(orderNote.getIdOrderNote()); // remueve el rol
 		
 		return "redirect:/orderNote/orderNotes"; // go to: home page
@@ -156,11 +183,12 @@ public class OrderNoteController {
 		
 		try
 		{			
+			spaceService.changeSpace(day.getDate(), day.getShift(), day.getClassroom(), false);
 			orderNoteService.insertOrUpdate(day);			
-			spaceService.changeSpace(day.getDate(), day.getShift(), day.getClassroom());
 		}
 		catch (Exception e)
 		{
+			model.addAttribute("Exception", e.getMessage());
 			return "ordernote/insertDayOrder";
 		}				
 		
@@ -189,27 +217,35 @@ public class OrderNoteController {
 	public String addQuarterOrder(Quarter quarter, Model model)
 	{		
 		log.info("CONTROLLER [ORDERNOTE]"); // info console
-		log.debug("METHOD [addDayOrder]"); // details console
+		log.debug("METHOD [addQuarterOrder]"); // details console
   
 		return "ordernote/insertQuarterOrder"; // go to: pagina de insertar o modificar (OrderNote)
 	}
 
 	@PostMapping("/addQuarterOrder")
-	public String saveQuarterOrder(@Valid Quarter quarter, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addOrderNote}" method="post"
+	public String saveQuarterOrder(@Valid Quarter quarter, Errors error, Model model)
 	{		
 		log.info("CONTROLLER [ORDERNOTE]"); 	// info console
-		log.debug("METHOD [saveDayOrder]");	// details console
+		log.debug("METHOD [saveQuarterOrder]");		// details console
 		
 		if(error.hasErrors()) // En caso de un error en las validaciones
 		{
 			return "ordernote/insertQuarterOrder"; // Se queda en la pagina y muestra los errores
 		}
 		
-		spaceService.changeSpaceQuarter(quarter);
+		try
+		{
+			spaceService.changeSpaceQuarter(quarter, false);
+			orderNoteService.insertOrUpdate(quarter);			
+		}
+		catch (Exception e)
+		{
+			model.addAttribute("Exception", e.getMessage());
+			return "ordernote/insertQuarterOrder";
+		}		
 		
-		orderNoteService.insertOrUpdate(quarter); // En caso de que funcione agrega el rol
 		
-		return "redirect:/orderNote/orderNotes"; // go to: home page
+		return "redirect:/orderNote/orderNotes";
 	}
 	
 	@PostMapping("/editQuarterOrder")

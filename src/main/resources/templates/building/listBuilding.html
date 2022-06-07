@@ -29,7 +29,7 @@ th:replace="layout/template :: children(~{::section}, #{navbar-building}, #{list
 											<a th:href="@{classrooms/} + ${building.idBuilding}" class="btn btn-info"><i class="fa-solid fa-magnifying-glass-plus me-1"></i>[[#{building-classroom-view}]]</a>
 										</td> <!-- NO AGREGA AUTORIZACION - TODOS PUEDEN VER EL OBJETO -->
 										<td>
-											<a th:href="@{/space/addSpace/} + ${building.buildingName} + '-' + ${building.idBuilding}" class="btn btn-info"><i class="fa-solid fa-magnifying-glass-plus me-1"></i>[[#{space-add}]]</a>
+											<a sec:authorize="hasRole ('ROLE_ADMIN')" th:href="@{/space/addSpace/} + ${building.buildingName} + '-' + ${building.idBuilding}" class="btn btn-info"><i class="fa-solid fa-magnifying-glass-plus me-1"></i>[[#{space-add}]]</a>
 										</td> <!-- NO AGREGA AUTORIZACION - TODOS PUEDEN VER EL OBJETO -->	
 										<td sec:authorize="hasRole ('ROLE_ADMIN')">
 											<a th:href="@{edit/} + ${building.idBuilding}" class="btn btn-dark"><i class="fa-solid fa-pen-to-square me-1"></i>[[#{action-edit}]]</a>

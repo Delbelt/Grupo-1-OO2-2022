@@ -1,8 +1,11 @@
 package app.controllers;
 
+import java.time.LocalDate;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -29,13 +32,45 @@ public class SpaceController {
 	@Autowired
 	private ClassroomService classroomService;
 	
+	
+	@GetMapping("/addSpace/quarter")
+	public String addSpaceQuarter(Space space, Model model)
+	{
+		log.info("CONTROLLER [SPACE]");	// info console
+		log.debug("METHOD [addSpaceQuarter]");	// details console
+		
+		return "space/insertQuarter"; // go to: pagina de insertar o modificar (space)
+	}
+	
+	@PostMapping("/addSpace/quarter")
+	public String addSpaceQuarter(@RequestParam(value="from") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFrom,
+								  @RequestParam(value="till") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateTill, Error error)
+	{		
+		log.info("CONTROLLER [SPACE]");	// info console
+		log.debug("METHOD [addSpaceQuarter]");	// details console	
+		
+		try
+		{
+			spaceService.fillQuarter(dateFrom.getMonthValue(), dateTill.getMonthValue(), dateFrom.getYear());
+		}
+		
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return "space/insertQuarter";
+		}
+		
+		return "redirect:/space/spaces"; // go to: home page
+	}
+	
+	
 	@GetMapping("/spaces")
 	public String spaces(Model model)
 	{
 		log.info("CONTROLLER [SPACE]");	// info console: Para no perder la pista del controlador (opcional)
 		log.debug("METHOD [spaces]");	// details console: Para saber que metodo se esta ejecutando (opcional)
 		
-		var listSpace = spaceService.getAll(); // var = Lombok
+		var listSpace = spaceService.findByFree(true);
 
 		// inyeccion Thymeleaf
 		model.addAttribute("listSpace", listSpace);
@@ -44,7 +79,7 @@ public class SpaceController {
 	}
 	
 	@GetMapping(value = "spaces/search")
-	public String todosModelosPorMarca(@RequestParam(value = "free", required = true) boolean free, Model model)
+	public String brigSpaceFree(@RequestParam(value = "free", required = true) boolean free, Model model)
 	{		
 		var listSpace = spaceService.findByFree(free); // var = Lombok
 		

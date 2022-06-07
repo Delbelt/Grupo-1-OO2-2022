@@ -15,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -48,7 +47,6 @@ public class OrderNote implements Serializable {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "dateOrderNote")
-	@NotNull()
 	protected LocalDate dateOrderNote;
 
 	@ManyToOne(cascade = CascadeType.PERSIST) // Relation with Matter

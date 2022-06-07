@@ -81,29 +81,13 @@
 									<div class="invalid-feedback" th:errors="*{codCourse}"></div><span th:if="${!#fields.hasErrors('codCourse')}">&nbsp;</span> 
 								</div>
 								
-								
-								
 								<div class="col-md-8 px-3">
 									<label for="courseType" class="form-label form-control-lg mb-0">[[#{orderNote-quarter-courseType}]]</label>					
 									<select class="form-select center" id="courseType" th:field="*{courseType}" name="courseType">	
-										<option value="quarter">[[#{orderNote-quarter-course-quarter}]]</option>
-									    <option value="pairWeeks">[[#{orderNote-quarter-course-pair}]]</option>
-									    <option value="oddWeeks">[[#{orderNote-quarter-course-odd}]]</option>
+										<option value="Cuatrimestre">[[#{orderNote-quarter-course-quarter}]]</option>
+									    <option value="Semana Par">[[#{orderNote-quarter-course-pair}]]</option>
+									    <option value="Semana Impar">[[#{orderNote-quarter-course-odd}]]</option>
 					            	</select>
-								</div>
-								
-								<div class="col-md-8 px-3">
-								    <label for="dayOfWeek" class="form-label form-control-lg mb-0"> [[#{orderNote-quarter-dayOfWeek}]] </label>
-								    <select class="form-select center" id="dayOfWeek" th:field="*{dayOfWeek}">
-										<option value="1">[[#{orderNote-quarter-monday}]]</option> 
-										<option value="2">[[#{orderNote-quarter-tuesday}]]</option> 
-										<option value="3">[[#{orderNote-quarter-wednesday}]]</option> 
-										<option value="4">[[#{orderNote-quarter-thursday}]]</option> 
-										<option value="5">[[#{orderNote-quarter-friday}]]</option> 
-										<option value="6">[[#{orderNote-quarter-saturday}]]</option> 
-										<option value="7">[[#{orderNote-quarter-sunday}]]</option> 
-								    </select>
-								    <span th:if="${!#fields.hasErrors('dayOfWeek')}">&nbsp;</span>				    
 								</div>
 								
 								<div class="col-md-8 px-3 mb-0">				

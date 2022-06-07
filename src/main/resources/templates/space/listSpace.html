@@ -2,13 +2,13 @@
 <html xmlns:th="htpp://www.thymeleaf.org" xmlns:sec="htpp://www.thymeleaf.org/extras/spring-security"
 th:replace="layout/template :: children(~{::section}, #{title-space}, #{list-space})">
 	<section>
-		<div class="px-5 py-5 d-flex justify-content-center">		
+		<div class="px-5 py-5 d-flex justify-content-center">
 			<div class="col-md-7">				
 					<div class="card">
 						<div class="card-header">
 						<h2 class="center"> [[#{navbar-space}]]
 							<i class="fa-solid fa-calendar-days fa-lg me-2"></i>[[#{total-size}]] [[${listSpace.size()}]]
-							<a class="btn btn-primary" th:href="@{/building/buildings}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-plus fa-lg me-1"></i>[[#{space-add}]]</a>
+							<a class="btn btn-primary" th:href="@{/space/addSpace/quarter}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-plus fa-lg me-1"></i>[[#{space-add}]]</a>
 							<a class="btn btn-warning" th:href="@{/space/spaces/search?free=true}" sec:authorize="isAuthenticated()"><i class="fa-regular fa-circle fa-lg me-1"></i>[[#{space-free-true}]]</a>
 							<a class="btn btn-warning" th:href="@{/space/spaces/search?free=false}" sec:authorize="isAuthenticated()"><i class="fa-solid fa-circle fa-lg me-1"></i>[[#{space-free-false}]]</a>
 						</h2>
@@ -37,11 +37,11 @@ th:replace="layout/template :: children(~{::section}, #{title-space}, #{list-spa
 										<td th:text="${space.shift}">Turno</td> <!-- Celda de dato en la tabla -->
 										
 										<td sec:authorize="hasRole ('ROLE_ADMIN')">
-											<a th:href="@{edit/} + ${space.idSpace}" class="btn btn-dark"><i class="fa-solid fa-pen-to-square me-1"></i>[[#{action-edit}]]</a>
+											<a th:href="@{/space/edit/} + ${space.idSpace}" class="btn btn-dark"><i class="fa-solid fa-pen-to-square me-1"></i>[[#{action-edit}]]</a>
 										</td> <!-- TYPE: PATH VARIABLE ${class.idClass}-->	
 										
 										<td sec:authorize="hasRole ('ROLE_ADMIN')">
-											<a th:href="@{delete(idSpace=${space.idSpace})}" class="btn btn-danger opacity-100"><i class="fa-solid fa-trash-can me-1"></i> [[#{action-delete}]]</a>
+											<a th:href="@{/space/delete(idSpace=${space.idSpace})}" class="btn btn-danger opacity-100"><i class="fa-solid fa-trash-can me-1"></i> [[#{action-delete}]]</a>
 										</td> <!-- TYPE: QUERY PARAMETERS -->										
 									</tr>
 								</tbody>	

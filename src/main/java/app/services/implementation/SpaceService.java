@@ -71,17 +71,20 @@ public class SpaceService implements ISpaceService {
 	}
 	
 	@Override
-	public void fillQuarter() throws Exception {
-		int monthOfStarting = 3;
-		int monthOfEnding = 6;
+	public void fillQuarter(int monthOfStarting, int monthOfEnding, int year) throws Exception {
+
 		List<Classroom> classrooms = classroomRepository.findAll();
-		while(monthOfStarting <= monthOfEnding) {
-			for(Classroom classroom: classrooms) {
-				this.addSpaceMonth(monthOfStarting, 2023, 'M', classroom);
-				this.addSpaceMonth(monthOfStarting, 2023, 'T', classroom);
-				this.addSpaceMonth(monthOfStarting, 2023, 'N', classroom);
+		
+		while(monthOfStarting <= monthOfEnding)
+		{
+			for(Classroom classroom: classrooms)
+			{
+				this.addSpaceMonth(monthOfStarting, year, 'M', classroom);
+				this.addSpaceMonth(monthOfStarting, year, 'T', classroom);
+				this.addSpaceMonth(monthOfStarting, year, 'N', classroom);
 			}
-			monthOfStarting += 1;
+			
+				monthOfStarting += 1;
 		}
 	}
 	
@@ -106,43 +109,46 @@ public class SpaceService implements ISpaceService {
 	}
 	
 	@Override
-	public void changeSpace(LocalDate date, char shift, Classroom classroom) throws Exception {
+	public void changeSpace(LocalDate date, char shift, Classroom classroom, boolean free) throws Exception {
 		
 		Space space = repository.find(date, shift, classroom);
 		
-		if(space == null) throw new Exception("El espacio no existe");
+		if(space == null) throw new Exception("El espacio no existe o no se encuentra disponible");
 		
-		space.setFree(!space.isFree());
+		space.setFree(free);
 		this.insertOrUpdate(space);
 	}
 	
-	public void changeSpaceQuarter(Quarter quarter)
+	@Override
+	public void changeSpaceQuarter(Quarter quarter, boolean free) throws Exception
 	{		
 		LocalDate date = quarter.getDateFrom();
+		
+		if(repository.find(date, quarter.getShift(), quarter.getClassroom()) == null) throw new Exception("Los espacios no existen o no se encuentran disponibles");
 		
 		while(date.isBefore(quarter.getDateTill().plusDays(1)))
 		{	
 			try
 			{
-				if(date.getDayOfWeek().getValue() == quarter.getDayOfWeek())
+				if(date.getDayOfWeek().getValue() == quarter.getDateFrom().getDayOfWeek().getValue())
 				{
-					if(quarter.getCourseType().equalsIgnoreCase("quarter"))
+					if(quarter.getCourseType().equalsIgnoreCase("Cuatrimestre"))
 					{
-						this.changeSpace(date, quarter.getShift(), quarter.getClassroom());
+						this.changeSpace(date, quarter.getShift(), quarter.getClassroom(), free);
 					}
 					
 					else
 					{
 						// Si es semana par y el número de semana es par
-						if(quarter.getCourseType().equalsIgnoreCase("pairWeeks") && this.numberOfWeek(date)%2==0)
+						if(quarter.getCourseType().equalsIgnoreCase("Semana Par") && this.numberOfWeek(date)%2==0)
 						{
-							this.changeSpace(date, quarter.getShift(), quarter.getClassroom());
+							this.changeSpace(date, quarter.getShift(), quarter.getClassroom(), free);
 							
 						}
 						// Si es semana impar y el número de semana es impar
-						else if(quarter.getCourseType().equalsIgnoreCase("oddWeeks") && this.numberOfWeek(date)%2==1)
+						else if(quarter.getCourseType().equalsIgnoreCase("Semana Impar") && this.numberOfWeek(date)%2==1)
 						{
-							this.changeSpace(date, quarter.getShift(), quarter.getClassroom());
+							this.changeSpace(date, quarter.getShift(), quarter.getClassroom(), free);
 						}
 					}
 				}

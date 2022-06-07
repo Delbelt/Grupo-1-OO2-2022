@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org" th:replace="layout/template :: children(~{::section}, #{space-add}, #{space-add})">
+	<section class="mx-5 center">
+		<div class="px-5 py-5 d-flex justify-content-center">		
+			<div class="col-md-6">				
+				<div class="card">
+					<div class="card-header border">						
+						<div class=" d-flex justify-content-center px-5 py-1 form-group ">
+							<form class="row g-6 justify-content-center align-items-center" th:action="@{/space/addSpace/quarter}" method="post">	
+							
+								<div class="col-md-6 w-50 px-3">
+									<a th:href="@{/space/spaces}" class="btn btn-warning mt-2" ><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>
+								</div>							
+								
+								<div class="col-md-8 px-3 mb-0">				
+									<label for="from" class="form-label form-control-lg mb-0">DESDE</label>										
+									<input th:name="from" autocomplete="off" type="date"
+									class="form-control"/>									
+								</div>
+								
+								<div class="col-md-8 px-3 mb-0">				
+									<label for="till" class="form-label form-control-lg mb-0">HASTA</label>										
+									<input th:name="till" autocomplete="off" type="date"
+									class="form-control"/>									
+								</div>	
+
+					            <div class="col-md-6 w-50 px-3 mb-2 mt-2">
+									<button type="submit" name="save" class="btn btn-success">
+										<i class="fas fa-check fa-lg me-1"></i>[[#{action-save}]]
+									</button>
+								</div>					
+							</form>							
+						</div>
+					</div>				
+				</div>
+			</div>
+		</div>	
+	</section>
+</html>

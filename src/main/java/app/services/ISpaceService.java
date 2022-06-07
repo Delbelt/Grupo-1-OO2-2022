@@ -23,7 +23,7 @@ public interface ISpaceService {
 	
 	public void addSpaceMonth(int month, int year, char shift, Classroom classroom) throws Exception;
 	
-	public void fillQuarter() throws Exception;
+	public void fillQuarter(int monthOfStarting, int monthOfEnding, int year) throws Exception;
 	
 	public void fillQuarterProcedure(int year, int month) throws Exception;
 	
@@ -31,7 +31,7 @@ public interface ISpaceService {
 	
 	public List<Space> findByFree(boolean free);
 	
-	public void changeSpace(LocalDate date, char shift, Classroom classroom) throws Exception;
+	public void changeSpace(LocalDate date, char shift, Classroom classroom, boolean free) throws Exception;
 
-	public void changeSpaceQuarter(Quarter quarter);
+	public void changeSpaceQuarter(Quarter quarter, boolean free) throws Exception;
 }
