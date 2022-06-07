@@ -8,7 +8,7 @@
 						<div class=" d-flex justify-content-center px-5 py-1 form-group ">					
 							<form class="row g-6 justify-content-center align-items-center" th:action="@{/classroom/editLaboratory/} + *{building.idBuilding}" method="post" th:object="${laboratory}">								
 								<div class="col-md-6 w-50 px-3">
-									<a th:href="@{/building/classrooms/} + *{building.idBuilding}" class="btn btn-warning mt-2"><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>
+									<a th:href="'/building/' + *{building.idBuilding} + '/' +  @{classrooms}" class="btn btn-warning mt-2"><i class="fa-solid fa-arrow-left fa-lg me-1"></i>[[#{go-back}]]</a>
 								</div>
 								
 								<!-- th:field es la forma de comunicarse con: th:object -->
@@ -42,15 +42,7 @@
 									<div class="invalid-feedback" th:errors="*{quantityChairs}"></div><span th:if="${!#fields.hasErrors('quantityChairs')}">&nbsp;</span> 
 								</div>
 
-								<div class="col-md-8 px-3 mb-3 mt-0">
-									<label for="building" class="form-label form-control-lg mb-0">[[#{classroom-building}]]</label>					
-									<select class="form-select center" id="building" th:field="*{building}" name="building">	
-										<option th:each="building : ${listBuilding}"
-											th:value="${(building.idBuilding)}" 
-											th:text="${building.buildingName}">
-									</option>
-					            	</select>
-								</div>
+								<input type="hidden" name="idBuilding" th:field="*{building}" class="col-md-6 w-50 px-5"/>
 					            
 					            <div class="col-md-6 w-50 px-3 mb-2 mt-2">
 									<button type="submit" name="save" class="btn btn-success">

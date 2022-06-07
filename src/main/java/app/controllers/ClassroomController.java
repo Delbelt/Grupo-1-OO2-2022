@@ -38,19 +38,6 @@ public class ClassroomController {
 	{		
 		return buildingService.getAll();
 	}
-	
-	@GetMapping("/classrooms")
-	public String classrooms(Model model)
-	{		
-		log.info("CONTROLLER [CLASSROOM]");	// info console: Para no perder la pista del controlador (opcional)
-		log.debug("METHOD [classrooms]");	// details console: Para saber que metodo se esta ejecutando (opcional)
-		
-		var listClassroom = classroomService.getAll(); // Variable de Lombook
-		
-		model.addAttribute("listClassroom", listClassroom); // Agrega el atributo a la pantalla de inicio
-		
-		return "classroom/listClassroom";
-	}
 		
 	// Type: Query Parameter
 	@GetMapping("/delete") // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
@@ -64,7 +51,7 @@ public class ClassroomController {
 		
 		classroomService.remove(classroom.getIdClassroom()); // remueve el aula
 		
-		return "redirect:/building/classrooms/" + idBuilding; // go to: home page
+		return "redirect:/building/" + idBuilding + "/classrooms"; // go to: home page
 	}
 	
 	// Type: Path variable
@@ -130,9 +117,11 @@ public class ClassroomController {
 			return "classroom/insertLaboratory"; // Se queda en la pagina y muestra los errores
 		}
 		
+		laboratory.setBuilding(buildingService.findById(building.getIdBuilding()));
+		
 		classroomService.insertOrUpdate(laboratory); // En caso de que funcione agrega el rol     
 		
-		return "redirect:/building/classrooms/{idBuilding}"; // go to: home page
+		return "redirect:/building/{idBuilding}/classrooms"; // go to: home page
 	}
 	
 	@PostMapping("/editLaboratory/{idBuilding}")
@@ -148,7 +137,7 @@ public class ClassroomController {
 		
 		classroomService.insertOrUpdate(laboratory); // En caso de que funcione agrega el rol     
 		
-		return "redirect:/building/classrooms/{idBuilding}"; // go to: home page
+		return "redirect:/building/{idBuilding}/classrooms"; // go to: home page
 	}
 	
 	// DAUGHTER CLASS: Traditional
@@ -173,9 +162,11 @@ public class ClassroomController {
 			return "classroom/insertTraditional"; // Se queda en la pagina y muestra los errores
 		}
 		
+		traditional.setBuilding(buildingService.findById(building.getIdBuilding()));
+		
 		classroomService.insertOrUpdate(traditional); // En caso de que funcione agrega el aula tradicional
 		
-		return "redirect:/classroom/classrooms"; // go to: home page
+		return "redirect:/building/{idBuilding}/classrooms"; // go to: home page
 	}
 	
 	@PostMapping("/editTraditional/{idBuilding}")
@@ -191,6 +182,6 @@ public class ClassroomController {
 		
 		classroomService.insertOrUpdate(traditional); // En caso de que funcione agrega el aula tradicional
 		
-		return "redirect:/building/classrooms/{idBuilding}"; // go to: home page
+		return "redirect:/building/{idBuilding}/classrooms"; // go to: home page
 	}	
 }

@@ -52,7 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				"/user/users",  // Usuarios
 				"building/buildings", // Edificios
 				"/space/spaces", // Espacio
-				"/classroom/clasrooms", "classroom/classroom/**", // Aulas
 				"/department/departments", // Departamentos
 				"/career/careers", // Carreras
 				"/matter/matters", // Materias

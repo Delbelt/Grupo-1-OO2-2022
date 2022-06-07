@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -38,13 +39,13 @@ public class BuildingController {
 	}
 	
 	// Trae a la clase y sus aulas
-	@GetMapping("/classrooms/{idBuilding}")
-	public String bringBuilding(Building building, Model model) { // Relaciona el Id con el parametro
+	@GetMapping("/{idBuilding}/classrooms")
+	public String bringBuilding(Model model, @PathVariable int idBuilding) { // Relaciona el Id con el parametro
 		
 		log.info("CONTROLLER [BUILDING]");		// info console
 		log.debug("METHOD [bringBuilding]");	// details console
-				
-		model.addAttribute("building", buildingService.findByIdAndClassrooms(building.getIdBuilding()));
+		
+		model.addAttribute("building", buildingService.findById(idBuilding));
 		
 		return "building/building";
 	}
