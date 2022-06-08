@@ -13,18 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import app.entities.Building;
 import app.services.implementation.BuildingService;
+import app.util.Routes;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/building") // Building route
+@RequestMapping(Routes.PRINCIPAL_BUILDING) // Building route
 @Slf4j
 public class BuildingController {
 	
 	@Autowired
 	private BuildingService buildingService;
 
-	@GetMapping("/buildings")
+	@GetMapping(Routes.LIST_BUILDING)
 	public String Buildings(Model model)
 	{
 		log.info("CONTROLLER [BUILDING]"); 	// info console: Para no perder la pista del controlador (opcional)
@@ -39,7 +40,7 @@ public class BuildingController {
 	}
 	
 	// Trae a la clase y sus aulas
-	@GetMapping("/{idBuilding}/classrooms")
+	@GetMapping(Routes.BRING_BUILDING)
 	public String bringBuilding(Model model, @PathVariable int idBuilding) { // Relaciona el Id con el parametro
 		
 		log.info("CONTROLLER [BUILDING]");		// info console
@@ -50,7 +51,7 @@ public class BuildingController {
 		return "building/building";
 	}
 	
-	@GetMapping("/addBuilding")
+	@GetMapping(Routes.ADD_BUILDING)
 	public String addBuilding(Building building, Model model)
 	{		
 		log.info("CONTROLLER [BUILDING]"); // info console
@@ -59,7 +60,7 @@ public class BuildingController {
 		return "building/insert"; // go to: pagina de insertar o modificar (Building)
 	}
 
-	@PostMapping("/addBuilding")
+	@PostMapping(Routes.ADD_BUILDING)
 	public String saveBuilding(@Valid Building building, Errors error) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addBuilding}" method="post"
 	{		
 		log.info("CONTROLLER [Building]"); 	// info console
@@ -76,7 +77,7 @@ public class BuildingController {
 	}
 	
 	// Type: Path variable
-	@GetMapping("/edit/{idBuilding}") // Al pasarle el parametro {idBuilding} lo relaciona con el parametro de Building
+	@GetMapping(Routes.EDIT_BUILDING) // Al pasarle el parametro {idBuilding} lo relaciona con el parametro de Building
 	public String editBuilding(Building building, Model model)
 	{		
 		log.info("CONTROLLER [Building]");	// info console
@@ -87,7 +88,7 @@ public class BuildingController {
 		return "building/modify"; // go to: pagina de insertar o modificar (role)
 	}
 	
-	@PostMapping("/editBuilding")
+	@PostMapping(Routes.EDIT_POST_BUILDING)
 	public String editBuilding(@Valid Building building, Errors error) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addBuilding}" method="post"
 	{		
 		log.info("CONTROLLER [Building]"); 	// info console
@@ -104,7 +105,7 @@ public class BuildingController {
 	}
 	
 	// Type: Query Parameter
-	@GetMapping("/delete") // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
+	@GetMapping(Routes.DELETE) // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
 	public String deleteBuilding(Building building)
 	{		
 		log.info("CONTROLLER [Building]");		// info console

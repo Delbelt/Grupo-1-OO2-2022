@@ -26,5 +26,14 @@ public class MainController {
 		return "home";
 	}
 	
-	// TODO: add helpers or utils folder with Routes
+	@GetMapping(Routes.TUTORIAL)
+	public String Readme()
+	{
+		log.info("CONTROLLER [MAIN]"); 	// info console: Para no perder la pista del controlador (opcional)
+		log.debug("METHOD [Readme]");	 	// details console: Para saber que metodo se esta ejecutando (opcional)		
+		
+		
+		return "tutorial";
+	}
+	
 }

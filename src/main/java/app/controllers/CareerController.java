@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import app.entities.Career;
 import app.services.implementation.CareerService;
 import app.services.implementation.DepartmentService;
+import app.util.Routes;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/career") // classroom route
+@RequestMapping(Routes.PRINCIPAL_CAREER) // classroom route
 @Slf4j
 public class CareerController {
 
@@ -27,7 +28,7 @@ public class CareerController {
 	@Autowired
 	private DepartmentService departmentService;
 	
-	@GetMapping("/careers")
+	@GetMapping(Routes.LIST_CAREER)
 	public String careers(Model model)
 	{		
 		log.info("CONTROLLER [CAREER]");	// info console: Para no perder la pista del controlador (opcional)
@@ -40,7 +41,7 @@ public class CareerController {
 		return "career/listCareer";
 	}
 	
-	@GetMapping("/addCareer")
+	@GetMapping(Routes.ADD_CAREER)
 	public String addCareer(Career career, Model model)
 	{
 		log.info("CONTROLLER [CAREER]");	// info console
@@ -52,7 +53,7 @@ public class CareerController {
 		return "career/insert"; // go to: pagina de insertar o modificar (space)
 	}
 	
-	@PostMapping("/addCareer")
+	@PostMapping(Routes.ADD_CAREER)
 	public String saveCareer(@Valid Career career, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addRole}" method="post"	
 	{		
 		log.info("CONTROLLER [CAREER]");	// info console
@@ -71,7 +72,7 @@ public class CareerController {
 	}
 	
 	// Type: Query Parameter
-	@GetMapping("/delete") // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
+	@GetMapping(Routes.DELETE) // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
 	public String deleteCareer(Career career)
 	{		
 		log.info("CONTROLLER [CAREER]");		// info console
@@ -83,7 +84,7 @@ public class CareerController {
 	}	
 	
 	// Type: Path variable
-	@GetMapping("/edit/{idCareer}") // Al pasarle el parametro {idSpace} lo relaciona con el parametro de Space
+	@GetMapping(Routes.EDIT_CAREER) // Al pasarle el parametro {idSpace} lo relaciona con el parametro de Space
 	public String editCareer(Career career, Model model) {		
 		log.info("CONTROLLER [CAREER]");	// info console
 		log.debug("METHOD [editCareer]");	// details console
@@ -96,7 +97,7 @@ public class CareerController {
 		return "career/modify"; // go to: pagina de insertar o modificar (space)
 	}
 	
-	@PostMapping("/editCareer")
+	@PostMapping(Routes.EDIT_POST_CAREER)
 	public String editCareer(@Valid Career career, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addRole}" method="post"	
 	{		
 		log.info("CONTROLLER [CAREER]");	// info console

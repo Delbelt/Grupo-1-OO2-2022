@@ -12,19 +12,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import app.entities.Teacher; 
-import app.services.implementation.TeacherService; 
+import app.services.implementation.TeacherService;
+import app.util.Routes;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/teacher") // Teacher route
+@RequestMapping(Routes.PRINCIPAL_TEACHER) // Teacher route
 @Slf4j
 public class TeacherController {
 	
 	@Autowired
 	private TeacherService teacherService;
 
-	@GetMapping("/teachers")
+	@GetMapping(Routes.LIST_TEACHER)
 	public String Teachers(Model model)
 	{
 		log.info("CONTROLLER [Teacher]"); 	// info console: Para no perder la pista del controlador (opcional)
@@ -38,7 +39,7 @@ public class TeacherController {
 		return "teacher/listTeacher";
 	}
 	
-	@GetMapping("/addTeacher")
+	@GetMapping(Routes.ADD_TEACHER)
 	public String addTeacher(Teacher teacher, Model model)
 	{		
 		log.info("CONTROLLER [Teacher]"); // info console
@@ -47,7 +48,7 @@ public class TeacherController {
 		return "teacher/insert"; // go to: pagina de insertar o modificar (Teacher)
 	}
 
-	@PostMapping("/addTeacher")
+	@PostMapping(Routes.ADD_TEACHER)
 	public String saveTeacher(@Valid Teacher teacher, Errors error) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addTeacher}" method="post"
 	{		
 		log.info("CONTROLLER [Teacher]"); 	// info console
@@ -64,7 +65,7 @@ public class TeacherController {
 	}
 	
 	// Type: Path variable
-	@GetMapping("/edit/{idTeacher}") // Al pasarle el parametro {idTeacher} lo relaciona con el parametro de Teacher
+	@GetMapping(Routes.EDIT_TEACHER) // Al pasarle el parametro {idTeacher} lo relaciona con el parametro de Teacher
 	public String editTeacher(Teacher teacher, Model model)
 	{		
 		log.info("CONTROLLER [Teacher]");	// info console
@@ -75,7 +76,7 @@ public class TeacherController {
 		return "teacher/modify"; // go to: pagina de insertar o modificar (role)
 	}
 	
-	@PostMapping("/editTeacher")
+	@PostMapping(Routes.EDIT_POST_TEACHER)
 	public String editTeacher(@Valid Teacher teacher, Errors error) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addTeacher}" method="post"
 	{		
 		log.info("CONTROLLER [Teacher]"); 	// info console
@@ -92,7 +93,7 @@ public class TeacherController {
 	}
 	
 	// Type: Query Parameter
-	@GetMapping("/delete") // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
+	@GetMapping(Routes.DELETE) // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
 	public String deleteTeacher(Teacher teacher)
 	{		
 		log.info("CONTROLLER [Teacher]");		// info console

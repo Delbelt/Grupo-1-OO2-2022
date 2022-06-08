@@ -24,11 +24,12 @@ import app.services.implementation.MatterService;
 import app.services.implementation.OrderNoteService;
 import app.services.implementation.SpaceService;
 import app.services.implementation.TeacherService;
+import app.util.Routes;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/orderNote") // OrderNote route
+@RequestMapping(Routes.PRINCIPAL_ORDER_NOTE) // OrderNote route
 @Slf4j
 public class OrderNoteController {
 	
@@ -47,25 +48,25 @@ public class OrderNoteController {
 	@Autowired
 	private SpaceService spaceService;
 	
-	@ModelAttribute("listMatter")
+	@ModelAttribute(Routes.MODEL_LIST_MATTER)
 	public List<Matter> getMatter()
 	{		
 		return matterService.getAll();
 	}
 	
-	@ModelAttribute("listTeacher")
+	@ModelAttribute(Routes.MODEL_LIST_TEACHER)
 	public List<Teacher> getTeacher()
 	{		
 		return teacherService.getAll();
 	}
 	
-	@ModelAttribute("listClassroom")
+	@ModelAttribute(Routes.MODEL_LIST_CLASSROOM)
 	public List<Classroom> getClassroom()
 	{
 		return classroomService.getAll();
 	}
 	
-	@GetMapping("/orderNotes")
+	@GetMapping(Routes.LIST_ORDER_NOTE)
 	public String OrderNotes(Model model)
 	{
 		log.info("CONTROLLER [OrderNote]"); // info console: Para no perder la pista del controlador (opcional)
@@ -80,7 +81,7 @@ public class OrderNoteController {
 	}
 	
 	// Type: Path variable
-	@GetMapping("/edit/{idOrderNote}") // Al pasarle el parametro {idOrderNote} lo relaciona con el parametro de OrderNote
+	@GetMapping(Routes.EDIT_ORDER_NOTE) // Al pasarle el parametro {idOrderNote} lo relaciona con el parametro de OrderNote
 	public String editOrderNote(OrderNote orderNote, Model model)
 	{		
 		log.info("CONTROLLER [OrderNote]");	// info console
@@ -101,7 +102,7 @@ public class OrderNoteController {
 	}
 		
 	// Type: Query Parameter
-	@GetMapping("/delete") // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
+	@GetMapping(Routes.DELETE) // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
 	public String deleteOrderNote(OrderNote orderNote)
 	{		
 		log.info("CONTROLLER [OrderNote]");		// info console
@@ -141,7 +142,7 @@ public class OrderNoteController {
 	}
 	
 	// Trae a la clase por Id y devuelve dependiendo la instancia que sea
-	@GetMapping("/orderNote/{idOrderNote}")
+	@GetMapping(Routes.BRING_ORDER_NOTE)
 	public String bringInstance(OrderNote orderNote, Model model) {// Relaciona el Id con el parametro classroom 
 		
 		log.info("CONTROLLER [ORDERNOTE]");		// info console
@@ -161,7 +162,7 @@ public class OrderNoteController {
 	
 	// DAUGHTER CLASS: DAY
 	
-	@GetMapping("/addDayOrder")
+	@GetMapping(Routes.ADD_DAY)
 	public String addDayOrder(Day day, Model model)
 	{		
 		log.info("CONTROLLER [ORDERNOTE]"); // info console
@@ -170,7 +171,7 @@ public class OrderNoteController {
 		return "ordernote/insertDayOrder"; // go to: pagina de insertar o modificar (OrderNote)
 	}
 
-	@PostMapping("/addDayOrder")
+	@PostMapping(Routes.ADD_DAY)
 	public String saveDayOrder(@Valid Day day, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addOrderNote}" method="post"
 	{		
 		log.info("CONTROLLER [ORDERNOTE]"); 	// info console
@@ -195,7 +196,7 @@ public class OrderNoteController {
 		return "redirect:/orderNote/orderNotes"; // go to: home page
 	}
 	
-	@PostMapping("/editDayOrder")
+	@PostMapping(Routes.EDIT_DAY)
 	public String editDayOrder(@Valid Day day, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addOrderNote}" method="post"
 	{		
 		log.info("CONTROLLER [OrderNote]"); 	// info console
@@ -213,7 +214,7 @@ public class OrderNoteController {
 	
 	// DAUGHTER CLASS: QUARTER
 	
-	@GetMapping("/addQuarterOrder")
+	@GetMapping(Routes.ADD_QUARTER)
 	public String addQuarterOrder(Quarter quarter, Model model)
 	{		
 		log.info("CONTROLLER [ORDERNOTE]"); // info console
@@ -222,7 +223,7 @@ public class OrderNoteController {
 		return "ordernote/insertQuarterOrder"; // go to: pagina de insertar o modificar (OrderNote)
 	}
 
-	@PostMapping("/addQuarterOrder")
+	@PostMapping(Routes.ADD_QUARTER)
 	public String saveQuarterOrder(@Valid Quarter quarter, Errors error, Model model)
 	{		
 		log.info("CONTROLLER [ORDERNOTE]"); 	// info console
@@ -248,7 +249,7 @@ public class OrderNoteController {
 		return "redirect:/orderNote/orderNotes";
 	}
 	
-	@PostMapping("/editQuarterOrder")
+	@PostMapping(Routes.EDIT_QUARTER)
 	public String editQuarterOrder(@Valid Quarter quarter, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addOrderNote}" method="post"
 	{		
 		log.info("CONTROLLER [ORDERNOTE]"); 	// info console

@@ -12,18 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import app.entities.UserRole;
 import app.services.implementation.UserRoleService;
+import app.util.Routes;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/role") // role route
+@RequestMapping(Routes.PRINCIPAL_USER_ROLE) // role route
 @Slf4j
 public class UserRoleController {
 	
 	@Autowired
 	private UserRoleService roleService;
 	
-	@GetMapping("/roles")
+	@GetMapping(Routes.LIST_USER_ROLE)
 	public String roles(Model model)
 	{
 		log.info("CONTROLLER [ROLE]");	// info console: Para no perder la pista del controlador (opcional)
@@ -37,7 +38,7 @@ public class UserRoleController {
 		return "userRole/listRole";
 	}
 	
-	@GetMapping("/addRole")
+	@GetMapping(Routes.ADD_USER_ROLE)
 	public String addRole(UserRole role) // th:object userRole aunque el parametro sea role
 	{
 		log.info("CONTROLLER [ROLE]");	// info console
@@ -46,7 +47,7 @@ public class UserRoleController {
 		return "userRole/insert"; // go to: pagina de insertar o modificar (role)
 	}
 	
-	@PostMapping("/addRole")
+	@PostMapping(Routes.ADD_USER_ROLE)
 	public String saveRole(@Valid UserRole role, Errors error) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addRole}" method="post"	
 	{		
 		log.info("CONTROLLER [ROLE]");	// info console
@@ -62,7 +63,7 @@ public class UserRoleController {
 		return "redirect:/role/roles"; // go to: home page
 	}
 	
-	@GetMapping("/role/{idRole}") //Path Variable
+	@GetMapping(Routes.BRING_USER_ROLE) //Path Variable
 	public String findUserRoleById(UserRole role, Model model) // Relaciona el ID del path con el parametro Role
 	{
 		model.addAttribute("role", roleService.findById(role.getIdRole()));
@@ -71,7 +72,7 @@ public class UserRoleController {
 	}
 	
 	// Type: Path variable
-	@GetMapping("/edit/{idRole}") // Al pasarle el parametro {idRole} lo relaciona con el parametro de Role
+	@GetMapping(Routes.EDIT_USER_ROLE) // Al pasarle el parametro {idRole} lo relaciona con el parametro de Role
 	public String editRole(UserRole userRole, Model model)
 	{		
 		log.info("CONTROLLER [ROLE]");	// info console
@@ -82,7 +83,7 @@ public class UserRoleController {
 		return "userRole/modify"; // go to: pagina de insertar o modificar (role)
 	}
 	
-	@PostMapping("/editRole")
+	@PostMapping(Routes.EDIT_POST_USER_ROLE)
 	public String editRole(@Valid UserRole role, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addRole}" method="post"	
 	{		
 		log.info("CONTROLLER [ROLE]");	// info console
@@ -99,7 +100,7 @@ public class UserRoleController {
 	}
 	
 	// Type: Query Parameter
-	@GetMapping("/delete") // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
+	@GetMapping(Routes.DELETE) // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
 	public String deleteRole(UserRole role)
 	{		
 		log.info("CONTROLLER [ROLE]");		// info console

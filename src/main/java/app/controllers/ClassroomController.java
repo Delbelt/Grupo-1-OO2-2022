@@ -19,11 +19,12 @@ import app.entities.Laboratory;
 import app.entities.Traditional;
 import app.services.implementation.BuildingService;
 import app.services.implementation.ClassroomService;
+import app.util.Routes;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/classroom") // classroom route
+@RequestMapping(Routes.PRINCIPAL_CLASSROOM) // classroom route
 @Slf4j
 public class ClassroomController {
 	
@@ -33,14 +34,14 @@ public class ClassroomController {
 	@Autowired
 	private BuildingService buildingService;
 	
-	@ModelAttribute("listBuilding")
+	@ModelAttribute(Routes.LIST_CLASSROOM)
 	public List<Building> getMatter()
 	{		
 		return buildingService.getAll();
 	}
 		
 	// Type: Query Parameter
-	@GetMapping("/delete") // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
+	@GetMapping(Routes.DELETE) // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
 	public String deleteClassroom(Classroom classroom)
 	{		
 		log.info("CONTROLLER [CLASSROOM]");		// info console
@@ -55,7 +56,7 @@ public class ClassroomController {
 	}
 	
 	// Type: Path variable
-	@GetMapping("/edit/{idClassroom}") // Al pasarle el parametro {idClassroom} lo relaciona con el parametro de classroom
+	@GetMapping(Routes.EDIT_CLASSROOM) // Al pasarle el parametro {idClassroom} lo relaciona con el parametro de classroom
 	public String editClassroom(Classroom classroom, Model model)
 	{		
 		log.info("CONTROLLER [CLASSROOM]");	// info console
@@ -77,7 +78,7 @@ public class ClassroomController {
 	}
 	
 	// Trae a la clase por Id y devuelve dependiendo la instancia que sea
-	@GetMapping("/classroom/{idClassroom}")
+	@GetMapping(Routes.BRING_CLASSROOM)
 	public String bringInstance(Classroom classroom, Model model) {// Relaciona el Id con el parametro classroom 
 		
 		log.info("CONTROLLER [CLASSROOM]");	// info console
@@ -97,7 +98,7 @@ public class ClassroomController {
 	
 	// DAUGHTER CLASS: Laboratory
 	
-	@GetMapping("/addLaboratory/{idBuilding}")
+	@GetMapping(Routes.ADD_LABORATORY)
 	public String addLaboratory(Laboratory laboratory, Model model, Building building)
 	{		
 		log.info("CONTROLLER [CLASSROOM]"); // info console
@@ -106,7 +107,7 @@ public class ClassroomController {
 		return "classroom/insertLaboratory"; // go to: pagina de insertar o modificar (user)
 	}
 	
-	@PostMapping("/addLaboratory/{idBuilding}")
+	@PostMapping(Routes.ADD_LABORATORY)
 	public String saveLaboratory(@Valid Laboratory laboratory, Errors error, Building building) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
 	{		
 		log.info("CONTROLLER [CLASSROOM]"); 	// info console
@@ -124,7 +125,7 @@ public class ClassroomController {
 		return "redirect:/building/{idBuilding}/classrooms"; // go to: home page
 	}
 	
-	@PostMapping("/editLaboratory/{idBuilding}")
+	@PostMapping(Routes.EDIT_LABORATORY)
 	public String editLaboratory(@Valid Laboratory laboratory, Errors error, Model model, Building building) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
 	{		
 		log.info("CONTROLLER [CLASSROOM]"); 	// info console
@@ -142,7 +143,7 @@ public class ClassroomController {
 	
 	// DAUGHTER CLASS: Traditional
 	
-	@GetMapping("/addTraditional/{idBuilding}")
+	@GetMapping(Routes.ADD_TRADITIONAL)
 	public String addTradional(Traditional traditional, Model model, Building building)
 	{		
 		log.info("CONTROLLER [CLASSROOM]"); // info console
@@ -151,7 +152,7 @@ public class ClassroomController {
 		return "classroom/insertTraditional"; // go to: pagina de insertar o modificar (Laboratory)
 	}
 	
-	@PostMapping("/addTraditional/{idBuilding}")
+	@PostMapping(Routes.ADD_TRADITIONAL)
 	public String addTradional(@Valid Traditional traditional, Errors error, Building building) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
 	{		
 		log.info("CONTROLLER [CLASSROOM]"); 	// info console
@@ -169,7 +170,7 @@ public class ClassroomController {
 		return "redirect:/building/{idBuilding}/classrooms"; // go to: home page
 	}
 	
-	@PostMapping("/editTraditional/{idBuilding}")
+	@PostMapping(Routes.EDIT_TRADITIONAL)
 	public String editTradional(@Valid Traditional traditional, Errors error, Model model, Building building) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
 	{		
 		log.info("CONTROLLER [CLASSROOM]"); 	// info console

@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import app.entities.User;
 import app.services.implementation.UserRoleService;
 import app.services.implementation.UserService;
+import app.util.Routes;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/user") // user route
+@RequestMapping(Routes.PRINCIPAL_USER) // user route
 @Slf4j
 public class UserController {
 	
@@ -27,7 +28,7 @@ public class UserController {
 	@Autowired
 	private UserRoleService roleService; // Necesario para "elegir" los roles
 	
-	@GetMapping("/users")
+	@GetMapping(Routes.LIST_USER)
 	public String users(Model model)
 	{
 		log.info("CONTROLLER [USER]"); 	// info console: Para no perder la pista del controlador (opcional)
@@ -41,7 +42,7 @@ public class UserController {
 		return "user/listUser";
 	}
 	
-	@GetMapping("/addUser")
+	@GetMapping(Routes.ADD_USER)
 	public String addUser(User user, Model model)
 	{		
 		log.info("CONTROLLER [USER]"); // info console
@@ -53,7 +54,7 @@ public class UserController {
 		return "user/insert"; // go to: pagina de insertar o modificar (user)
 	}
 
-	@PostMapping("/addUser")
+	@PostMapping(Routes.ADD_USER)
 	public String saveUser(@Valid User user, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addUser}" method="post"
 	{		
 		log.info("CONTROLLER [USER]"); 	// info console
@@ -71,7 +72,7 @@ public class UserController {
 		return "redirect:/user/users"; // go to: home page
 	}
 	
-	@GetMapping("/user/{userName}") // Path Variable - trae el usuario por el username
+	@GetMapping(Routes.BRING_USER_USERNAME) // Path Variable - trae el usuario por el username
 	public String findUserRoleByName(User user, Model model) // Relaciona el username del path con el userName del parametro user
 	{
 		model.addAttribute("user", userService.findByUserName(user.getUserName())); // traigo al usuario
@@ -80,7 +81,7 @@ public class UserController {
 	}
 	
 	// Type: Path variable
-	@GetMapping("/edit/{idUser}") // Al pasarle el parametro {idUser} lo relaciona con el parametro de User
+	@GetMapping(Routes.EDIT_USER) // Al pasarle el parametro {idUser} lo relaciona con el parametro de User
 	public String editUser(User user, Model model)
 	{		
 		log.info("CONTROLLER [USER]");	// info console
@@ -93,7 +94,7 @@ public class UserController {
 		return "user/modify"; // go to: pagina de insertar o modificar (role)
 	}
 	
-	@PostMapping("/editUser")
+	@PostMapping(Routes.EDIT_POST_USER)
 	public String editUser(@Valid User user, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/editUser}" method="post"
 	{		
 		log.info("CONTROLLER [USER]"); 	// info console
@@ -112,7 +113,7 @@ public class UserController {
 	}
 	
 	// Type: Query Parameter
-	@GetMapping("/delete") // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
+	@GetMapping(Routes.DELETE) // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
 	public String deleteUser(User user)
 	{		
 		log.info("CONTROLLER [USER]");		// info console

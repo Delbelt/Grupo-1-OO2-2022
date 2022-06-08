@@ -18,11 +18,12 @@ import app.entities.Building;
 import app.entities.Space;
 import app.services.implementation.ClassroomService;
 import app.services.implementation.SpaceService;
+import app.util.Routes;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/space") // space route
+@RequestMapping(Routes.PRINCIPAL_SPACE) // space route
 @Slf4j
 public class SpaceController {
 	
@@ -33,7 +34,7 @@ public class SpaceController {
 	private ClassroomService classroomService;
 	
 	
-	@GetMapping("/addSpace/quarter")
+	@GetMapping(Routes.ADD_SPACE_QUARTER)
 	public String addSpaceQuarter(Space space, Model model)
 	{
 		log.info("CONTROLLER [SPACE]");	// info console
@@ -42,7 +43,7 @@ public class SpaceController {
 		return "space/insertQuarter"; // go to: pagina de insertar o modificar (space)
 	}
 	
-	@PostMapping("/addSpace/quarter")
+	@PostMapping(Routes.ADD_SPACE_QUARTER)
 	public String addSpaceQuarter(@RequestParam(value="from") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFrom,
 								  @RequestParam(value="till") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateTill, Error error)
 	{		
@@ -62,9 +63,8 @@ public class SpaceController {
 		
 		return "redirect:/space/spaces"; // go to: home page
 	}
-	
-	
-	@GetMapping("/spaces")
+		
+	@GetMapping(Routes.LIST_SPACE)
 	public String spaces(Model model)
 	{
 		log.info("CONTROLLER [SPACE]");	// info console: Para no perder la pista del controlador (opcional)
@@ -78,7 +78,7 @@ public class SpaceController {
 		return "space/listSpace";
 	}
 	
-	@GetMapping(value = "spaces/search")
+	@GetMapping(value = Routes.BRING_SPACE_SEARCH)
 	public String brigSpaceFree(@RequestParam(value = "free", required = true) boolean free, Model model)
 	{		
 		var listSpace = spaceService.findByFree(free); // var = Lombok
@@ -90,7 +90,7 @@ public class SpaceController {
 	}
 
 	
-	@GetMapping("/addSpace/{buildingName}-{idBuilding}")
+	@GetMapping(Routes.ADD_SPACE)
 	public String addSpace(Space space, Model model, Building building)
 	{
 		log.info("CONTROLLER [SPACE]");	// info console
@@ -101,7 +101,7 @@ public class SpaceController {
 		return "space/insert"; // go to: pagina de insertar o modificar (space)
 	}
 	
-	@PostMapping("/addSpace/{buildingName}-{idBuilding}")
+	@PostMapping(Routes.ADD_SPACE)
 	public String saveSpace(@Valid Space space, Errors error, Model model, Building building) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addRole}" method="post"	
 	{		
 		log.info("CONTROLLER [SPACE]");	// info console
@@ -119,7 +119,7 @@ public class SpaceController {
 	}
 	
 	// Type: Path variable
-	@GetMapping("/edit/{idSpace}") // Al pasarle el parametro {idSpace} lo relaciona con el parametro de Space
+	@GetMapping(Routes.EDIT_SPACE) // Al pasarle el parametro {idSpace} lo relaciona con el parametro de Space
 	public String editSpace(Space space, Model model)
 	{		
 		log.info("CONTROLLER [SPACE]");	// info console
@@ -133,7 +133,7 @@ public class SpaceController {
 		return "space/modify"; // go to: pagina de insertar o modificar (space)
 	}
 	
-	@PostMapping("/editSpace")
+	@PostMapping(Routes.EDIT_POST_SPACE)
 	public String editSpace(@Valid Space space, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addRole}" method="post"	
 	{		
 		log.info("CONTROLLER [SPACE]");	// info console
@@ -153,7 +153,7 @@ public class SpaceController {
 	}
 	
 	// Type: Query Parameter
-	@GetMapping("/delete") // Relaciona el idSpace en el HTML con el controlador para "apuntar" al correcto
+	@GetMapping(Routes.DELETE) // Relaciona el idSpace en el HTML con el controlador para "apuntar" al correcto
 	public String deleteSpace(Space space)
 	{		
 		log.info("CONTROLLER [SPACE]");		// info console

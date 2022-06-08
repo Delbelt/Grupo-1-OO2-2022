@@ -12,18 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import app.entities.Department;
 import app.services.implementation.DepartmentService;
+import app.util.Routes;
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/department") // classroom route
+@RequestMapping(Routes.PRINCIPAL_DEPARTMENT) // classroom route
 @Slf4j
 public class DepartmentController {
 
 	@Autowired
 	private DepartmentService departmentService;
 	
-	@GetMapping("/departments")
+	@GetMapping(Routes.LIST_DEPARTMENT)
 	public String departments(Model model)
 	{		
 		log.info("CONTROLLER [DEPARTMENT]");	// info console: Para no perder la pista del controlador (opcional)
@@ -36,7 +37,7 @@ public class DepartmentController {
 		return "department/listDepartment";
 	}
 	
-	@GetMapping("/addDepartment")
+	@GetMapping(Routes.ADD_DEPARTMENT)
 	public String addDepartment(Department department, Model model)
 	{
 		log.info("CONTROLLER [DEPARTMENT]");	// info console
@@ -45,7 +46,7 @@ public class DepartmentController {
 		return "department/insert"; // go to: pagina de insertar o modificar (space)
 	}
 	
-	@PostMapping("/addDepartment")
+	@PostMapping(Routes.ADD_DEPARTMENT)
 	public String saveDepartment(@Valid Department department, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addRole}" method="post"	
 	{		
 		log.info("CONTROLLER [DEPARTMENT]");	// info console
@@ -62,7 +63,7 @@ public class DepartmentController {
 	}
 	
 	// Type: Query Parameter
-	@GetMapping("/delete") // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
+	@GetMapping(Routes.DELETE) // Relaciona el IdRole en el HTML con el controlador para "apuntar" al correcto
 	public String deleteDepartment(Department department) {		
 		log.info("CONTROLLER [DEPARTMENT]");		// info console
 		log.debug("METHOD [deleteDepartment]");	// details console
@@ -73,7 +74,7 @@ public class DepartmentController {
 	}	
 	
 	// Type: Path variable
-	@GetMapping("/edit/{idDepartment}") // Al pasarle el parametro {idDepartment} lo relaciona con el parametro de Department
+	@GetMapping(Routes.EDIT_DEPARTMENT) // Al pasarle el parametro {idDepartment} lo relaciona con el parametro de Department
 	public String editDepartment(Department department, Model model) {		
 		log.info("CONTROLLER [DEPARTMENT]");	// info console
 		log.debug("METHOD [editDepartment]");	// details console
@@ -83,7 +84,7 @@ public class DepartmentController {
 		return "department/modify"; // go to: pagina de insertar o modificar (space)
 	}
 	
-	@PostMapping("/editDepartment")
+	@PostMapping(Routes.EDIT_POST_DEPARTMENT)
 	public String editDepartment(@Valid Department department, Errors error, Model model) // Inyecta automaticamente al ser metodo <post> busca en: th:action="@{/addRole}" method="post"	
 	{		
 		log.info("CONTROLLER [DEPARTMENT]");	// info console
